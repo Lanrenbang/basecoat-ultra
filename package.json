@@ -56,7 +56,7 @@
     "split.js": "^1.6.5"
   },
   "devDependencies": {
-    "@lanrenbang/basecoat-ultra": "^0.1.6",
+    "@lanrenbang/basecoat-ultra": "^0.1.7",
     "@tailwindcss/cli": "^4.1.18",
     "@tailwindcss/vite": "^4.1.18",
     "@types/bun": "latest",
