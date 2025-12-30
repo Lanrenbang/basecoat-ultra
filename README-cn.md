@@ -7,6 +7,9 @@ Basecoat 将 shadcn/ui 的设计魔法带到了传统 Web 开发中：无需 Rea
 
 **Basecoat Ultra** 是基于 [Basecoat](https://basecoatui.com) 的增强版 UI 库。它保留了“Tailwind 优先、框架无关”的核心理念，同时提供了针对现代审美和轻量级需求的深度定制。我们移除了对 Nunjucks/Jinja 的原生支持，转而专注于提供更丰富的交互组件、开箱即用的主题系统以及精细的视觉增强。
 
+## 🎡 组件预览
+[lanrenbang.github.io/basecoat-ultra](https://lanrenbang.github.io/basecoat-ultra)
+
 ## ✨ 特性
 
 ### 🛠️ 核心改进
@@ -190,7 +193,7 @@ bun run dev
 *   **[puikinsh/login-forms](https://github.com/puikinsh/login-forms/tree/main/forms/neumorphism)**: 拟态光照和 3D 效果的灵感来源。
 *   **[Flatpickr](https://flatpickr.js.org/)** & **[Split.js](https://split.js.org/)**: 优秀的第三方库支持。
 
-## 通过捐赠支持我
+## ☕ 通过捐赠支持我
 [![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/bobbynona) [![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/bobbynona) [![USDT(TRC20)/Tether](https://img.shields.io/badge/Tether-168363?style=for-the-badge&logo=tether&logoColor=white)](https://github.com/Lanrenbang/.github/blob/5b06b0b2d0b8e4ce532c1c37c72115dd98d7d849/custom/USDT-TRC20.md) [![Litecoin](https://img.shields.io/badge/Litecoin-A6A9AA?style=for-the-badge&logo=litecoin&logoColor=white)](https://github.com/Lanrenbang/.github/blob/5b06b0b2d0b8e4ce532c1c37c72115dd98d7d849/custom/Litecoin.md)
 
 ## 📄 许可证

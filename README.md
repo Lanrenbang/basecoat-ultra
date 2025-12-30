@@ -7,6 +7,9 @@ Basecoat brings the magic of shadcn/ui to any traditional web stack: no React re
 
 **Basecoat Ultra** is an enhanced UI library based on [Basecoat](https://basecoatui.com). It retains the core philosophy of "Tailwind-first, framework-agnostic" while offering deep customizations tailored for modern aesthetics and lightweight requirements. We have removed native support for Nunjucks/Jinja to focus on providing richer interactive components, an out-of-the-box theming system, and refined visual enhancements.
 
+## 🎡 Components Preview
+[lanrenbang.github.io/basecoat-ultra](https://lanrenbang.github.io/basecoat-ultra)
+
 ## ✨ Features
 
 ### 🛠️ Core Improvements
@@ -194,7 +197,7 @@ This project stands on the shoulders of giants:
 *   **[puikinsh/login-forms](https://github.com/puikinsh/login-forms/tree/main/forms/neumorphism)**: Inspiration for Neumorphism lighting and 3D effects.
 *   **[Flatpickr](https://flatpickr.js.org/)** & **[Split.js](https://split.js.org/)**: Excellent third-party library support.
 
-## Support Me
+## ☕ Support Me
 [![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/bobbynona) [![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/bobbynona) [![USDT(TRC20)/Tether](https://img.shields.io/badge/Tether-168363?style=for-the-badge&logo=tether&logoColor=white)](https://github.com/Lanrenbang/.github/blob/5b06b0b2d0b8e4ce532c1c37c72115dd98d7d849/custom/USDT-TRC20.md) [![Litecoin](https://img.shields.io/badge/Litecoin-A6A9AA?style=for-the-badge&logo=litecoin&logoColor=white)](https://github.com/Lanrenbang/.github/blob/5b06b0b2d0b8e4ce532c1c37c72115dd98d7d849/custom/Litecoin.md)
 
 ## 📄 License
