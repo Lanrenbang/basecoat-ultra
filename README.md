@@ -41,62 +41,102 @@ Integrated excellent third-party libraries to bridge gaps in pure CSS/Vanilla JS
 
 ## 📦 Installation
 
-This project is published to the [JSR (JavaScript Registry)](https://jsr.io/).
-
-### 1. Install Dependencies
+Recommended using `bun`, but `npm` or `pnpm` are also supported:
 
 ```bash
-# Using npm
-npx jsr add @lanrenbang/basecoat-ultra
-
-# Using bun
-bunx jsr add @lanrenbang/basecoat-ultra
-
-# Using deno
-deno add @lanrenbang/basecoat-ultra
+bun add @lanrenbang/basecoat-ultra
+# or
+npm install @lanrenbang/basecoat-ultra
 ```
 
-### 2. Import Styles
+## 🚀 Setup (Bundlers)
 
-In your CSS file (Tailwind CSS v4 configuration required):
+For projects using Vite, Webpack, or other bundlers with Tailwind CSS v4 configured.
+
+### 1. Import CSS
+
+In your CSS entry file (e.g., `style.css`).
+
+**Note**: Import the raw CSS (`/css`), letting your Tailwind config handle the styles. Do NOT use the `.cdn.css` version here.
 
 ```css
 @import "tailwindcss";
-/* Import core styles */
-@import "@lanrenbang/basecoat-ultra/css/basecoat.css"; 
-/* Or use the CDN version (includes Tailwind utilities) */
-/* @import "@lanrenbang/basecoat-ultra/css/basecoat.cdn.css"; */
 
-/* Import Catppuccin Theme (Optional) */
-@import "@lanrenbang/basecoat-ultra/dist/theme/catppuccin/index.css";
+/* 1. Basecoat Core (Required) */
+@import "@lanrenbang/basecoat-ultra/css";
+
+/* 2. External Components (Optional) */
+/* Only import if you use these specific components */
+@import "@lanrenbang/basecoat-ultra/css/datepicker.css";
+@import "@lanrenbang/basecoat-ultra/css/resizable.css";
+
+/* 3. Theme (Optional, must be explicit) */
+/* We provide a Catppuccin theme suite, or you can build your own */
+@import "@lanrenbang/basecoat-ultra/theme/catppuccin/index.css";
 ```
 
-### 3. Import Logic
+### 2. Import JavaScript
 
-You can import everything or use on-demand imports:
+In your application entry point (e.g., `main.js` or `app.ts`).
+
+**Option A: Import All (Recommended)**
+Includes core logic and most standard components (excludes Datepicker/Resizable).
 
 ```javascript
-// Import all component logic
 import '@lanrenbang/basecoat-ultra';
-
-// Or on-demand import
-import '@lanrenbang/basecoat-ultra/basecoat'; // Core
-import '@lanrenbang/basecoat-ultra/tabs';
-import '@lanrenbang/basecoat-ultra/sheet';
-// ...
 ```
 
-For external components (Datepicker, Resizable), import them separately:
+**Option B: Cherry-pick**
+To reduce bundle size, import only what you need.
+**Important**: You MUST import the `basecoat` core module first, as other components rely on it for registration.
 
 ```javascript
-// Datepicker
-import 'flatpickr/dist/flatpickr.css';
-import '@lanrenbang/basecoat-ultra/css/datepicker.css';
-import '@lanrenbang/basecoat-ultra/datepicker';
+// 1. Core first
+import '@lanrenbang/basecoat-ultra/basecoat';
 
-// Resizable
-import '@lanrenbang/basecoat-ultra/css/resizable.css';
-import '@lanrenbang/basecoat-ultra/resizable';
+// 2. Then components
+import '@lanrenbang/basecoat-ultra/tabs';
+import '@lanrenbang/basecoat-ultra/select';
+import '@lanrenbang/basecoat-ultra/popover';
+```
+
+**External Components (Must be imported separately)**
+Regardless of the option above, these components are not included in the main bundle due to size or dependencies:
+
+```javascript
+import '@lanrenbang/basecoat-ultra/datepicker'; // Uses flatpickr
+import '@lanrenbang/basecoat-ultra/resizable';  // Uses split.js
+```
+
+---
+
+## 🌐 CDN Usage (No Build Tool)
+
+If you are not using a bundler, you can use the pre-compiled versions via CDN (jsDelivr). These include the compiled Tailwind styles.
+
+### CSS
+
+```html
+<!-- Basecoat Core (includes Tailwind styles) -->
+<link href="https://cdn.jsdelivr.net/npm/@lanrenbang/basecoat-ultra@latest/dist/css/basecoat.cdn.min.css" rel="stylesheet">
+
+<!-- External Components (Optional) -->
+<link href="https://cdn.jsdelivr.net/npm/@lanrenbang/basecoat-ultra@latest/dist/css/datepicker.min.css" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/@lanrenbang/basecoat-ultra@latest/dist/css/resizable.min.css" rel="stylesheet">
+
+<!-- Theme (Optional) -->
+<link href="https://cdn.jsdelivr.net/npm/@lanrenbang/basecoat-ultra@latest/dist/theme/catppuccin/index.min.css" rel="stylesheet">
+```
+
+### JavaScript
+
+```html
+<!-- Core & Standard Components -->
+<script src="https://cdn.jsdelivr.net/npm/@lanrenbang/basecoat-ultra@latest/dist/js/all.min.js" defer></script>
+
+<!-- External Components (Optional) -->
+<script src="https://cdn.jsdelivr.net/npm/@lanrenbang/basecoat-ultra@latest/dist/js/datepicker.min.js" defer></script>
+<script src="https://cdn.jsdelivr.net/npm/@lanrenbang/basecoat-ultra@latest/dist/js/resizable.min.js" defer></script>
 ```
 
 ## 🛠️ Development
@@ -145,19 +185,6 @@ To prevent page flicker (FOUC) when using the Catppuccin Theme Switcher on refre
 </script>
 ```
 
-### Publishing to JSR
-
-If you are a maintainer, follow these steps to publish a new version:
-
-1.  Login to JSR (Once):
-    ```bash
-    bunx jsr login
-    ```
-2.  Publish:
-    ```bash
-    bunx jsr publish
-    ```
-
 ## ❤️ Credits
 
 This project stands on the shoulders of giants:
@@ -166,6 +193,9 @@ This project stands on the shoulders of giants:
 *   **[Catppuccin](https://github.com/catppuccin/palette)**: Provided the beautiful color palettes.
 *   **[puikinsh/login-forms](https://github.com/puikinsh/login-forms/tree/main/forms/neumorphism)**: Inspiration for Neumorphism lighting and 3D effects.
 *   **[Flatpickr](https://flatpickr.js.org/)** & **[Split.js](https://split.js.org/)**: Excellent third-party library support.
+
+## Support Me
+[![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/bobbynona) [![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/bobbynona) [![USDT(TRC20)/Tether](https://img.shields.io/badge/Tether-168363?style=for-the-badge&logo=tether&logoColor=white)](https://github.com/Lanrenbang/.github/blob/5b06b0b2d0b8e4ce532c1c37c72115dd98d7d849/custom/USDT-TRC20.md) [![Litecoin](https://img.shields.io/badge/Litecoin-A6A9AA?style=for-the-badge&logo=litecoin&logoColor=white)](https://github.com/Lanrenbang/.github/blob/5b06b0b2d0b8e4ce532c1c37c72115dd98d7d849/custom/Litecoin.md)
 
 ## 📄 License
 
