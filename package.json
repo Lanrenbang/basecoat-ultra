@@ -1,6 +1,6 @@
 {
   "name": "@lanrenbang/basecoat-ultra",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Basecoat UI - Ultra edition. A Tailwind-first component library.",
   "type": "module",
   "main": "./dist/js/all.js",
