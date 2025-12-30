@@ -63,9 +63,9 @@ deno add @lanrenbang/basecoat-ultra
 ```css
 @import "tailwindcss";
 /* 引入核心样式 */
-@import "@lanrenbang/basecoat-ultra/css"; 
+@import "@lanrenbang/basecoat-ultra/css/basecoat.css"; 
 /* 或者使用 CDN 版本（包含 Tailwind 工具类） */
-/* @import "@lanrenbang/basecoat-ultra/cdn"; */
+/* @import "@lanrenbang/basecoat-ultra/css/basecoat.cdn.css"; */
 
 /* 引入 Catppuccin 主题（可选） */
 @import "@lanrenbang/basecoat-ultra/dist/theme/catppuccin/index.css";
@@ -91,11 +91,11 @@ import '@lanrenbang/basecoat-ultra/sheet';
 ```javascript
 // Datepicker
 import 'flatpickr/dist/flatpickr.css';
-import '@lanrenbang/basecoat-ultra/datepicker-css';
+import '@lanrenbang/basecoat-ultra/css/datepicker.css';
 import '@lanrenbang/basecoat-ultra/datepicker';
 
 // Resizable
-import '@lanrenbang/basecoat-ultra/resizable-css';
+import '@lanrenbang/basecoat-ultra/css/resizable.css';
 import '@lanrenbang/basecoat-ultra/resizable';
 ```
 

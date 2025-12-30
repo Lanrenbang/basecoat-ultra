@@ -12,11 +12,7 @@
     "./select": "./dist/js/select.js",
     "./sidebar": "./dist/js/sidebar.js",
     "./tabs": "./dist/js/tabs.js",
-    "./toast": "./dist/js/toast.js",
-    "./css": "./dist/css/basecoat.css",
-    "./cdn": "./dist/css/basecoat.cdn.css",
-    "./datepicker-css": "./dist/css/datepicker.css",
-    "./resizable-css": "./dist/css/resizable.css"
+    "./toast": "./dist/js/toast.js"
   },
   "publish": {
     "include": [

@@ -63,9 +63,9 @@ In your CSS file (Tailwind CSS v4 configuration required):
 ```css
 @import "tailwindcss";
 /* Import core styles */
-@import "@lanrenbang/basecoat-ultra/css"; 
+@import "@lanrenbang/basecoat-ultra/css/basecoat.css"; 
 /* Or use the CDN version (includes Tailwind utilities) */
-/* @import "@lanrenbang/basecoat-ultra/cdn"; */
+/* @import "@lanrenbang/basecoat-ultra/css/basecoat.cdn.css"; */
 
 /* Import Catppuccin Theme (Optional) */
 @import "@lanrenbang/basecoat-ultra/dist/theme/catppuccin/index.css";
@@ -91,11 +91,11 @@ For external components (Datepicker, Resizable), import them separately:
 ```javascript
 // Datepicker
 import 'flatpickr/dist/flatpickr.css';
-import '@lanrenbang/basecoat-ultra/datepicker-css';
+import '@lanrenbang/basecoat-ultra/css/datepicker.css';
 import '@lanrenbang/basecoat-ultra/datepicker';
 
 // Resizable
-import '@lanrenbang/basecoat-ultra/resizable-css';
+import '@lanrenbang/basecoat-ultra/css/resizable.css';
 import '@lanrenbang/basecoat-ultra/resizable';
 ```
 
