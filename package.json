@@ -44,6 +44,7 @@
   "scripts": {
     "dev": "vite",
     "build": "vite build && vite build --mode minify && bun run build.ts",
+    "build:demo": "vite build --config vite.demo.config.ts && mv docs/demo/* docs/ && rmdir docs/demo && sed -i 's|\\.\\./assets|./assets|g' docs/index.html docs/demo.html",
     "preview": "vite preview",
     "verify": "vite --mode verify",
     "diff": "bun run build.ts diff",
@@ -55,7 +56,7 @@
     "split.js": "^1.6.5"
   },
   "devDependencies": {
-    "@lanrenbang/basecoat-ultra": "^0.1.5",
+    "@lanrenbang/basecoat-ultra": "^0.1.6",
     "@tailwindcss/cli": "^4.1.18",
     "@tailwindcss/vite": "^4.1.18",
     "@types/bun": "latest",

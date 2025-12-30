@@ -1,5 +1,5 @@
 --- ./references/basecoat/src/css/basecoat.css	2025-12-23 02:13:27.996941912 -0800
-+++ dist/basecoat.combined.temp.css	2025-12-30 01:25:06.690814123 -0800
++++ dist/basecoat.combined.temp.css	2025-12-30 10:39:34.003186422 -0800
 @@ -1,3 +1,9 @@
 +/*
 +  Main CSS file for Basecoat. 
@@ -10,52 +10,15 @@
  @custom-variant dark (&:is(.dark *));
  
  :root {
-@@ -83,43 +89,7 @@
-   color-scheme: dark;
+@@ -121,6 +127,7 @@
+   --color-sidebar-ring: var(--sidebar-ring);
  }
  
--@theme {
--  --radius-sm: calc(var(--radius) - 4px);
--  --radius-md: calc(var(--radius) - 2px);
--  --radius-lg: var(--radius);
--  --radius-xl: calc(var(--radius) + 4px);
--  --color-background: var(--background);
--  --color-foreground: var(--foreground);
--  --color-card: var(--card);
--  --color-card-foreground: var(--card-foreground);
--  --color-popover: var(--popover);
--  --color-popover-foreground: var(--popover-foreground);
--  --color-primary: var(--primary);
--  --color-primary-foreground: var(--primary-foreground);
--  --color-secondary: var(--secondary);
--  --color-secondary-foreground: var(--secondary-foreground);
--  --color-muted: var(--muted);
--  --color-muted-foreground: var(--muted-foreground);
--  --color-accent: var(--accent);
--  --color-accent-foreground: var(--accent-foreground);
--  --color-destructive: var(--destructive);
--  --color-border: var(--border);
--  --color-input: var(--input);
--  --color-ring: var(--ring);
--  --color-chart-1: var(--chart-1);
--  --color-chart-2: var(--chart-2);
--  --color-chart-3: var(--chart-3);
--  --color-chart-4: var(--chart-4);
--  --color-chart-5: var(--chart-5);
--  --color-sidebar: var(--sidebar);
--  --color-sidebar-foreground: var(--sidebar-foreground);
--  --color-sidebar-primary: var(--sidebar-primary);
--  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
--  --color-sidebar-accent: var(--sidebar-accent);
--  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
--  --color-sidebar-border: var(--sidebar-border);
--  --color-sidebar-ring: var(--sidebar-ring);
--}
-+@import "../config.css";
- 
++
  @layer base {
    * {
-@@ -148,6 +118,9 @@
+     @apply border-border outline-ring/50;
+@@ -148,6 +155,9 @@
    }
  }
  
@@ -65,7 +28,7 @@
  /* Alert */
  @layer components {
    .alert,
-@@ -183,6 +156,7 @@
+@@ -183,6 +193,7 @@
    }
  }
  
@@ -73,7 +36,7 @@
  /* Badge */
  @layer components {
    .badge,
-@@ -203,10 +177,11 @@
+@@ -203,10 +214,11 @@
      @apply border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60;
    }
    .badge-outline {
@@ -86,7 +49,7 @@
  /* Button */
  @layer components {
    .btn,
-@@ -251,7 +226,11 @@
+@@ -251,7 +263,11 @@
    .btn-lg-icon-ghost,
    .btn-lg-icon-link,
    .btn-lg-icon-destructive {
@@ -99,7 +62,7 @@
    }
    .btn,
    .btn-primary,
-@@ -318,7 +297,7 @@
+@@ -318,7 +334,7 @@
    .btn-sm-icon,
    .btn-sm-icon-primary,
    .btn-lg-icon,
@@ -108,7 +71,7 @@
      @apply bg-primary text-primary-foreground shadow-xs hover:bg-primary/90;
      &[aria-pressed='true'] {
        @apply bg-primary/90;
-@@ -342,7 +321,7 @@
+@@ -342,7 +358,7 @@
    .btn-icon-outline,
    .btn-sm-icon-outline,
    .btn-lg-icon-outline {
@@ -117,7 +80,7 @@
      &:hover,
      &[aria-pressed='true'] {
        @apply bg-accent text-accent-foreground dark:bg-accent/50;
-@@ -354,6 +333,7 @@
+@@ -354,6 +370,7 @@
    .btn-icon-ghost,
    .btn-sm-icon-ghost,
    .btn-lg-icon-ghost {
@@ -125,7 +88,7 @@
      &:hover,
      &[aria-pressed='true'] {
        @apply bg-accent text-accent-foreground dark:bg-accent/50;
-@@ -365,10 +345,10 @@
+@@ -365,10 +382,10 @@
    .btn-icon-link,
    .btn-sm-icon-link,
    .btn-lg-icon-link {
@@ -138,7 +101,7 @@
      }
    }
    .btn-destructive,
-@@ -385,6 +365,7 @@
+@@ -385,6 +402,7 @@
    }
  }
  
@@ -146,7 +109,7 @@
  /* Button Group */
  @layer components {
    .button-group {
-@@ -428,6 +409,7 @@
+@@ -428,6 +446,7 @@
    }
  }
  
@@ -154,7 +117,7 @@
  /* Card */
  @layer components {
    .card {
-@@ -453,6 +435,7 @@
+@@ -453,6 +472,7 @@
    }
  }
  
@@ -162,7 +125,7 @@
  /* Checkbox */
  @layer components {
    :is(.form, .field) input[type='checkbox']:not([role='switch']),
-@@ -466,6 +449,7 @@
+@@ -466,6 +486,7 @@
    }
  }
  
@@ -170,7 +133,7 @@
  /* Collapsible */
  @layer components {
    details {
-@@ -487,6 +471,7 @@
+@@ -487,6 +508,7 @@
    }
  }
  
@@ -178,7 +141,7 @@
  /* Command */
  @layer components {
    .command-dialog {
-@@ -526,7 +511,11 @@
+@@ -526,7 +548,11 @@
        }
        > button,
        > form[method='dialog'] > button {
@@ -191,7 +154,7 @@
        }
      }
  
-@@ -562,7 +551,11 @@
+@@ -562,7 +588,11 @@
        @apply max-h-[300px] overflow-y-auto overflow-x-hidden p-1;
  
        [role='menuitem'] {
@@ -204,7 +167,7 @@
  
          &.active {
            @apply bg-accent text-accent-foreground;
-@@ -596,67 +589,81 @@
+@@ -596,67 +626,81 @@
    }
  }
  
@@ -332,7 +295,7 @@
  /* Dropdown Menu */
  @layer components {
    .dropdown-menu {
-@@ -666,11 +673,14 @@
+@@ -666,11 +710,14 @@
        @apply p-1;
        min-width: anchor-size(width);
  
@@ -352,7 +315,7 @@
          &:not([aria-disabled='true']) {
            @apply focus-visible:bg-accent focus-visible:text-accent-foreground;
          }
-@@ -696,6 +706,7 @@
+@@ -696,6 +743,7 @@
    }
  }
  
@@ -360,7 +323,7 @@
  /* Field */
  @layer components {
    .fieldset {
-@@ -740,6 +751,7 @@
+@@ -740,6 +788,7 @@
    }
  }
  
@@ -368,7 +331,7 @@
  /* Input */
  @layer components {
    :is(.form, .field) input[type='text']:not(:is(.select [data-popover] > header input[role='combobox'], .command > header input, .dialog > * > header input)),
-@@ -774,13 +786,20 @@
+@@ -774,13 +823,20 @@
    }
  }
  
@@ -390,7 +353,7 @@
  /* Label */
  @layer components {
    :is(.form, .field) label,
-@@ -794,6 +813,7 @@
+@@ -794,6 +850,7 @@
    }
  }
  
@@ -398,7 +361,7 @@
  /* Popover */
  @layer components {
    [data-popover] {
-@@ -866,6 +886,7 @@
+@@ -866,6 +923,7 @@
    } 
  }
  
@@ -406,7 +369,7 @@
  /* Radio */
  @layer components {
    :is(.form, .field) input[type='radio'],
-@@ -878,45 +899,52 @@
+@@ -878,45 +936,52 @@
    }
  }
  
@@ -471,7 +434,7 @@
      }
      &::-ms-fill-lower {
        @apply bg-primary rounded-full;
-@@ -927,6 +955,7 @@
+@@ -927,6 +992,7 @@
    }
  }
  
@@ -479,7 +442,7 @@
  /* Select */
  @layer components {
    :is(.form, .field) select,
-@@ -946,7 +975,11 @@
+@@ -946,7 +1012,11 @@
        @apply p-1;
  
        [role='option'] {
@@ -492,7 +455,7 @@
          
          &[aria-selected='true'] {
            @apply bg-[image:var(--check-icon)] bg-no-repeat bg-position-[center_right_0.5rem] bg-size-[0.875rem];
-@@ -994,6 +1027,7 @@
+@@ -994,6 +1064,7 @@
    }
  }
  
@@ -500,7 +463,7 @@
  /* Sidebar */
  @layer components {
    .sidebar {
-@@ -1116,6 +1150,7 @@
+@@ -1116,6 +1187,7 @@
    }
  }
  
@@ -508,7 +471,7 @@
  /* Switch */
  @layer components {
    :is(.form, .field) input[type='checkbox'][role='switch'],
-@@ -1128,6 +1163,7 @@
+@@ -1128,6 +1200,7 @@
    }
  }
  
@@ -516,7 +479,7 @@
  /* Tables */
  @layer components {
    .table {
-@@ -1156,6 +1192,7 @@
+@@ -1156,6 +1229,7 @@
    }
  }
  
@@ -524,7 +487,7 @@
  /* Tabs */
  @layer components {
    .tabs {
-@@ -1165,7 +1202,11 @@
+@@ -1165,7 +1239,11 @@
        @apply bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px];
  
        [role='tab'] {
@@ -537,7 +500,7 @@
  
          &[aria-selected='true'] {
            @apply bg-background dark:text-foreground dark:border-input dark:bg-input/30 shadow-sm;
-@@ -1178,6 +1219,8 @@
+@@ -1178,6 +1256,8 @@
    }
  }
  
@@ -546,7 +509,7 @@
  /* Textarea */
  @layer components {
    :is(.form, .field) textarea,
-@@ -1186,6 +1229,7 @@
+@@ -1186,6 +1266,7 @@
    }
  }
  
@@ -554,7 +517,7 @@
  /* Toasts */
  @layer components {
    .toaster {
-@@ -1244,6 +1288,7 @@
+@@ -1244,6 +1325,7 @@
    }
  }
  
@@ -562,7 +525,7 @@
  /* Tooltip */
  @layer components {
    [data-tooltip] {
-@@ -1300,3 +1345,453 @@
+@@ -1300,3 +1382,453 @@
      }
    }
  }

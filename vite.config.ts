@@ -17,50 +17,26 @@ jsFiles.forEach(file => {
   input[name] = resolve(srcJsDir, file);
 });
 
-// Custom plugin to inject assets based on mode
+// Custom plugin to handle different modes
 const htmlPlugin = (mode) => {
   return {
     name: 'html-transform',
     transformIndexHtml(html) {
-      const isVerify = mode === 'verify';
-      let cssTags = '';
-      let jsTags = '';
-
-      if (isVerify) {
-        // Verify Mode: Simulate Consumer Usage
-        // 1. CSS: Link to a standard CSS entry file (No FOUC)
-        cssTags = `<link href="/demo/verify.css" rel="stylesheet">`;
+      if (mode === 'verify') {
+        // Verify 模式：将 HTML 中硬编码的源码引用替换为 verify 专用引用
+        // 1. 删除所有 /src/ 相关的 link 和 script 标签
+        let transformed = html.replace(/<(link|script)[^>]+src\/(css|js|theme)\/[^>]+>/g, '');
         
-        // 2. JS: Point to the verify entry file so Vite resolves imports correctly
-        jsTags = `<script type="module" src="/demo/verify-entry.js"></script>`;
-      } else {
-        // Dev Mode: Use source files
-        const assets = {
-          css: [
-            '/src/css/basecoat.cdn.css',
-            '/src/css/datepicker.css',
-            '/src/css/resizable.css',
-            '/src/theme/catppuccin/index.css'
-          ],
-          js: [
-            { src: '/src/js/index.js', type: 'module' },
-            { src: '/src/js/datepicker.js', type: 'module' },
-            { src: '/src/js/resizable.js', type: 'module' }
-          ]
-        };
-
-        // Generate HTML tags
-        cssTags = assets.css.map(href => `<link href="${href}" rel="stylesheet">`).join('\n    ');
-        jsTags = assets.js.map(script => 
-          script.type === 'module' 
-            ? `<script type="module" src="${script.src}"></script>` 
-            : `<script src="${script.src}" defer></script>`
-        ).join('\n    ');
+        // 2. 注入 verify 专用资源
+        const verifyCss = `<link href="/demo/verify.css" rel="stylesheet">`;
+        const verifyJs = `<script type="module" src="/demo/verify-entry.js"></script>`;
+        
+        return transformed
+          .replace('<!-- Basecoat CSS -->', `<!-- Basecoat CSS -->\n    ${verifyCss}`)
+          .replace('<!-- Basecoat JS -->', `<!-- Basecoat JS -->\n    ${verifyJs}`);
       }
-
-      return html
-        .replace('<!-- INJECT_ASSETS_CSS -->', cssTags)
-        .replace('<!-- INJECT_ASSETS_JS -->', jsTags);
+      // Dev 模式：直接返回 HTML，因为 HTML 里已经有了 /src 路径，Vite 会自动处理
+      return html;
     }
   }
 };
@@ -73,11 +49,6 @@ export default defineConfig(({ mode }) => {
       tailwindcss(),
       htmlPlugin(mode),
     ],
-    // Development server config
-    server: {
-      // Defaults to port 5173
-    },
-    // Build config (Library Mode for JS)
     build: {
       outDir: 'dist/js',
       emptyOutDir: !isMinify, 
