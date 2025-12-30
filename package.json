@@ -1,6 +1,6 @@
 {
   "name": "@lanrenbang/basecoat-ultra",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Basecoat UI - Ultra edition. A Tailwind-first component library.",
   "type": "module",
   "devDependencies": {

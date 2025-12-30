@@ -1,6 +1,6 @@
 {
   "name": "@lanrenbang/basecoat-ultra",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "exports": {
     ".": "./dist/js/all.js",
     "./basecoat": "./dist/js/basecoat.js",
@@ -18,6 +18,9 @@
     "include": [
       "dist",
       "README.md",
+      "README-cn.md",
+      "CHANGELOG.md",
+      "CHANGELOG-cn.md",
       "LICENSE.md"
     ]
   }
