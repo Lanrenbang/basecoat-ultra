@@ -63,16 +63,16 @@ In your CSS entry file (e.g., `style.css`).
 @import "tailwindcss";
 
 /* 1. Basecoat Core (Required) */
-@import "@lanrenbang/basecoat-ultra/css";
+@import "@lanrenbang/basecoat-ultra";
 
 /* 2. External Components (Optional) */
 /* Only import if you use these specific components */
-@import "@lanrenbang/basecoat-ultra/css/datepicker.css";
-@import "@lanrenbang/basecoat-ultra/css/resizable.css";
+@import "@lanrenbang/basecoat-ultra/datepicker.css";
+@import "@lanrenbang/basecoat-ultra/resizable.css";
 
 /* 3. Theme (Optional, must be explicit) */
 /* We provide a Catppuccin theme suite, or you can build your own */
-@import "@lanrenbang/basecoat-ultra/theme/catppuccin/index.css";
+@import "@lanrenbang/basecoat-ultra/theme/catppuccin";
 ```
 
 ### 2. Import JavaScript
@@ -83,7 +83,7 @@ In your application entry point (e.g., `main.js` or `app.ts`).
 Includes core logic and most standard components (excludes Datepicker/Resizable).
 
 ```javascript
-import '@lanrenbang/basecoat-ultra';
+import '@lanrenbang/basecoat-ultra/all';
 ```
 
 **Option B: Cherry-pick**

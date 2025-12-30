@@ -17,59 +17,62 @@ jsFiles.forEach(file => {
   input[name] = resolve(srcJsDir, file);
 });
 
+// Custom plugin to inject assets based on mode
+const htmlPlugin = (mode) => {
+  return {
+    name: 'html-transform',
+    transformIndexHtml(html) {
+      const isVerify = mode === 'verify';
+      let cssTags = '';
+      let jsTags = '';
+
+      if (isVerify) {
+        // Verify Mode: Simulate Consumer Usage
+        // 1. CSS: Link to a standard CSS entry file (No FOUC)
+        cssTags = `<link href="/demo/verify.css" rel="stylesheet">`;
+        
+        // 2. JS: Point to the verify entry file so Vite resolves imports correctly
+        jsTags = `<script type="module" src="/demo/verify-entry.js"></script>`;
+      } else {
+        // Dev Mode: Use source files
+        const assets = {
+          css: [
+            '/src/css/basecoat.cdn.css',
+            '/src/css/datepicker.css',
+            '/src/css/resizable.css',
+            '/src/theme/catppuccin/index.css'
+          ],
+          js: [
+            { src: '/src/js/index.js', type: 'module' },
+            { src: '/src/js/datepicker.js', type: 'module' },
+            { src: '/src/js/resizable.js', type: 'module' }
+          ]
+        };
+
+        // Generate HTML tags
+        cssTags = assets.css.map(href => `<link href="${href}" rel="stylesheet">`).join('\n    ');
+        jsTags = assets.js.map(script => 
+          script.type === 'module' 
+            ? `<script type="module" src="${script.src}"></script>` 
+            : `<script src="${script.src}" defer></script>`
+        ).join('\n    ');
+      }
+
+      return html
+        .replace('<!-- INJECT_ASSETS_CSS -->', cssTags)
+        .replace('<!-- INJECT_ASSETS_JS -->', jsTags);
+    }
+  }
+};
+
 export default defineConfig(({ mode }) => {
   const isMinify = mode === 'minify';
-  const isVerify = mode === 'verify';
 
   return {
     plugins: [
       tailwindcss(),
-      {
-        name: 'html-transform',
-        transformIndexHtml(html) {
-          let entryTags = '';
-          
-          if (isVerify) {
-            // Verify Mode: Use the installed NPM package
-            // This simulates exactly how a user would import the library in their JS entry point.
-            console.log('✨ Running in VERIFY mode: Using installed @lanrenbang/basecoat-ultra package');
-            entryTags = `
-    <script type="module">
-      import '@lanrenbang/basecoat-ultra/css';
-      import '@lanrenbang/basecoat-ultra/css/datepicker.css';
-      import '@lanrenbang/basecoat-ultra/css/resizable.css';
-      import '@lanrenbang/basecoat-ultra/theme/catppuccin/index.css';
-      
-      import '@lanrenbang/basecoat-ultra';
-      import '@lanrenbang/basecoat-ultra/datepicker';
-      import '@lanrenbang/basecoat-ultra/resizable';
-    </script>`;
-          } else {
-            // Development Mode: Use local source files directly
-            // Using <link> tags avoids FOUC (Flash of Unstyled Content) during dev.
-            console.log('🛠️ Running in DEV mode: Using local source files');
-            entryTags = `
-    <!-- Basecoat CSS (Source) -->
-    <link href="/src/css/basecoat.cdn.css" rel="stylesheet">
-    <link href="/src/css/datepicker.css" rel="stylesheet">
-    <link href="/src/css/resizable.css" rel="stylesheet">
-    <!-- Theme CSS -->
-    <link href="/src/theme/catppuccin/index.css" rel="stylesheet">
-    
-    <!-- Basecoat JS (Source) -->
-    <script type="module" src="/src/js/index.js"></script>
-    <script type="module" src="/src/js/datepicker.js"></script>
-    <script type="module" src="/src/js/resizable.js"></script>`;
-          }
-
-          return html.replace('<!-- INJECT_ENTRY -->', entryTags);
-        }
-      }
+      htmlPlugin(mode),
     ],
-    // Remove the previous alias config as we now handle it via HTML injection
-    resolve: {
-      alias: [], 
-    },
     // Development server config
     server: {
       // Defaults to port 5173

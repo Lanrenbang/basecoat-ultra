@@ -30,7 +30,8 @@ async function ensureDirs() {
 // Helper: Recursively combine CSS imports
 async function combineCss(filePath: string): Promise<string> {
   let content = await Bun.file(filePath).text();
-  const importRegex = /@import\s+['"](\.\/[^'"]+)['"];/g;
+  // Match @import "path"; or @import url("path");
+  const importRegex = /@import\s+(?:url\s*\(\s*['"]?|['"])([^'")]+)(?:['"]?\s*\)|['"])\s*;/g;
   const dir = path.dirname(filePath);
 
   const matches = [...content.matchAll(importRegex)];
@@ -38,13 +39,21 @@ async function combineCss(filePath: string): Promise<string> {
   for (const match of matches) {
     const fullStatement = match[0];
     const importPath = match[1];
+    
+    // Skip if it's an absolute URL (http/https)
+    if (importPath.startsWith("http") || importPath.startsWith("//")) continue;
+
     const fullPath = path.resolve(dir, importPath);
     
     try {
-      const importedContent = await combineCss(fullPath);
-      content = content.replace(fullStatement, importedContent);
+      if (await Bun.file(fullPath).exists()) {
+        const importedContent = await combineCss(fullPath);
+        content = content.replace(fullStatement, importedContent);
+      } else {
+         console.warn(`⚠️ Skipped inline: File not found ${fullPath}`);
+      }
     } catch (e) {
-      console.warn(`⚠️ Failed to resolve import ${importPath} from ${filePath}`);
+      console.warn(`⚠️ Failed to resolve import ${importPath} from ${filePath}`, e);
     }
   }
   return content;

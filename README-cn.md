@@ -57,21 +57,21 @@ npm install @lanrenbang/basecoat-ultra
 
 在您的 CSS 入口文件（例如 `style.css`）中引入。
 
-**注意**：请引入不带编译的源码版本（`/css`），让您的 Tailwind 配置来处理样式。切勿引入 `.cdn.css` 版本。
+**注意**：请引入不带编译的源码版本，让您的 Tailwind 配置来处理样式。切勿引入 `.cdn.css` 版本。
 
 ```css
 @import "tailwindcss";
 
 /* 1. Basecoat 核心样式 (必须) */
-@import "@lanrenbang/basecoat-ultra/css";
+@import "@lanrenbang/basecoat-ultra";
 
-/* 2. 外部扩展组件样式 (可选，仅当您使用这些组件时需要) */
-@import "@lanrenbang/basecoat-ultra/css/datepicker.css";
-@import "@lanrenbang/basecoat-ultra/css/resizable.css";
+/* 2. 外部扩展组件样式 (可选，仅当您使用这些组件时必须显式引入) */
+@import "@lanrenbang/basecoat-ultra/datepicker.css";
+@import "@lanrenbang/basecoat-ultra/resizable.css";
 
 /* 3. 主题样式 (可选，必须显式引入) */
 /* 我们提供了一套 Catppuccin 主题，您也可以参考源码实现自己的主题 */
-@import "@lanrenbang/basecoat-ultra/theme/catppuccin/index.css";
+@import "@lanrenbang/basecoat-ultra/theme/catppuccin";
 ```
 
 ### 2. 引入 JavaScript
@@ -82,13 +82,10 @@ npm install @lanrenbang/basecoat-ultra
 包含核心逻辑及大部分常用组件（不含 Datepicker/Resizable）。
 
 ```javascript
-import '@lanrenbang/basecoat-ultra';
+import '@lanrenbang/basecoat-ultra/all';
 ```
 
-**方式二：按需引入**
-如果您想减少体积，可以只引入需要的组件。
-**重要**：必须首先引入 `basecoat` 核心模块，因为其他组件依赖它来注册初始化逻辑。
-
+**方式二：特定组件引入**
 ```javascript
 // 1. 先引入核心
 import '@lanrenbang/basecoat-ultra/basecoat';
