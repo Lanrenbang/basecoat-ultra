@@ -1,0 +1,32 @@
+/* Toggle Group */
+@layer components {
+  .toggle-group {
+    @apply flex items-center justify-center gap-1;
+    
+    &[data-orientation="vertical"] {
+      @apply flex-col;
+    }
+    
+    /* Merged style (like button-group) */
+    &:not([data-variant="outline"]) {
+       gap: 0;
+       
+       .toggle {
+         @apply rounded-none border-l-0 first:rounded-l-md first:border-l last:rounded-r-md focus:z-10;
+       }
+       &[data-orientation="vertical"] .toggle {
+         @apply rounded-none border-t-0 first:rounded-t-md first:border-t last:rounded-b-md;
+       }
+    }
+  }
+
+  /* Toggle Button (Base Style) */
+  .toggle {
+    @apply inline-flex items-center justify-center rounded-md text-sm font-medium ring-offset-background transition-colors hover:bg-muted hover:text-muted-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 data-[state=on]:bg-accent data-[state=on]:text-accent-foreground bg-transparent dark:bg-transparent h-10 px-3 min-w-10 border border-input;
+    
+    /* Enhanced Active State */
+    &[aria-pressed="true"] {
+      @apply bg-accent text-accent-foreground border-accent;
+    }
+  }
+}

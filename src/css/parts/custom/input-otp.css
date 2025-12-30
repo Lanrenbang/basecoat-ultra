@@ -1,0 +1,13 @@
+/* Input OTP */
+@layer components {
+  .input-otp {
+    @apply flex items-center gap-2 has-[:disabled]:opacity-50;
+  }
+  .input-otp-group {
+    @apply flex items-center;
+    
+    .input {
+        @apply w-10 h-10 text-center text-lg p-0 rounded-none first:rounded-l-md last:rounded-r-md border-r-0 last:border-r focus:z-10 relative;
+    }
+  }
+}

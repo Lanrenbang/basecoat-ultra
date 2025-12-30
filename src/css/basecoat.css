@@ -1,0 +1,43 @@
+/*
+  Main CSS file for Basecoat. 
+  This file has been refactored to import smaller, modular parts.
+*/
+
+/* 1. Core Styles, Variables, and Resets */
+@import "./parts/base.css";
+
+/* 2. Components (Matched to upstream structure) */
+@import "./parts/components/alert.css";
+@import "./parts/components/badge.css";
+@import "./parts/components/button.css";
+@import "./parts/components/button-group.css";
+@import "./parts/components/card.css";
+@import "./parts/components/checkbox.css";
+@import "./parts/components/collapsible.css";
+@import "./parts/components/command.css";
+@import "./parts/components/dialog.css";
+@import "./parts/components/dropdown-menu.css";
+@import "./parts/components/field.css";
+@import "./parts/components/input.css";
+@import "./parts/components/kbd.css";
+@import "./parts/components/label.css";
+@import "./parts/components/popover.css";
+@import "./parts/components/radio.css";
+@import "./parts/components/range.css";
+@import "./parts/components/select.css";
+@import "./parts/components/sidebar.css";
+@import "./parts/components/switch.css";
+@import "./parts/components/table.css";
+@import "./parts/components/tabs.css";
+@import "./parts/components/textarea.css";
+@import "./parts/components/toast.css";
+@import "./parts/components/tooltip.css";
+
+/* 3. Custom Components (New additions) */
+@import "./parts/custom/carousel.css";
+@import "./parts/custom/input-otp.css";
+@import "./parts/custom/sheet.css";
+@import "./parts/custom/toggle-group.css";
+
+/* 4. Extensions & Overrides */
+@import "./parts/extensions/neumorphism.css";

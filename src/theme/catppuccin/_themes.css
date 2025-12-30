@@ -1,0 +1,235 @@
+.theme-latte {
+  /* Base Shadcn Variables */
+  --background: var(--ctp-latte-base);
+  --foreground: var(--ctp-latte-text);
+  --card: var(--ctp-latte-base);
+  --card-foreground: var(--ctp-latte-text);
+  --popover: var(--ctp-latte-base);
+  --popover-foreground: var(--ctp-latte-text);
+  --secondary: var(--ctp-latte-surface0);
+  --secondary-foreground: var(--ctp-latte-text);
+  --muted: var(--ctp-latte-surface0);
+  --muted-foreground: var(--ctp-latte-subtext1);
+  --accent: var(--ctp-latte-surface0);
+  --accent-foreground: var(--ctp-latte-text);
+  --destructive: var(--ctp-latte-red);
+  --border: var(--ctp-latte-surface1);
+  --input: var(--ctp-latte-surface1);
+  --ring: var(--ctp-latte-text);
+  --chart-1: var(--ctp-latte-red);
+  --chart-2: var(--ctp-latte-teal);
+  --chart-3: var(--ctp-latte-blue);
+  --chart-4: var(--ctp-latte-yellow);
+  --chart-5: var(--ctp-latte-green);
+  --sidebar: var(--ctp-latte-mantle);
+  --sidebar-foreground: var(--ctp-latte-text);
+  --sidebar-accent: var(--ctp-latte-surface0);
+  --sidebar-accent-foreground: var(--ctp-latte-text);
+  --sidebar-border: var(--ctp-latte-surface1);
+  --sidebar-ring: var(--ctp-latte-surface1);
+
+  /* Palette Middle Layer */
+  --palette-rosewater: var(--ctp-latte-rosewater);
+  --palette-flamingo: var(--ctp-latte-flamingo);
+  --palette-pink: var(--ctp-latte-pink);
+  --palette-mauve: var(--ctp-latte-mauve);
+  --palette-red: var(--ctp-latte-red);
+  --palette-maroon: var(--ctp-latte-maroon);
+  --palette-peach: var(--ctp-latte-peach);
+  --palette-yellow: var(--ctp-latte-yellow);
+  --palette-green: var(--ctp-latte-green);
+  --palette-teal: var(--ctp-latte-teal);
+  --palette-sky: var(--ctp-latte-sky);
+  --palette-sapphire: var(--ctp-latte-sapphire);
+  --palette-blue: var(--ctp-latte-blue);
+  --palette-lavender: var(--ctp-latte-lavender);
+  --palette-text: var(--ctp-latte-text);
+  --palette-subtext1: var(--ctp-latte-subtext1);
+  --palette-subtext0: var(--ctp-latte-subtext0);
+  --palette-overlay2: var(--ctp-latte-overlay2);
+  --palette-overlay1: var(--ctp-latte-overlay1);
+  --palette-overlay0: var(--ctp-latte-overlay0);
+  --palette-surface2: var(--ctp-latte-surface2);
+  --palette-surface1: var(--ctp-latte-surface1);
+  --palette-surface0: var(--ctp-latte-surface0);
+  --palette-base: var(--ctp-latte-base);
+  --palette-mantle: var(--ctp-latte-mantle);
+  --palette-crust: var(--ctp-latte-crust);
+}
+
+.theme-frappe {
+  /* Base Shadcn Variables */
+  --background: var(--ctp-frappe-base);
+  --foreground: var(--ctp-frappe-text);
+  --card: var(--ctp-frappe-base);
+  --card-foreground: var(--ctp-frappe-text);
+  --popover: var(--ctp-frappe-base);
+  --popover-foreground: var(--ctp-frappe-text);
+  --secondary: var(--ctp-frappe-surface0);
+  --secondary-foreground: var(--ctp-frappe-text);
+  --muted: var(--ctp-frappe-surface0);
+  --muted-foreground: var(--ctp-frappe-subtext1);
+  --accent: var(--ctp-frappe-surface0);
+  --accent-foreground: var(--ctp-frappe-text);
+  --destructive: var(--ctp-frappe-red);
+  --border: var(--ctp-frappe-surface1);
+  --input: var(--ctp-frappe-surface1);
+  --ring: var(--ctp-frappe-text);
+  --chart-1: var(--ctp-frappe-red);
+  --chart-2: var(--ctp-frappe-teal);
+  --chart-3: var(--ctp-frappe-blue);
+  --chart-4: var(--ctp-frappe-yellow);
+  --chart-5: var(--ctp-frappe-green);
+  --sidebar: var(--ctp-frappe-mantle);
+  --sidebar-foreground: var(--ctp-frappe-text);
+  --sidebar-accent: var(--ctp-frappe-surface0);
+  --sidebar-accent-foreground: var(--ctp-frappe-text);
+  --sidebar-border: var(--ctp-frappe-surface1);
+  --sidebar-ring: var(--ctp-frappe-surface1);
+
+  /* Palette Middle Layer */
+  --palette-rosewater: var(--ctp-frappe-rosewater);
+  --palette-flamingo: var(--ctp-frappe-flamingo);
+  --palette-pink: var(--ctp-frappe-pink);
+  --palette-mauve: var(--ctp-frappe-mauve);
+  --palette-red: var(--ctp-frappe-red);
+  --palette-maroon: var(--ctp-frappe-maroon);
+  --palette-peach: var(--ctp-frappe-peach);
+  --palette-yellow: var(--ctp-frappe-yellow);
+  --palette-green: var(--ctp-frappe-green);
+  --palette-teal: var(--ctp-frappe-teal);
+  --palette-sky: var(--ctp-frappe-sky);
+  --palette-sapphire: var(--ctp-frappe-sapphire);
+  --palette-blue: var(--ctp-frappe-blue);
+  --palette-lavender: var(--ctp-frappe-lavender);
+  --palette-text: var(--ctp-frappe-text);
+  --palette-subtext1: var(--ctp-frappe-subtext1);
+  --palette-subtext0: var(--ctp-frappe-subtext0);
+  --palette-overlay2: var(--ctp-frappe-overlay2);
+  --palette-overlay1: var(--ctp-frappe-overlay1);
+  --palette-overlay0: var(--ctp-frappe-overlay0);
+  --palette-surface2: var(--ctp-frappe-surface2);
+  --palette-surface1: var(--ctp-frappe-surface1);
+  --palette-surface0: var(--ctp-frappe-surface0);
+  --palette-base: var(--ctp-frappe-base);
+  --palette-mantle: var(--ctp-frappe-mantle);
+  --palette-crust: var(--ctp-frappe-crust);
+}
+
+.theme-macchiato {
+  /* Base Shadcn Variables */
+  --background: var(--ctp-macchiato-base);
+  --foreground: var(--ctp-macchiato-text);
+  --card: var(--ctp-macchiato-base);
+  --card-foreground: var(--ctp-macchiato-text);
+  --popover: var(--ctp-macchiato-base);
+  --popover-foreground: var(--ctp-macchiato-text);
+  --secondary: var(--ctp-macchiato-surface0);
+  --secondary-foreground: var(--ctp-macchiato-text);
+  --muted: var(--ctp-macchiato-surface0);
+  --muted-foreground: var(--ctp-macchiato-subtext1);
+  --accent: var(--ctp-macchiato-surface0);
+  --accent-foreground: var(--ctp-macchiato-text);
+  --destructive: var(--ctp-macchiato-red);
+  --border: var(--ctp-macchiato-surface1);
+  --input: var(--ctp-macchiato-surface1);
+  --ring: var(--ctp-macchiato-text);
+  --chart-1: var(--ctp-macchiato-red);
+  --chart-2: var(--ctp-macchiato-teal);
+  --chart-3: var(--ctp-macchiato-blue);
+  --chart-4: var(--ctp-macchiato-yellow);
+  --chart-5: var(--ctp-macchiato-green);
+  --sidebar: var(--ctp-macchiato-mantle);
+  --sidebar-foreground: var(--ctp-macchiato-text);
+  --sidebar-accent: var(--ctp-macchiato-surface0);
+  --sidebar-accent-foreground: var(--ctp-macchiato-text);
+  --sidebar-border: var(--ctp-macchiato-surface1);
+  --sidebar-ring: var(--ctp-macchiato-surface1);
+
+  /* Palette Middle Layer */
+  --palette-rosewater: var(--ctp-macchiato-rosewater);
+  --palette-flamingo: var(--ctp-macchiato-flamingo);
+  --palette-pink: var(--ctp-macchiato-pink);
+  --palette-mauve: var(--ctp-macchiato-mauve);
+  --palette-red: var(--ctp-macchiato-red);
+  --palette-maroon: var(--ctp-macchiato-maroon);
+  --palette-peach: var(--ctp-macchiato-peach);
+  --palette-yellow: var(--ctp-macchiato-yellow);
+  --palette-green: var(--ctp-macchiato-green);
+  --palette-teal: var(--ctp-macchiato-teal);
+  --palette-sky: var(--ctp-macchiato-sky);
+  --palette-sapphire: var(--ctp-macchiato-sapphire);
+  --palette-blue: var(--ctp-macchiato-blue);
+  --palette-lavender: var(--ctp-macchiato-lavender);
+  --palette-text: var(--ctp-macchiato-text);
+  --palette-subtext1: var(--ctp-macchiato-subtext1);
+  --palette-subtext0: var(--ctp-macchiato-subtext0);
+  --palette-overlay2: var(--ctp-macchiato-overlay2);
+  --palette-overlay1: var(--ctp-macchiato-overlay1);
+  --palette-overlay0: var(--ctp-macchiato-overlay0);
+  --palette-surface2: var(--ctp-macchiato-surface2);
+  --palette-surface1: var(--ctp-macchiato-surface1);
+  --palette-surface0: var(--ctp-macchiato-surface0);
+  --palette-base: var(--ctp-macchiato-base);
+  --palette-mantle: var(--ctp-macchiato-mantle);
+  --palette-crust: var(--ctp-macchiato-crust);
+}
+
+.theme-mocha {
+  /* Base Shadcn Variables */
+  --background: var(--ctp-mocha-base);
+  --foreground: var(--ctp-mocha-text);
+  --card: var(--ctp-mocha-base);
+  --card-foreground: var(--ctp-mocha-text);
+  --popover: var(--ctp-mocha-base);
+  --popover-foreground: var(--ctp-mocha-text);
+  --secondary: var(--ctp-mocha-surface0);
+  --secondary-foreground: var(--ctp-mocha-text);
+  --muted: var(--ctp-mocha-surface0);
+  --muted-foreground: var(--ctp-mocha-subtext1);
+  --accent: var(--ctp-mocha-surface0);
+  --accent-foreground: var(--ctp-mocha-text);
+  --destructive: var(--ctp-mocha-red);
+  --border: var(--ctp-mocha-surface1);
+  --input: var(--ctp-mocha-surface1);
+  --ring: var(--ctp-mocha-text);
+  --chart-1: var(--ctp-mocha-red);
+  --chart-2: var(--ctp-mocha-teal);
+  --chart-3: var(--ctp-mocha-blue);
+  --chart-4: var(--ctp-mocha-yellow);
+  --chart-5: var(--ctp-mocha-green);
+  --sidebar: var(--ctp-mocha-mantle);
+  --sidebar-foreground: var(--ctp-mocha-text);
+  --sidebar-accent: var(--ctp-mocha-surface0);
+  --sidebar-accent-foreground: var(--ctp-mocha-text);
+  --sidebar-border: var(--ctp-mocha-surface1);
+  --sidebar-ring: var(--ctp-mocha-surface1);
+
+  /* Palette Middle Layer */
+  --palette-rosewater: var(--ctp-mocha-rosewater);
+  --palette-flamingo: var(--ctp-mocha-flamingo);
+  --palette-pink: var(--ctp-mocha-pink);
+  --palette-mauve: var(--ctp-mocha-mauve);
+  --palette-red: var(--ctp-mocha-red);
+  --palette-maroon: var(--ctp-mocha-maroon);
+  --palette-peach: var(--ctp-mocha-peach);
+  --palette-yellow: var(--ctp-mocha-yellow);
+  --palette-green: var(--ctp-mocha-green);
+  --palette-teal: var(--ctp-mocha-teal);
+  --palette-sky: var(--ctp-mocha-sky);
+  --palette-sapphire: var(--ctp-mocha-sapphire);
+  --palette-blue: var(--ctp-mocha-blue);
+  --palette-lavender: var(--ctp-mocha-lavender);
+  --palette-text: var(--ctp-mocha-text);
+  --palette-subtext1: var(--ctp-mocha-subtext1);
+  --palette-subtext0: var(--ctp-mocha-subtext0);
+  --palette-overlay2: var(--ctp-mocha-overlay2);
+  --palette-overlay1: var(--ctp-mocha-overlay1);
+  --palette-overlay0: var(--ctp-mocha-overlay0);
+  --palette-surface2: var(--ctp-mocha-surface2);
+  --palette-surface1: var(--ctp-mocha-surface1);
+  --palette-surface0: var(--ctp-mocha-surface0);
+  --palette-base: var(--ctp-mocha-base);
+  --palette-mantle: var(--ctp-mocha-mantle);
+  --palette-crust: var(--ctp-mocha-crust);
+}

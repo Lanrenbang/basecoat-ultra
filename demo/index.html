@@ -1,0 +1,1316 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Basecoat Demo</title>
+    <!-- Theme Initialization (Anti-Flash) -->
+    <script>
+      (function() {
+        try {
+          var mode = localStorage.getItem('basecoat-mode');
+          var theme = localStorage.getItem('catppuccin-theme');
+          var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          
+          // 1. Handle Dark Mode Polarity
+          if (!mode && !theme) {
+             if (supportDarkMode) document.documentElement.classList.add('dark');
+          } else {
+             if (mode === 'dark' || (theme && ['frappe', 'macchiato', 'mocha'].includes(theme))) {
+               document.documentElement.classList.add('dark');
+             } else {
+               document.documentElement.classList.remove('dark');
+             }
+          }
+          
+          // 2. Handle Catppuccin Specific Classes
+          if (theme) document.documentElement.classList.add('theme-' + theme);
+          var accent = localStorage.getItem('catppuccin-accent');
+          if (accent) document.documentElement.classList.add('accent-' + accent);
+        } catch (e) {}
+      })();
+    </script>
+    
+    <!-- Basecoat CSS -->
+    <link href="/src/css/basecoat.cdn.css" rel="stylesheet">
+    <link href="/src/css/datepicker.css" rel="stylesheet">
+    <link href="/src/css/resizable.css" rel="stylesheet">
+    <!-- Theme CSS (Catppuccin Mocha by default) -->
+    <link href="/dist/theme/catppuccin/index.css" rel="stylesheet">
+    
+    <!-- Highlight.js (Atom One Dark Theme) -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/atom-one-dark.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+
+    <!-- Basecoat JS -->
+    <script type="module" src="/src/js/index.js"></script>
+    <script src="/src/js/datepicker.js" type="module"></script>
+    <script src="/src/js/resizable.js" type="module"></script>
+</head>
+<body class="bg-background text-foreground antialiased flex min-h-screen overflow-hidden">
+
+  <!-- Sidebar -->
+  <aside class="sidebar h-screen sticky top-0 border-r bg-card z-40 flex-shrink-0" data-side="left" aria-hidden="false" id="main-sidebar">
+    <nav aria-label="Sidebar navigation" class="h-full flex flex-col w-64 bg-card border-r">
+      <header class="p-4 border-b h-14 flex items-center">
+        <a href="#" class="flex items-center gap-2 font-semibold text-lg">
+          <div class="bg-primary text-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="h-4 w-4"><rect width="256" height="256" fill="none"></rect><line x1="208" y1="128" x2="128" y2="208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></line><line x1="192" y1="40" x2="40" y2="192" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></line></svg>
+          </div>
+          <span>Basecoat Ultra</span>
+        </a>
+      </header>
+      <section class="scrollbar flex-1 overflow-y-auto p-4 space-y-6">
+        
+        <details open>
+          <summary>General</summary>
+          <ul class="space-y-1">
+            <li><a href="#button" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Button</a></li>
+            <li><a href="#button-group" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Button Group</a></li>
+            <li><a href="#badge" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Badge</a></li>
+            <li><a href="#kbd" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Kbd</a></li>
+          </ul>
+        </details>
+
+        <details open>
+          <summary>Forms & Inputs</summary>
+          <ul class="space-y-1">
+            <li><a href="#input" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Input</a></li>
+            <li><a href="#input-group" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Input Group</a></li>
+            <li><a href="#textarea" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Textarea</a></li>
+            <li><a href="#checkbox" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Checkbox</a></li>
+            <li><a href="#radio-group" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Radio Group</a></li>
+            <li><a href="#switch" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Switch</a></li>
+            <li><a href="#select" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Select</a></li>
+            <li><a href="#combobox" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Combobox</a></li>
+            <li><a href="#slider" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Slider</a></li>
+            <li><a href="#form" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Form & Field</a></li>
+          </ul>
+        </details>
+
+        <details open>
+          <summary>Navigation</summary>
+          <ul class="space-y-1">
+            <li><a href="#tabs" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Tabs</a></li>
+            <li><a href="#breadcrumb" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Breadcrumb</a></li>
+            <li><a href="#pagination" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Pagination</a></li>
+            <li><a href="#dropdown-menu" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Dropdown Menu</a></li>
+          </ul>
+        </details>
+
+        <details open>
+          <summary>Data Display</summary>
+          <ul class="space-y-1">
+            <li><a href="#card" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Card</a></li>
+            <li><a href="#accordion" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Accordion</a></li>
+            <li><a href="#table" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Table</a></li>
+            <li><a href="#avatar" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Avatar</a></li>
+            <li><a href="#item" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Item</a></li>
+          </ul>
+        </details>
+
+        <details open>
+          <summary>Feedback</summary>
+          <ul class="space-y-1">
+            <li><a href="#alert" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Alert</a></li>
+            <li><a href="#progress" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Progress</a></li>
+            <li><a href="#spinner" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Spinner</a></li>
+            <li><a href="#skeleton" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Skeleton</a></li>
+            <li><a href="#empty-state" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Empty State</a></li>
+          </ul>
+        </details>
+
+        <details open>
+          <summary>Overlays</summary>
+          <ul class="space-y-1">
+            <li><a href="#dialog" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Dialog & Alert</a></li>
+            <li><a href="#popover" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Popover</a></li>
+            <li><a href="#tooltip" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Tooltip</a></li>
+            <li><a href="#toast" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Toast</a></li>
+            <li><a href="#command" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Command</a></li>
+          </ul>
+        </details>
+
+        <details open>
+            <summary>Custom</summary>
+            <ul class="space-y-1">
+              <li><a href="#toggle" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Toggle</a></li>
+              <li><a href="#carousel" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Carousel</a></li>
+              <li><a href="#input-otp" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Input OTP</a></li>
+              <li><a href="#sheet" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Sheet</a></li>
+              <li><a href="#drawer" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Drawer</a></li>
+            </ul>
+        </details>
+
+        <details open>
+            <summary>External</summary>
+            <ul class="space-y-1">
+              <li><a href="#datepicker" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Date Picker</a></li>
+              <li><a href="#resizable" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">Resizable</a></li>
+            </ul>
+        </details>
+      </section>
+      <footer class="p-2 border-t">
+        <div class="popover w-full">
+            <button type="button" class="btn btn-ghost w-full justify-start gap-2 p-2 h-12" aria-expanded="false">
+                <div class="avatar size-8 rounded-lg overflow-hidden bg-muted">
+                    <img src="https://github.com/hunvreus.png" alt="@hunvreus" />
+                </div>
+                <div class="text-left flex-1 grid leading-tight">
+                    <span class="font-medium truncate text-sm">Ronan Berder</span>
+                    <span class="text-xs text-muted-foreground truncate">@hunvreus</span>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="text-muted-foreground opacity-50"><path d="m7 15 5 5 5-5"/><path d="m7 9 5-5 5 5"/></svg>
+            </button>
+            <section data-popover aria-hidden="true" data-side="top" class="w-60 p-1">
+                <div role="menu">
+                    <div role="heading" class="px-2 py-1.5 text-sm font-semibold text-muted-foreground">My Account</div>
+                    <button type="button" role="menuitem" class="w-full text-left cursor-default flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground">Profile</button>
+                    <button type="button" role="menuitem" class="w-full text-left cursor-default flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground">Settings</button>
+                    <hr role="separator" class="my-1 border-muted">
+                    <button type="button" role="menuitem" class="w-full text-left cursor-default flex items-center gap-2 rounded-sm px-2 py-1.5 text-sm hover:bg-accent hover:text-accent-foreground text-destructive">Logout</button>
+                </div>
+            </section>
+        </div>
+      </footer>
+    </nav>
+  </aside>
+
+  <!-- Main Content Wrapper -->
+  <main class="flex-1 min-w-0 h-screen overflow-y-auto bg-background flex flex-col scroll-pt-20">
+    
+    <!-- Top Header -->
+    <header class="bg-background sticky inset-x-0 top-0 isolate flex shrink-0 items-center gap-2 border-b z-30 h-14 px-4 shadow-sm">
+        <button
+            type="button"
+            onclick="document.dispatchEvent(new CustomEvent('basecoat:sidebar'))"
+            aria-label="Toggle sidebar"
+            class="btn btn-sm btn-ghost btn-icon -ml-2 text-muted-foreground hover:text-foreground"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M9 3v18"/></svg>
+        </button>
+        
+        <div class="h-4 w-px bg-border mx-2"></div>
+
+        <nav class="flex items-center text-sm text-muted-foreground">
+            <a href="#" class="hover:text-foreground transition-colors">Docs</a>
+            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-2 opacity-50"><path d="m9 18 6-6-6-6"/></svg>
+            <span class="font-medium text-foreground">Components</span>
+        </nav>
+
+        <div class="ml-auto flex items-center gap-2">
+           <div class="popover">
+               <button type="button" class="btn btn-sm btn-ghost btn-icon text-muted-foreground hover:text-foreground" title="Theme Switcher">
+                   <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>
+               </button>
+               <div data-popover aria-hidden="true" class="catppuccin-theme-switcher w-96 p-6 bg-secondary/50 backdrop-blur-sm" data-side="bottom" data-align="end">
+                   <div class="flex items-center justify-between mb-4">
+                       <h3 class="font-semibold text-sm">Theme Switcher</h3>
+                   </div>
+                   <!-- Flavors -->
+                   <div class="theme-flavors mb-6"></div>
+                   <!-- Accents -->
+                   <div class="theme-accents"></div>
+                   <!-- Footer -->
+                   <div class="mt-6 flex justify-center">
+                       <button type="button" class="theme-reset btn btn-sm btn-ghost text-muted-foreground hover:text-destructive w-full">
+                           Reset Theme
+                       </button>
+                   </div>
+               </div>
+           </div>
+           <a href="https://github.com/hunvreus/basecoat" target="_blank" class="btn btn-sm btn-ghost btn-icon text-muted-foreground hover:text-foreground">
+               <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"/></svg>
+           </a>
+        </div>
+    </header>
+
+    <div class="flex-1 p-8 lg:p-12 space-y-24 scroll-smooth max-w-4xl mx-auto w-full">
+      
+      <!-- General -->
+      <section id="general-section" class="space-y-12">
+        <h2 class="text-3xl font-bold tracking-tight border-b pb-2">General</h2>
+        
+        <div id="button" class="space-y-4">
+          <h3 class="text-xl font-semibold">Button</h3>
+          <div class="flex flex-wrap gap-4 items-center p-6 border rounded-lg bg-card">
+            <button class="btn">Default</button>
+            <button class="btn btn-primary">Primary</button>
+            <button class="btn btn-secondary">Secondary</button>
+            <button class="btn btn-outline">Outline</button>
+            <button class="btn btn-ghost">Ghost</button>
+            <button class="btn btn-destructive">Destructive</button>
+            <button class="btn btn-link">Link</button>
+          </div>
+          <div class="flex flex-wrap gap-4 items-center p-6 border rounded-lg bg-card">
+            <button class="btn btn-sm">Small</button>
+            <button class="btn btn-lg">Large</button>
+            <button class="btn btn-icon" aria-label="Icon only">
+              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m5 12 7-7 7 7"/><path d="M12 19V5"/></svg>
+            </button>
+            <button class="btn" disabled>Disabled</button>
+          </div>
+        </div>
+
+        <div id="button-group" class="space-y-4">
+          <h3 class="text-xl font-semibold">Button Group</h3>
+          <div class="p-6 border rounded-lg bg-card">
+            <div class="button-group">
+              <button class="btn btn-outline">Left</button>
+              <button class="btn btn-outline">Middle</button>
+              <button class="btn btn-outline">Right</button>
+            </div>
+          </div>
+        </div>
+
+        <div id="badge" class="space-y-4">
+            <h3 class="text-xl font-semibold">Badge</h3>
+            <div class="flex flex-wrap gap-2 p-6 border rounded-lg bg-card">
+                <span class="badge">Default</span>
+                <span class="badge badge-secondary">Secondary</span>
+                <span class="badge badge-destructive">Destructive</span>
+                <span class="badge badge-outline">Outline</span>
+            </div>
+        </div>
+
+        <div id="kbd" class="space-y-4">
+          <h3 class="text-xl font-semibold">Kbd</h3>
+          <div class="p-6 border rounded-lg bg-card">
+            <kbd class="kbd">⌘K</kbd>
+            <kbd class="kbd">Shift</kbd>
+          </div>
+        </div>
+      </section>
+
+      <!-- Forms & Inputs -->
+      <section id="forms-section" class="space-y-12">
+        <h2 class="text-3xl font-bold tracking-tight border-b pb-2">Forms & Inputs</h2>
+
+        <div id="input" class="space-y-4">
+          <h3 class="text-xl font-semibold">Input</h3>
+          <div class="grid gap-4 max-w-sm p-6 border rounded-lg bg-card">
+            <input type="text" class="input" placeholder="Text Input" />
+            <input type="email" class="input" placeholder="Email Address" />
+            <input type="password" class="input" value="password" />
+            <input type="text" class="input" placeholder="Disabled" disabled />
+          </div>
+        </div>
+
+        <div id="input-group" class="space-y-4">
+            <h3 class="text-xl font-semibold">Input Group</h3>
+            <div class="grid gap-6 max-w-sm p-6 border rounded-lg bg-card">
+                <!-- Icon Prefix -->
+                <div class="relative">
+                    <input type="text" class="input pl-9" placeholder="Search...">
+                    <div class="absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground [&>svg]:size-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                    </div>
+                </div>
+                <!-- Text Suffix -->
+                <div class="relative">
+                    <input type="text" class="input pr-12" placeholder="domain">
+                    <div class="absolute right-3 top-1/2 -translate-y-1/2 pointer-events-none text-muted-foreground text-sm">.com</div>
+                </div>
+                <!-- Button Suffix -->
+                <div class="relative">
+                    <input type="text" class="input pr-20" placeholder="Email">
+                    <button class="absolute right-1 top-1/2 -translate-y-1/2 btn btn-sm btn-secondary h-7">Invite</button>
+                </div>
+            </div>
+        </div>
+
+        <div id="textarea" class="space-y-4">
+            <h3 class="text-xl font-semibold">Textarea</h3>
+            <div class="max-w-sm p-6 border rounded-lg bg-card">
+                <textarea class="textarea" rows="3" placeholder="Type your message here..."></textarea>
+            </div>
+        </div>
+
+        <div id="checkbox" class="space-y-4">
+          <h3 class="text-xl font-semibold">Checkbox</h3>
+          <div class="flex flex-col gap-3 p-6 border rounded-lg bg-card">
+            <label class="label">
+              <input type="checkbox" class="input" />
+              <span>Accept terms and conditions</span>
+            </label>
+            <label class="label">
+              <input type="checkbox" class="input" checked />
+              <span>Subscribe to newsletter</span>
+            </label>
+          </div>
+        </div>
+
+        <div id="radio-group" class="space-y-4">
+            <h3 class="text-xl font-semibold">Radio Group</h3>
+            <div class="flex flex-col gap-3 p-6 border rounded-lg bg-card">
+                <label class="label">
+                    <input type="radio" name="demo-radio" class="input" checked />
+                    <span>Option A</span>
+                </label>
+                <label class="label">
+                    <input type="radio" name="demo-radio" class="input" />
+                    <span>Option B</span>
+                </label>
+            </div>
+        </div>
+
+        <div id="switch" class="space-y-4">
+            <h3 class="text-xl font-semibold">Switch</h3>
+            <div class="flex flex-col gap-3 p-6 border rounded-lg bg-card">
+                <label class="label">
+                    <input type="checkbox" role="switch" class="input" checked />
+                    <span>Airplane Mode</span>
+                </label>
+                <label class="label">
+                    <input type="checkbox" role="switch" class="input" />
+                    <span>Dark Mode</span>
+                </label>
+            </div>
+        </div>
+
+        <div id="select" class="space-y-4">
+            <h3 class="text-xl font-semibold">Select</h3>
+            <div class="grid gap-4 max-w-sm p-6 border rounded-lg bg-card h-48 items-start">
+                <!-- JS Select -->
+                <div class="select">
+                    <button type="button" class="btn btn-outline w-full justify-between" aria-expanded="false">
+                        <span>Framework</span>
+                        <svg class="opacity-50" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                    <input type="hidden" name="framework" />
+                    <section data-popover aria-hidden="true" class="w-full">
+                        <div role="listbox">
+                            <div role="option" data-value="next" data-label="Next.js">Next.js</div>
+                            <div role="option" data-value="svelte" data-label="SvelteKit">SvelteKit</div>
+                            <div role="option" data-value="nuxt" data-label="Nuxt.js">Nuxt.js</div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <div id="combobox" class="space-y-4">
+            <h3 class="text-xl font-semibold">Combobox</h3>
+            <div class="grid gap-4 max-w-sm p-6 border rounded-lg bg-card h-64 items-start">
+                <div class="select">
+                    <button type="button" class="btn btn-outline w-full justify-between" aria-expanded="false">
+                        <span>Select timezone...</span>
+                        <svg class="opacity-50" xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg>
+                    </button>
+                    <input type="hidden" name="timezone" />
+                    <section data-popover aria-hidden="true" class="w-full">
+                        <header class="flex items-center border-b px-3">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50 mr-2"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                            <input type="text" role="combobox" placeholder="Search timezone..." class="flex h-10 w-full bg-transparent py-3 text-sm outline-none placeholder:text-muted-foreground disabled:cursor-not-allowed disabled:opacity-50 border-none focus:ring-0" />
+                        </header>
+                        <div role="listbox" class="max-h-40 overflow-y-auto scrollbar">
+                            <div role="group">
+                                <div role="heading">Americas</div>
+                                <div role="option" data-value="ny">New York</div>
+                                <div role="option" data-value="la">Los Angeles</div>
+                            </div>
+                            <div role="group">
+                                <div role="heading">Europe</div>
+                                <div role="option" data-value="ldn">London</div>
+                                <div role="option" data-value="par">Paris</div>
+                            </div>
+                        </div>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <div id="slider" class="space-y-4">
+            <h3 class="text-xl font-semibold">Slider</h3>
+            <div class="max-w-sm p-6 border rounded-lg bg-card">
+                <input type="range" class="input w-full" />
+            </div>
+        </div>
+
+        <div id="form" class="space-y-4">
+            <h3 class="text-xl font-semibold">Form & Field</h3>
+            <div class="max-w-md p-6 border rounded-lg bg-card">
+                <form class="form space-y-4">
+                    <div class="field">
+                        <label for="f-email">Email Address</label>
+                        <input type="email" id="f-email" class="input" placeholder="name@example.com" />
+                        <p>We'll never share your email.</p>
+                    </div>
+                    <div class="field" data-invalid="true">
+                        <label for="f-username">Username</label>
+                        <input type="text" id="f-username" class="input" value="error_user" />
+                        <span role="alert">Username is already taken.</span>
+                    </div>
+                </form>
+            </div>
+        </div>
+      </section>
+
+      <!-- Navigation -->
+      <section id="nav-section" class="space-y-12">
+        <h2 class="text-3xl font-bold tracking-tight border-b pb-2">Navigation</h2>
+
+        <div id="tabs" class="space-y-4">
+            <h3 class="text-xl font-semibold">Tabs</h3>
+            <div class="p-6 border rounded-lg bg-card">
+                <div class="tabs">
+                    <div role="tablist">
+                      <button role="tab" aria-controls="p1" aria-selected="true" tabindex="0">General</button>
+                      <button role="tab" aria-controls="p2" aria-selected="false" tabindex="-1">Settings</button>
+                    </div>
+                    <section id="p1" role="tabpanel" class="p-4 border rounded-md mt-4">
+                      General Content
+                    </section>
+                    <section id="p2" role="tabpanel" hidden class="p-4 border rounded-md mt-4">
+                      Settings Content
+                    </section>
+                  </div>
+            </div>
+        </div>
+
+        <div id="breadcrumb" class="space-y-4">
+            <h3 class="text-xl font-semibold">Breadcrumb</h3>
+            <div class="p-6 border rounded-lg bg-card">
+                <nav aria-label="Breadcrumb" class="flex text-sm text-muted-foreground">
+                    <ol class="flex items-center gap-2">
+                        <li><a href="#" class="hover:text-foreground">Home</a></li>
+                        <li><span class="opacity-50">/</span></li>
+                        <li><a href="#" class="hover:text-foreground">Components</a></li>
+                        <li><span class="opacity-50">/</span></li>
+                        <li><span class="text-foreground font-medium">Breadcrumb</span></li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+
+        <div id="pagination" class="space-y-4">
+            <h3 class="text-xl font-semibold">Pagination</h3>
+            <div class="p-6 border rounded-lg bg-card">
+                <nav class="flex items-center gap-1">
+                    <button class="btn btn-ghost btn-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg></button>
+                    <button class="btn btn-outline w-9">1</button>
+                    <button class="btn btn-ghost w-9">2</button>
+                    <button class="btn btn-ghost w-9">3</button>
+                    <button class="btn btn-ghost btn-icon"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg></button>
+                </nav>
+            </div>
+        </div>
+
+        <div id="dropdown-menu" class="space-y-4">
+            <h3 class="text-xl font-semibold">Dropdown Menu</h3>
+            <div class="p-6 border rounded-lg bg-card h-48">
+                <div class="dropdown-menu">
+                    <button type="button" class="btn btn-outline" aria-expanded="false">Options</button>
+                    <div role="menu" data-popover aria-hidden="true" class="w-48">
+                        <div role="heading">Manage</div>
+                        <button role="menuitem">Profile</button>
+                        <button role="menuitem">Team</button>
+                        <hr role="separator">
+                        <button role="menuitem" class="text-destructive">Logout</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section>
+
+      <!-- Data Display -->
+      <section id="data-section" class="space-y-12">
+        <h2 class="text-3xl font-bold tracking-tight border-b pb-2">Data Display</h2>
+
+        <div id="card" class="space-y-4">
+            <h3 class="text-xl font-semibold">Card</h3>
+            <div class="max-w-md p-6 border rounded-lg bg-card">
+                <article class="card">
+                    <header>
+                        <h2>Card Title</h2>
+                        <p>A short description of the card.</p>
+                    </header>
+                    <section>
+                        <p>Card content goes here. Basecoat cards use semantic HTML.</p>
+                    </section>
+                    <footer>
+                        <button class="btn btn-primary w-full">Get Started</button>
+                    </footer>
+                </article>
+            </div>
+        </div>
+
+        <div id="accordion" class="space-y-4">
+            <h3 class="text-xl font-semibold">Accordion</h3>
+            <div class="max-w-md p-6 border rounded-lg bg-card">
+                <section class="accordion">
+                  <details class="group border-b last:border-b-0" open>
+                    <summary class="w-full flex items-center justify-between py-4 text-sm font-medium hover:underline cursor-pointer outline-none">
+                      Is it accessible?
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-200 group-open:rotate-180 text-muted-foreground"><path d="m6 9 6 6 6-6"/></svg>
+                    </summary>
+                    <div class="pb-4 text-sm text-muted-foreground">Yes. It adheres to the WAI-ARIA design pattern.</div>
+                  </details>
+                  <details class="group border-b last:border-b-0">
+                    <summary class="w-full flex items-center justify-between py-4 text-sm font-medium hover:underline cursor-pointer outline-none">
+                      Is it styled?
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="transition-transform duration-200 group-open:rotate-180 text-muted-foreground"><path d="m6 9 6 6 6-6"/></svg>
+                    </summary>
+                    <div class="pb-4 text-sm text-muted-foreground">Yes. It comes with default styles.</div>
+                  </details>
+                </section>
+            </div>
+        </div>
+
+        <div id="table" class="space-y-4">
+            <h3 class="text-xl font-semibold">Table</h3>
+            <div class="border rounded-lg overflow-hidden bg-card">
+                <table class="table">
+                    <thead>
+                        <tr>
+                            <th>User</th>
+                            <th>Status</th>
+                            <th>Role</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>Alice</td><td>Active</td><td>Admin</td></tr>
+                        <tr><td>Bob</td><td>Inactive</td><td>User</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div id="avatar" class="space-y-4">
+            <h3 class="text-xl font-semibold">Avatar</h3>
+            <div class="flex gap-4 p-6 border rounded-lg bg-card">
+                <div class="avatar h-10 w-10 overflow-hidden rounded-full bg-muted flex items-center justify-center">
+                    <img src="https://github.com/hunvreus.png" alt="Avatar" />
+                </div>
+                <div class="avatar h-10 w-10 overflow-hidden rounded-full bg-muted flex items-center justify-center">
+                    <span class="text-xs font-medium">RB</span>
+                </div>
+            </div>
+        </div>
+
+        <div id="item" class="space-y-4">
+            <h3 class="text-xl font-semibold">Item</h3>
+            <div class="max-w-sm border rounded-lg overflow-hidden bg-card">
+                <div class="flex items-center gap-3 p-3 hover:bg-muted cursor-pointer transition-colors border-b last:border-0">
+                    <div class="h-8 w-8 rounded-full bg-accent flex items-center justify-center">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+                    </div>
+                    <div class="flex-1">
+                        <div class="text-sm font-medium">Transactions</div>
+                        <div class="text-xs text-muted-foreground">Manage your billing history.</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section>
+
+      <!-- Feedback -->
+      <section id="feedback-section" class="space-y-12">
+        <h2 class="text-3xl font-bold tracking-tight border-b pb-2">Feedback</h2>
+
+        <div id="alert" class="space-y-4">
+            <h3 class="text-xl font-semibold">Alert</h3>
+            <div class="space-y-3 max-w-lg p-6 border rounded-lg bg-card">
+                <div role="alert" class="alert">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+                    <h5 class="font-medium">Information</h5>
+                    <section>A new version of Basecoat is available.</section>
+                </div>
+                <div role="alert" class="alert alert-destructive">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m15 9-6 6"/><path d="m9 9 6 6"/></svg>
+                    <h5 class="font-medium">Error</h5>
+                    <section>Failed to sync data with the server.</section>
+                </div>
+            </div>
+        </div>
+
+        <div id="progress" class="space-y-4">
+            <h3 class="text-xl font-semibold">Progress</h3>
+            <div class="max-w-sm p-6 border rounded-lg bg-card">
+                <div class="progress h-2 bg-muted rounded-full overflow-hidden">
+                    <div class="bg-primary h-full w-[45%]" role="progressbar" aria-valuenow="45"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="spinner" class="space-y-4">
+            <h3 class="text-xl font-semibold">Spinner</h3>
+            <div class="p-6 border rounded-lg bg-card">
+                <svg class="animate-spin h-6 w-6 text-primary" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path>
+                </svg>
+            </div>
+        </div>
+
+        <div id="skeleton" class="space-y-4">
+            <h3 class="text-xl font-semibold">Skeleton</h3>
+            <div class="flex items-center gap-4 p-6 border rounded-lg bg-card">
+                <div class="skeleton h-12 w-12 rounded-full bg-muted animate-pulse"></div>
+                <div class="space-y-2 flex-1">
+                    <div class="skeleton h-4 w-3/4 bg-muted animate-pulse rounded"></div>
+                    <div class="skeleton h-4 w-1/2 bg-muted animate-pulse rounded"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="empty-state" class="space-y-4">
+            <h3 class="text-xl font-semibold">Empty State</h3>
+            <div class="p-12 border border-dashed rounded-lg bg-card text-center flex flex-col items-center">
+                <div class="h-10 w-10 rounded-full bg-muted flex items-center justify-center mb-3 text-muted-foreground">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect width="18" height="18" x="3" y="3" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/></svg>
+                </div>
+                <h4 class="font-medium">No results found</h4>
+                <p class="text-sm text-muted-foreground">Try adjusting your search filters.</p>
+            </div>
+        </div>
+      </section>
+
+      <!-- Overlays -->
+      <section id="overlay-section" class="space-y-12">
+        <h2 class="text-3xl font-bold tracking-tight border-b pb-2">Overlays</h2>
+
+        <div id="dialog" class="space-y-4">
+            <h3 class="text-xl font-semibold">Dialog</h3>
+            <div class="flex gap-4 p-6 border rounded-lg bg-card">
+                <button class="btn btn-outline" onclick="document.getElementById('demo-modal').showModal()">Open Dialog</button>
+                <dialog id="demo-modal" class="dialog">
+                    <!-- Close button in top-right -->
+                    <form method="dialog">
+                        <button class="close" aria-label="Close">
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        </button>
+                    </form>
+                    
+                    <header>
+                        <h2>Edit Profile</h2>
+                        <p>Make changes to your profile here. Click save when you're done.</p>
+                    </header>
+                    <section class="py-4 space-y-4">
+                        <div class="grid grid-cols-4 items-center gap-4">
+                            <label class="text-right text-sm font-medium">Name</label>
+                            <input class="input col-span-3" value="Pedro Duarte">
+                        </div>
+                        <div class="grid grid-cols-4 items-center gap-4">
+                            <label class="text-right text-sm font-medium">Username</label>
+                            <input class="input col-span-3" value="@peduarte">
+                        </div>
+                    </section>
+                    <footer>
+                        <button class="btn btn-primary" onclick="document.getElementById('demo-modal').close()">Save changes</button>
+                    </footer>
+                </dialog>
+
+                <button class="btn btn-destructive" onclick="document.getElementById('demo-alert-dialog').showModal()">Open Alert Dialog</button>
+                <dialog id="demo-alert-dialog" class="dialog" role="alertdialog">
+                    <header>
+                        <h2>Are you absolutely sure?</h2>
+                        <p>This action cannot be undone. This will permanently delete your account.</p>
+                    </header>
+                    <footer>
+                        <button class="btn btn-outline" onclick="document.getElementById('demo-alert-dialog').close()">Cancel</button>
+                        <button class="btn btn-destructive" onclick="document.getElementById('demo-alert-dialog').close()">Delete</button>
+                    </footer>
+                </dialog>
+            </div>
+        </div>
+
+        <div id="popover" class="space-y-4">
+            <h3 class="text-xl font-semibold">Popover</h3>
+            <div class="p-6 border rounded-lg bg-card h-40">
+                <div class="popover">
+                    <button type="button" class="btn btn-outline">Popover</button>
+                    <section data-popover aria-hidden="true" class="p-4 w-64">
+                        <h4 class="font-medium mb-1">Popover Header</h4>
+                        <p class="text-sm text-muted-foreground">Basecoat popovers use vanilla JS to toggle aria-hidden.</p>
+                    </section>
+                </div>
+            </div>
+        </div>
+
+        <div id="tooltip" class="space-y-4">
+            <h3 class="text-xl font-semibold">Tooltip</h3>
+            <div class="flex gap-4 p-6 border rounded-lg bg-card">
+                <button class="btn btn-outline btn-sm" data-tooltip="Settings" data-side="top">Top</button>
+                <button class="btn btn-outline btn-sm" data-tooltip="User profile" data-side="bottom">Bottom</button>
+            </div>
+        </div>
+
+        <div id="toast" class="space-y-4">
+            <h3 class="text-xl font-semibold">Toast</h3>
+            <div class="flex gap-4 p-6 border rounded-lg bg-card">
+                <button class="btn btn-outline" onclick="document.dispatchEvent(new CustomEvent('basecoat:toast', { detail: { config: { title: 'Success!', description: 'Operation completed.', category: 'success' } } }))">Success Toast</button>
+                <button class="btn btn-outline" onclick="document.dispatchEvent(new CustomEvent('basecoat:toast', { detail: { config: { title: 'Warning', description: 'Action restricted.', category: 'warning' } } }))">Warning Toast</button>
+            </div>
+        </div>
+        
+        <div id="command" class="space-y-4">
+            <h3 class="text-xl font-semibold">Command</h3>
+            <div class="p-6 border rounded-lg bg-card">
+                <div class="command max-w-sm mx-auto bg-background border rounded-lg shadow-sm">
+                    <header>
+                        <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="opacity-50"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.3-4.3"/></svg>
+                        <input type="text" placeholder="Search..." />
+                    </header>
+                    <div role="menu">
+                        <div role="heading">Links</div>
+                        <button role="menuitem">Documentation</button>
+                        <button role="menuitem">GitHub Repository</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section>
+
+      <!-- Custom -->
+      <section id="custom-section" class="space-y-12">
+        <h2 class="text-3xl font-bold tracking-tight border-b pb-2">Custom</h2>
+
+        <div id="toggle" class="space-y-4">
+          <h3 class="text-xl font-semibold">Toggle</h3>
+          <div class="flex gap-4 p-6 border rounded-lg bg-card">
+              <button class="btn btn-outline toggle" aria-label="Toggle Bold" aria-pressed="false">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 12a4 4 0 0 0 0-8H6v8"/><path d="M15 20a4 4 0 0 0 0-8H6v8Z"/></svg>
+              </button>
+              <button class="btn btn-outline toggle" aria-pressed="true" aria-label="Toggle Italic">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" x2="10" y1="4" y2="4"/><line x1="14" x2="5" y1="20" y2="20"/><line x1="15" x2="9" y1="4" y2="20"/></svg>
+              </button>
+          </div>
+        </div>
+
+        <div id="toggle-group" class="space-y-4">
+            <h3 class="text-xl font-semibold">Toggle Group</h3>
+            <div class="p-6 border rounded-lg bg-card space-y-6">
+                <div>
+                    <h4 class="text-sm font-medium mb-2">Single (Merged)</h4>
+                    <div class="toggle-group toggle-group-outline" data-type="single">
+                        <button class="toggle" aria-pressed="true">B</button>
+                        <button class="toggle" aria-pressed="false">I</button>
+                        <button class="toggle" aria-pressed="false">U</button>
+                    </div>
+                </div>
+                 <div>
+                    <h4 class="text-sm font-medium mb-2">Multiple (Merged)</h4>
+                    <div class="toggle-group toggle-group-outline" data-type="multiple">
+                        <button class="toggle" aria-pressed="true">Bold</button>
+                        <button class="toggle" aria-pressed="false">Italic</button>
+                        <button class="toggle" aria-pressed="false">Underline</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="input-otp" class="space-y-4">
+            <h3 class="text-xl font-semibold">Input OTP</h3>
+            <div class="p-6 border rounded-lg bg-card space-y-8">
+                <div>
+                    <h4 class="text-sm font-medium mb-2">Default (Connected)</h4>
+                    <div class="input-otp">
+                        <div class="input-otp-group">
+                            <input type="text" class="input">
+                            <input type="text" class="input">
+                            <input type="text" class="input">
+                            <input type="text" class="input">
+                            <input type="text" class="input">
+                            <input type="text" class="input">
+                        </div>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-sm font-medium mb-2">Separated Groups</h4>
+                    <div class="input-otp">
+                        <div class="input-otp-group">
+                            <input type="text" class="input">
+                            <input type="text" class="input">
+                            <input type="text" class="input">
+                        </div>
+                        <hr>
+                        <div class="input-otp-group">
+                            <input type="text" class="input">
+                            <input type="text" class="input">
+                            <input type="text" class="input">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="carousel" class="space-y-4">
+            <h3 class="text-xl font-semibold">Carousel</h3>
+            <div class="p-12 border rounded-lg bg-card space-y-10">
+                <div>
+                    <h4 class="text-sm font-medium mb-4">Horizontal</h4>
+                    <div class="carousel w-full max-w-sm mx-auto">
+                        <div class="carousel-content -ml-4">
+                            <div class="carousel-item pl-4"><div class="p-1 h-48 rounded-lg bg-muted flex items-center justify-center text-4xl font-semibold">1</div></div>
+                            <div class="carousel-item pl-4"><div class="p-1 h-48 rounded-lg bg-muted flex items-center justify-center text-4xl font-semibold">2</div></div>
+                            <div class="carousel-item pl-4"><div class="p-1 h-48 rounded-lg bg-muted flex items-center justify-center text-4xl font-semibold">3</div></div>
+                            <div class="carousel-item pl-4"><div class="p-1 h-48 rounded-lg bg-muted flex items-center justify-center text-4xl font-semibold">4</div></div>
+                            <div class="carousel-item pl-4"><div class="p-1 h-48 rounded-lg bg-muted flex items-center justify-center text-4xl font-semibold">5</div></div>
+                        </div>
+                        <button class="carousel-previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                        </button>
+                        <button class="carousel-next">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </button>
+                    </div>
+                </div>
+
+                <div>
+                    <h4 class="text-sm font-medium mb-4">Vertical</h4>
+                    <div class="carousel w-full max-w-xs mx-auto" data-orientation="vertical" style="--carousel-height: 200px;">
+                        <div class="carousel-content -mt-4 pb-4">
+                            <div class="carousel-item pt-4"><div class="p-1 h-full rounded-lg bg-muted flex items-center justify-center text-4xl font-semibold">1</div></div>
+                            <div class="carousel-item pt-4"><div class="p-1 h-full rounded-lg bg-muted flex items-center justify-center text-4xl font-semibold">2</div></div>
+                            <div class="carousel-item pt-4"><div class="p-1 h-full rounded-lg bg-muted flex items-center justify-center text-4xl font-semibold">3</div></div>
+                             <div class="carousel-item pt-4"><div class="p-1 h-full rounded-lg bg-muted flex items-center justify-center text-4xl font-semibold">4</div></div>
+                            <div class="carousel-item pt-4"><div class="p-1 h-full rounded-lg bg-muted flex items-center justify-center text-4xl font-semibold">5</div></div>
+                        </div>
+                        <button class="carousel-previous">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m15 18-6-6 6-6"/></svg>
+                        </button>
+                        <button class="carousel-next">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"/></svg>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+      
+<div id="sheet" class="space-y-4">
+            <h3 class="text-xl font-semibold">Sheet</h3>
+            <div class="flex flex-wrap gap-4 p-6 border rounded-lg bg-card">
+                <button class="btn btn-outline" data-toggle="sheet" data-target="sheet-left">Left Sheet</button>
+                <button class="btn btn-outline" data-toggle="sheet" data-target="sheet-right">Right Sheet</button>
+                <button class="btn btn-outline" data-toggle="sheet" data-target="sheet-top">Top Sheet</button>
+                <button class="btn btn-outline" data-toggle="sheet" data-target="sheet-bottom">Bottom Sheet</button>
+
+                <!-- Sheet Components -->
+                <div id="sheet-left" class="sheet" aria-hidden="true">
+                    <div class="sheet-content" data-side="left">
+                        <button class="absolute right-4 top-4 opacity-70 hover:opacity-100" data-close>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        </button>
+                        <h2 class="text-lg font-semibold">Left Sheet</h2>
+                        <p class="text-sm text-muted-foreground mt-2">This sheet slides in from the left.</p>
+                    </div>
+                </div>
+                <div id="sheet-right" class="sheet" aria-hidden="true">
+                    <div class="sheet-content" data-side="right">
+                        <button class="absolute right-4 top-4 opacity-70 hover:opacity-100" data-close>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        </button>
+                        <h2 class="text-lg font-semibold">Right Sheet</h2>
+                        <p class="text-sm text-muted-foreground mt-2">This sheet slides in from the right.</p>
+                        <div class="mt-8">
+                            <label class="label mb-2">Edit Profile</label>
+                            <input class="input" placeholder="Name">
+                        </div>
+                        <div class="mt-4 flex justify-end">
+                            <button class="btn btn-primary" data-close>Save changes</button>
+                        </div>
+                    </div>
+                </div>
+                <div id="sheet-top" class="sheet" aria-hidden="true">
+                    <div class="sheet-content" data-side="top">
+                        <button class="absolute right-4 top-4 opacity-70 hover:opacity-100" data-close>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        </button>
+                         <h2 class="text-lg font-semibold">Top Sheet</h2>
+                         <p class="text-sm text-muted-foreground mt-2">This sheet slides in from the top.</p>
+                    </div>
+                </div>
+                 <div id="sheet-bottom" class="sheet" aria-hidden="true">
+                    <div class="sheet-content" data-side="bottom">
+                        <button class="absolute right-4 top-4 opacity-70 hover:opacity-100" data-close>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4"><path d="M18 6 6 18"/><path d="m6 6 12 12"/></svg>
+                        </button>
+                         <h2 class="text-lg font-semibold">Bottom Sheet</h2>
+                         <p class="text-sm text-muted-foreground mt-2">This sheet slides in from the bottom.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        
+<div id="drawer" class="space-y-4">
+            <h3 class="text-xl font-semibold">Drawer</h3>
+            <div class="flex gap-4 p-6 border rounded-lg bg-card">
+                <button class="btn btn-outline" data-toggle="drawer" data-target="demo-drawer">Open Drawer</button>
+                <div id="demo-drawer" class="drawer" aria-hidden="true">
+                    <div class="drawer-content">
+                        <div class="mx-auto mt-4 h-2 w-[100px] rounded-full bg-muted cursor-grab active:cursor-grabbing"></div>
+                        <div class="p-4 text-center sm:text-left">
+                            <h2 class="text-lg font-semibold leading-none tracking-tight">Move Goal</h2>
+                            <p class="text-sm text-muted-foreground mt-1.5">Set your daily activity goal.</p>
+                        </div>
+                        <div class="p-4 pb-0">
+                           <div class="flex items-center justify-center space-x-2">
+                              <button class="btn btn-outline btn-icon rounded-full" onclick="document.getElementById('goal-val').innerText = Math.max(0, parseInt(document.getElementById('goal-val').innerText) - 10)">
+                                  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/></svg>
+                              </button>
+                              <div class="flex-1 text-center">
+                                  <div class="text-7xl font-bold tracking-tighter" id="goal-val">350</div>
+                                  <div class="text-[0.70rem] uppercase text-muted-foreground">Calories/day</div>
+                              </div>
+                              <button class="btn btn-outline btn-icon rounded-full" onclick="document.getElementById('goal-val').innerText = parseInt(document.getElementById('goal-val').innerText) + 10">
+                                   <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14"/><path d="M12 5v14"/></svg>
+                              </button>
+                           </div>
+                        </div>
+                        <div class="mt-auto flex flex-col gap-2 p-4">
+                            <button class="btn btn-primary" data-close>Submit</button>
+                            <button class="btn btn-outline" data-close>Cancel</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        </section>
+
+      <!-- External -->
+      <section id="external-section" class="space-y-12">
+        <h2 class="text-3xl font-bold tracking-tight border-b pb-2">External</h2>
+        
+        <div id="datepicker" class="space-y-4">
+            <h3 class="text-xl font-semibold">Date Picker (Flatpickr)</h3>
+            <div class="flex flex-col gap-6 p-6 border rounded-lg bg-card h-auto">
+                <div class="max-w-xs">
+                    <label class="label">Date</label>
+                    <input type="text" class="input datepicker" placeholder="Select date">
+                </div>
+                
+                <div class="max-w-xs">
+                    <label class="label">Date & Time</label>
+                    <input type="text" class="input datepicker" data-enable-time="true" data-date-format="Y-m-d H:i" placeholder="Select date & time">
+                </div>
+
+                <div class="max-w-xs">
+                    <label class="label">Date Range</label>
+                    <input type="text" class="input datepicker" data-mode="range" placeholder="Select range">
+                </div>
+
+                <div class="max-w-xs">
+                    <label class="label">Inline Calendar</label>
+                    <div class="datepicker" data-inline="true"></div>
+                </div>
+            </div>
+        </div>
+
+        <div id="resizable" class="space-y-4">
+            <h3 class="text-xl font-semibold">Resizable (Split.js)</h3>
+            <div class="border rounded-lg bg-card overflow-hidden h-[300px]">
+                <div class="resizable-group h-full flex">
+                    <div class="bg-muted/30 p-4 flex items-center justify-center">
+                        <span class="font-semibold">Sidebar</span>
+                    </div>
+                    <div class="resizable-group flex flex-col" data-direction="vertical">
+                         <div class="bg-background p-4 flex items-center justify-center h-full">
+                            <span class="font-semibold">Top Panel</span>
+                         </div>
+                         <div class="bg-muted/30 p-4 flex items-center justify-center h-full">
+                            <span class="font-semibold">Bottom Panel</span>
+                         </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+      </section>
+
+    </div>
+  </main>
+  
+  <section id="toaster" class="toaster"></section>
+
+  <!-- Demo Scripts: Auto-Generate Preview/Code Tabs -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        // Robust DOM-based HTML Formatter
+        const formatHTML = (code) => {
+            const div = document.createElement('div');
+            div.innerHTML = code.trim();
+            
+            const formatNode = (node, level) => {
+                const indent = '  '.repeat(level);
+                
+                // Text Node
+                if (node.nodeType === 3) {
+                    const text = node.textContent.trim();
+                    if (!text) return '';
+                    return indent + text + '\n';
+                }
+                
+                // Element Node
+                if (node.nodeType === 1) {
+                    const tagName = node.tagName.toLowerCase();
+                    let output = indent + '<' + tagName;
+                    
+                    // Attributes
+                    Array.from(node.attributes).forEach(attr => {
+                        output += ` ${attr.name}="${attr.value}"`;
+                    });
+                    
+                    // Void elements (self-closing)
+                    const voidElements = ['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'param', 'source', 'track', 'wbr'];
+                    if (voidElements.includes(tagName)) {
+                        return output + ' />\n';
+                    }
+                    
+                    output += '>';
+                    
+                    // Children
+                    const children = Array.from(node.childNodes);
+                    if (children.length > 0) {
+                        // Special case: Single short text child -> Keep inline
+                        if (children.length === 1 && children[0].nodeType === 3) {
+                            const text = children[0].textContent.trim();
+                            if (text.length < 60 && !text.includes('\n')) {
+                                return output + text + `</${tagName}>\n`;
+                            }
+                        }
+                        
+                        output += '\n';
+                        children.forEach(child => {
+                            output += formatNode(child, level + 1);
+                        });
+                        output += indent + `</${tagName}>\n`;
+                    } else {
+                        // Empty element
+                         output += `</${tagName}>\n`;
+                    }
+                    return output;
+                }
+                return '';
+            };
+            
+            let result = '';
+            Array.from(div.childNodes).forEach(node => {
+                result += formatNode(node, 0);
+            });
+            return result.trim();
+        };
+
+        const escapeHTML = (str) => {
+             return str.replace(/&/g, "&amp;")
+                       .replace(/</g, "&lt;")
+                       .replace(/>/g, "&gt;")
+                       .replace(/"/g, "&quot;")
+                       .replace(/'/g, "&#039;");
+        };
+
+        // Select all standard example containers (bg-card + border + rounded-lg)
+        // We exclude the sidebar itself which also has these classes sometimes, but is in <aside> or <nav>
+        // The examples are all <div>s
+        const examples = document.querySelectorAll('div.bg-card.border.rounded-lg');
+        
+        examples.forEach((example, index) => {
+            // Skip if it's already processed or inside another example
+            if(example.closest('.tabs-generated')) return;
+
+            // 1. Get Source Code (clean up internal attributes if any)
+            let sourceCode = example.innerHTML
+                .replace(/ class=""/g, '')
+                .replace(/ style=""/g, '')
+                .trim();
+            
+            // Format
+            const prettyCode = formatHTML(sourceCode);
+            const escapedCode = escapeHTML(prettyCode);
+
+            // 2. Build Tabs Structure
+            const uid = `demo-ex-${index}`;
+            
+            const tabsContainer = document.createElement('div');
+            // FIX 1: Removed 'tabs' class to avoid inheriting Basecoat's default pill-style tabs (which caused full width and borders)
+            tabsContainer.className = 'w-full tabs-generated mb-12'; 
+            
+            // Header (Tab List)
+            const tabList = document.createElement('div');
+            tabList.setAttribute('role', 'tablist');
+            tabList.className = 'mb-4 border-b w-full flex gap-6'; 
+            
+            const createTab = (text, type, selected) => {
+                const btn = document.createElement('button');
+                // FIX 2 & 3: Added 'relative' to contain pseudo-elements, and 'no-shine no-lift' to disable unwanted effects
+                btn.className = `relative no-shine no-lift pb-2 text-sm font-medium border-b-2 transition-colors ${selected ? 'border-primary text-primary' : 'border-transparent text-muted-foreground hover:text-foreground'}`;
+                btn.setAttribute('role', 'tab');
+                btn.setAttribute('aria-controls', `${uid}-${type}`);
+                btn.setAttribute('aria-selected', String(selected));
+                btn.textContent = text;
+                return btn;
+            };
+
+            const btnPreview = createTab('Preview', 'preview', true);
+            const btnCode = createTab('Code', 'code', false);
+            
+            // --- Tab Switching Logic (Custom JS) ---
+            const switchTab = (targetBtn) => {
+                const isPreview = targetBtn === btnPreview;
+                
+                // Update Buttons
+                btnPreview.setAttribute('aria-selected', String(isPreview));
+                btnCode.setAttribute('aria-selected', String(!isPreview));
+                
+                // Update Classes (Visuals)
+                const activeClass = 'border-primary text-primary';
+                const inactiveClass = 'border-transparent text-muted-foreground hover:text-foreground';
+                
+                if (isPreview) {
+                    btnPreview.className = btnPreview.className.replace(inactiveClass, activeClass);
+                    btnCode.className = btnCode.className.replace(activeClass, inactiveClass);
+                } else {
+                    btnCode.className = btnCode.className.replace(inactiveClass, activeClass);
+                    btnPreview.className = btnPreview.className.replace(activeClass, inactiveClass);
+                }
+
+                // Toggle Panels
+                panelPreview.hidden = !isPreview;
+                panelCode.hidden = isPreview;
+            };
+
+            btnPreview.addEventListener('click', () => switchTab(btnPreview));
+            btnCode.addEventListener('click', () => switchTab(btnCode));
+
+            
+            tabList.appendChild(btnPreview);
+            tabList.appendChild(btnCode);
+            
+            // Panel: Preview
+            const panelPreview = document.createElement('section');
+            panelPreview.id = `${uid}-preview`;
+            panelPreview.setAttribute('role', 'tabpanel');
+            panelPreview.className = 'w-full';
+            
+            // Panel: Code (With Copy Button)
+            const panelCode = document.createElement('section');
+            panelCode.id = `${uid}-code`;
+            panelCode.setAttribute('role', 'tabpanel');
+            panelCode.hidden = true;
+            panelCode.className = 'w-full mt-4 group relative'; // added relative for copy btn positioning
+
+            // Copy Button HTML
+            const copyBtnHTML = `
+                <button class="absolute top-2 right-2 p-2 rounded-md bg-muted/80 hover:bg-muted text-muted-foreground hover:text-foreground transition-all opacity-0 group-hover:opacity-100 focus:opacity-100 z-10" title="Copy code" aria-label="Copy code">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="copy-icon"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="check-icon hidden text-green-500"><polyline points="20 6 9 17 4 12"/></svg>
+                </button>
+            `;
+            
+            panelCode.innerHTML = `<div class="relative rounded-lg bg-[#282c34] p-4 overflow-x-auto text-left shadow-inner text-white">${copyBtnHTML}<pre><code class="language-html text-sm font-mono leading-relaxed bg-transparent p-0 border-0">${escapedCode}</code></pre></div>`;
+
+            // Copy Logic
+            const copyBtn = panelCode.querySelector('button');
+            copyBtn.addEventListener('click', async () => {
+                try {
+                    await navigator.clipboard.writeText(prettyCode);
+                    
+                    // Show Check Icon
+                    const copyIcon = copyBtn.querySelector('.copy-icon');
+                    const checkIcon = copyBtn.querySelector('.check-icon');
+                    copyIcon.classList.add('hidden');
+                    checkIcon.classList.remove('hidden');
+                    
+                    setTimeout(() => {
+                        copyIcon.classList.remove('hidden');
+                        checkIcon.classList.add('hidden');
+                    }, 2000);
+                } catch (err) {
+                    console.error('Failed to copy!', err);
+                }
+            });
+
+            // DOM Manipulation
+            // Insert tabs container before example
+            example.parentNode.insertBefore(tabsContainer, example);
+            
+            // Assemble Tabs
+            tabsContainer.appendChild(tabList);
+            tabsContainer.appendChild(panelPreview);
+            tabsContainer.appendChild(panelCode);
+            
+            // Move original example into Preview Panel
+            panelPreview.appendChild(example);
+        });
+
+        // Initialize Highlighting
+        if (window.hljs) window.hljs.highlightAll();
+
+        // Re-initialize Basecoat components to catch the newly created Tabs
+        if (window.basecoat) window.basecoat.initAll();
+    });
+  </script>
+
+  <!-- Demo Scripts: Scroll Restoration & ScrollSpy -->
+  <script>
+    (() => {
+        const main = document.querySelector('main');
+        const storageKey = 'basecoat-demo-scroll-pos';
+
+        // --- 1. Scroll Position Restoration ---
+        const restoreScroll = () => {
+            // Only restore if no hash is present, to allow anchor linking to work
+            if (!window.location.hash) {
+                const savedPos = sessionStorage.getItem(storageKey);
+                if (savedPos) {
+                    main.scrollTop = parseInt(savedPos, 10);
+                }
+            }
+        };
+        restoreScroll();
+        // Double check for dynamic layout shifts
+        requestAnimationFrame(restoreScroll);
+
+        const saveScroll = () => {
+            sessionStorage.setItem(storageKey, main.scrollTop);
+        };
+        window.addEventListener('beforeunload', saveScroll);
+
+
+        // --- 2. ScrollSpy (Sidebar Highlighting) ---
+        // Automatically highlight sidebar links based on scroll position
+        const observerOptions = {
+            root: main,
+            rootMargin: '-10% 0px -80% 0px', // Trigger when section is near top
+            threshold: 0
+        };
+
+        const sidebarLinks = document.querySelectorAll('#main-sidebar a');
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const id = entry.target.id;
+                    // Update Sidebar state visually
+                    // We manually set aria-current, effectively "overriding" sidebar.js logic while scrolling
+                    sidebarLinks.forEach(link => {
+                        const href = link.getAttribute('href');
+                        if (href === `#${id}`) {
+                            link.setAttribute('aria-current', 'page');
+                            // Ensure the active link is visible in the sidebar
+                            link.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+                        } else {
+                            link.removeAttribute('aria-current');
+                        }
+                    });
+                }
+            });
+        }, observerOptions);
+
+        // Observe all sections that have an ID matching a sidebar link
+        sidebarLinks.forEach(link => {
+            const href = link.getAttribute('href');
+            if (href && href.startsWith('#')) {
+                const section = document.getElementById(href.substring(1));
+                if (section) observer.observe(section);
+            }
+        });
+
+    })();
+  </script>
+
+</body>
+</html>

@@ -1,0 +1,55 @@
+/* Range */
+@layer components {
+  :is(.form, .field) input[type='range'],
+  .input[type='range'],
+  .slider {
+    @apply appearance-none flex items-center p-0 outline-none;
+    --slider-value: 0%; /* Default value, updated by JS */
+
+    &:hover,
+    &:focus-visible {
+      &::-webkit-slider-thumb {
+        @apply ring-4 ring-ring/20 shadow-sm;
+      }
+      &::-moz-range-thumb {
+        @apply ring-4 ring-ring/20 shadow-sm;
+      }
+      &::-ms-thumb {
+        @apply ring-4 ring-ring/20 shadow-sm;
+      }
+    }
+
+    &::-webkit-slider-thumb {
+      @apply appearance-none block size-4 shrink-0 rounded-full border border-primary bg-background shadow-sm -mt-1.25 cursor-pointer transition-[box-shadow];
+    }
+    &::-webkit-slider-runnable-track {
+      @apply appearance-none rounded-full h-1.5 w-full cursor-pointer;
+      background: linear-gradient(to right, var(--primary) var(--slider-value), var(--muted) var(--slider-value));
+    }
+    
+    &::-moz-range-thumb {
+      @apply appearance-none block size-4 shrink-0 rounded-full border border-primary bg-background shadow-sm -mt-1.25 cursor-pointer transition-[box-shadow];
+    }
+    &::-moz-range-track {
+      @apply appearance-none rounded-full h-1.5 w-full cursor-pointer;
+      background: linear-gradient(to right, var(--primary) var(--slider-value), var(--muted) var(--slider-value));
+    }
+
+    &::-ms-thumb {
+      @apply appearance-none block size-4 shrink-0 rounded-full border border-primary bg-background shadow-sm -mt-1.25 cursor-pointer transition-[box-shadow];
+    }
+    &::-ms-track {
+      @apply appearance-none rounded-full h-1.5 w-full cursor-pointer;
+      background: transparent; 
+      border-color: transparent;
+      color: transparent;
+    }
+    &::-ms-fill-lower {
+      @apply bg-primary rounded-full;
+    }
+    &::-ms-fill-upper {
+      @apply bg-muted rounded-full;
+    }
+  }
+}
+

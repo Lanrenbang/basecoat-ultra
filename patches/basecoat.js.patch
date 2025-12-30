@@ -1,0 +1,1191 @@
+diff -Nru ./references/basecoat/src/js/accordion.js ./src/js/accordion.js
+--- ./references/basecoat/src/js/accordion.js	1969-12-31 16:00:00.000000000 -0800
++++ ./src/js/accordion.js	2025-12-28 09:15:58.748709757 -0800
+@@ -0,0 +1,24 @@
++(() => {
++  const initAccordion = (accordion) => {
++    accordion.addEventListener('click', (event) => {
++      const summary = event.target.closest('summary');
++      if (!summary) return;
++      const details = summary.closest('details');
++      if (!details) return;
++      
++      // Close other details in the same accordion
++      accordion.querySelectorAll('details').forEach(detailsEl => {
++        if (detailsEl !== details) {
++          detailsEl.removeAttribute('open');
++        }
++      });
++    });
++    
++    accordion.dataset.accordionInitialized = true;
++    accordion.dispatchEvent(new CustomEvent('basecoat:initialized'));
++  };
++
++  if (window.basecoat) {
++    window.basecoat.register('accordion', '.accordion:not([data-accordion-initialized])', initAccordion);
++  }
++})();
+diff -Nru ./references/basecoat/src/js/basecoat.js ./src/js/basecoat.js
+--- ./references/basecoat/src/js/basecoat.js	2025-12-23 02:13:27.997266335 -0800
++++ ./src/js/basecoat.js	2025-12-29 10:48:17.602780519 -0800
+@@ -40,10 +40,14 @@
+   const startObserver = () => {
+     if (observer) return;
+     
++    let timeout;
+     observer = new MutationObserver((mutations) => {
+-      mutations.forEach((mutation) => {
+-        mutation.addedNodes.forEach(initNewComponents);
+-      });
++      clearTimeout(timeout);
++      timeout = setTimeout(() => {
++        mutations.forEach((mutation) => {
++          mutation.addedNodes.forEach(initNewComponents);
++        });
++      }, 50);
+     });
+     
+     observer.observe(document.body, { childList: true, subtree: true });
+diff -Nru ./references/basecoat/src/js/carousel.js ./src/js/carousel.js
+--- ./references/basecoat/src/js/carousel.js	1969-12-31 16:00:00.000000000 -0800
++++ ./src/js/carousel.js	2025-12-28 09:15:58.748870533 -0800
+@@ -0,0 +1,120 @@
++(() => {
++  const initCarousel = (carousel) => {
++    const content = carousel.querySelector('.carousel-content');
++    const prevBtn = carousel.querySelector('.carousel-previous');
++    const nextBtn = carousel.querySelector('.carousel-next');
++    const orientation = carousel.dataset.orientation || 'horizontal';
++    
++    if (!content) return;
++
++    const getScrollAmount = () => {
++        const firstItem = content.querySelector('.carousel-item');
++        if (!firstItem) return orientation === 'vertical' ? content.offsetHeight : content.offsetWidth;
++        
++        const style = window.getComputedStyle(firstItem);
++        if (orientation === 'vertical') {
++            const itemHeight = firstItem.offsetHeight;
++            const marginTop = parseFloat(style.marginTop);
++            const marginBottom = parseFloat(style.marginBottom);
++            return itemHeight + marginTop + marginBottom;
++        } else {
++            const itemWidth = firstItem.offsetWidth;
++            const marginLeft = parseFloat(style.marginLeft);
++            const marginRight = parseFloat(style.marginRight);
++            return itemWidth + marginLeft + marginRight;
++        }
++    };
++
++    const scroll = (direction) => {
++        const amount = getScrollAmount();
++        const value = direction === 'next' ? amount : -amount;
++        
++        if (orientation === 'vertical') {
++             content.scrollBy({ top: value, behavior: 'smooth' });
++        } else {
++             content.scrollBy({ left: value, behavior: 'smooth' });
++        }
++    };
++
++    const updateButtons = () => {
++        if (!prevBtn && !nextBtn) return;
++        
++        const { scrollLeft, scrollTop, scrollWidth, scrollHeight, clientWidth, clientHeight } = content;
++        
++        if (orientation === 'vertical') {
++            const canScrollPrev = scrollTop > 1;
++            const canScrollNext = scrollTop < scrollHeight - clientHeight - 1;
++            
++            if (prevBtn) {
++                prevBtn.disabled = !canScrollPrev;
++                prevBtn.setAttribute('aria-disabled', String(!canScrollPrev));
++            }
++            if (nextBtn) {
++                nextBtn.disabled = !canScrollNext;
++                nextBtn.setAttribute('aria-disabled', String(!canScrollNext));
++            }
++        } else {
++            const canScrollPrev = scrollLeft > 1;
++            const canScrollNext = scrollLeft < scrollWidth - clientWidth - 1;
++            
++            if (prevBtn) {
++                prevBtn.disabled = !canScrollPrev;
++                prevBtn.setAttribute('aria-disabled', String(!canScrollPrev));
++            }
++            if (nextBtn) {
++                nextBtn.disabled = !canScrollNext;
++                nextBtn.setAttribute('aria-disabled', String(!canScrollNext));
++            }
++        }
++    };
++
++    if (prevBtn) {
++        prevBtn.addEventListener('click', () => scroll('prev'));
++    }
++    if (nextBtn) {
++        nextBtn.addEventListener('click', () => scroll('next'));
++    }
++
++    let ticking = false;
++    content.addEventListener('scroll', () => {
++        if (!ticking) {
++            window.requestAnimationFrame(() => {
++                updateButtons();
++                ticking = false;
++            });
++            ticking = true;
++        }
++    }, { passive: true });
++    
++    carousel.addEventListener('keydown', (e) => {
++        if (orientation === 'vertical') {
++            if (e.key === 'ArrowUp') {
++                e.preventDefault();
++                prevBtn?.click();
++            } else if (e.key === 'ArrowDown') {
++                e.preventDefault();
++                nextBtn?.click();
++            }
++        } else {
++            if (e.key === 'ArrowLeft') {
++                e.preventDefault();
++                prevBtn?.click(); 
++            } else if (e.key === 'ArrowRight') {
++                e.preventDefault();
++                nextBtn?.click(); 
++            }
++        }
++    });
++
++    const resizeObserver = new ResizeObserver(updateButtons);
++    resizeObserver.observe(content);
++
++    updateButtons();
++    carousel.dataset.carouselInitialized = true;
++    carousel.dispatchEvent(new CustomEvent('basecoat:initialized'));
++  };
++
++  if (window.basecoat) {
++    window.basecoat.register('carousel', '.carousel:not([data-carousel-initialized])', initCarousel);
++  }
++})();
+\ 文件末尾没有换行符
+diff -Nru ./references/basecoat/src/js/catppuccin-theme-switcher.js ./src/js/catppuccin-theme-switcher.js
+--- ./references/basecoat/src/js/catppuccin-theme-switcher.js	1969-12-31 16:00:00.000000000 -0800
++++ ./src/js/catppuccin-theme-switcher.js	2025-12-30 00:46:24.523276748 -0800
+@@ -0,0 +1,199 @@
++(() => {
++  const THEMES = ['latte', 'frappe', 'macchiato', 'mocha'];
++  const DARK_THEMES = ['frappe', 'macchiato', 'mocha'];
++  const ACCENTS = [
++    'rosewater', 'flamingo', 'pink', 'mauve', 'red', 'maroon', 'peach',
++    'yellow', 'green', 'teal', 'sky', 'sapphire', 'blue', 'lavender'
++  ];
++
++  /**
++   * Returns a map of accent names to their CSS variable values for a specific theme.
++   */
++  function getThemePreviewColors(theme) {
++    if (!THEMES.includes(theme)) return {};
++    const colors = { background: `var(--ctp-${theme}-base)` };
++    ACCENTS.forEach(accent => {
++      colors[accent] = `var(--ctp-${theme}-${accent})`;
++    });
++    return colors;
++  }
++
++  /**
++   * Sets the global theme and accent color.
++   */
++  function setTheme(theme, accent) {
++    const root = document.documentElement;
++    THEMES.forEach(t => root.classList.remove(`theme-${t}`));
++    ACCENTS.forEach(a => root.classList.remove(`accent-${a}`));
++
++    root.classList.add(`theme-${theme}`);
++    root.classList.add(`accent-${accent}`);
++
++    if (DARK_THEMES.includes(theme)) {
++      root.classList.add('dark');
++    } else {
++      root.classList.remove('dark');
++    }
++
++    try {
++      localStorage.setItem('catppuccin-theme', theme);
++      localStorage.setItem('catppuccin-accent', accent);
++      // When a specific theme is set, we can clear the generic mode override
++      localStorage.removeItem('basecoat-mode'); 
++    } catch (e) {}
++  }
++
++  /**
++   * Initialize theme from localStorage or system preference.
++   */
++  function initTheme() {
++    try {
++      const savedTheme = localStorage.getItem('catppuccin-theme');
++      const savedAccent = localStorage.getItem('catppuccin-accent');
++      const savedMode = localStorage.getItem('basecoat-mode'); // 'dark' or 'light'
++
++      if (savedTheme && savedAccent) {
++        setTheme(savedTheme, savedAccent);
++      } else if (savedMode) {
++        // No specific theme, but we have a forced mode preference
++        if (savedMode === 'dark') {
++            document.documentElement.classList.add('dark');
++        } else {
++            document.documentElement.classList.remove('dark');
++        }
++      } else {
++        // Fallback: System preference
++        const isSystemDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
++        document.documentElement.classList.toggle('dark', isSystemDark);
++      }
++    } catch (e) {
++        console.error('Basecoat: Theme initialization failed', e);
++    }
++  }
++
++  // Run immediately
++  initTheme();
++
++  /**
++   * Component Initialization
++   */
++  const init = (container) => {
++    const flavorGroup = container.querySelector('.theme-flavors');
++    const accentGrid = container.querySelector('.theme-accents');
++    const resetButton = container.querySelector('.theme-reset');
++
++    let currentFlavor = localStorage.getItem('catppuccin-theme');
++    
++    // Fallback logic for UI state
++    if (!currentFlavor || !THEMES.includes(currentFlavor)) {
++        currentFlavor = document.documentElement.classList.contains('dark') ? 'mocha' : 'latte';
++    }
++
++    // 1. Render Flavor Buttons
++    if (flavorGroup) {
++        flavorGroup.innerHTML = '';
++        flavorGroup.className = 'button-group w-full';
++        THEMES.forEach(t => {
++            const btn = document.createElement('button');
++            btn.type = 'button';
++            btn.className = 'btn btn-sm capitalize flex-1';
++            btn.textContent = t;
++            btn.dataset.flavor = t;
++            flavorGroup.appendChild(btn);
++        });
++    }
++
++    const updateFlavorUI = () => {
++        if (!flavorGroup) return;
++        const buttons = flavorGroup.querySelectorAll('[data-flavor]');
++        buttons.forEach(btn => {
++            if (btn.dataset.flavor === currentFlavor) {
++                btn.classList.remove('btn-outline', 'btn-ghost');
++                btn.classList.add('btn-primary');
++            } else {
++                btn.classList.remove('btn-primary');
++                btn.classList.add('btn-ghost');
++            }
++        });
++    };
++
++    // 2. Render Accent Buttons
++    const renderAccents = () => {
++        if (!accentGrid) return;
++        accentGrid.innerHTML = '';
++        
++        const colors = getThemePreviewColors(currentFlavor);
++
++        accentGrid.className = 'theme-accents grid grid-cols-7 gap-3 place-items-center p-4 rounded-xl border border-border/50 mt-4 transition-colors duration-300';
++        accentGrid.style.backgroundColor = colors.background;
++        
++        ACCENTS.forEach(acc => {
++            const btn = document.createElement('button');
++            btn.type = 'button';
++            btn.className = 'size-6 rounded-full border border-border/20 shadow-sm transition-transform hover:scale-110 focus:outline-none focus:ring-2 focus:ring-ring';
++            btn.title = acc;
++            btn.style.backgroundColor = colors[acc];
++            
++            btn.dataset.tooltip = acc;
++            btn.dataset.side = 'top';
++
++            btn.onclick = () => {
++                setTheme(currentFlavor, acc);
++                updateFlavorUI(); 
++            };
++            accentGrid.appendChild(btn);
++        });
++    };
++
++    // Event Listeners
++    if (flavorGroup) {
++        flavorGroup.addEventListener('click', (e) => {
++            const btn = e.target.closest('[data-flavor]');
++            if (!btn) return;
++            currentFlavor = btn.dataset.flavor;
++            updateFlavorUI();
++            renderAccents();
++        });
++    }
++
++    if (resetButton) {
++        resetButton.addEventListener('click', () => {
++            const root = document.documentElement;
++            const wasDark = root.classList.contains('dark');
++            
++            // 1. Remove Catppuccin Classes
++            THEMES.forEach(t => root.classList.remove(`theme-${t}`));
++            ACCENTS.forEach(a => root.classList.remove(`accent-${a}`));
++            
++            // 2. Manage Storage
++            // Remove specific theme overrides
++            localStorage.removeItem('catppuccin-theme');
++            localStorage.removeItem('catppuccin-accent');
++            
++            // SAVE the mode preference explicitly
++            // This ensures that if the user was Dark (even via Theme), they STAY Dark after refresh
++            localStorage.setItem('basecoat-mode', wasDark ? 'dark' : 'light');
++
++            // 3. Logic: Polarity is naturally preserved because we didn't touch the 'dark' class
++            // But we must ensure the UI logic below is consistent.
++            if (wasDark) {
++                root.classList.add('dark');
++            } else {
++                root.classList.remove('dark');
++            }
++            
++            // Update UI State
++            currentFlavor = wasDark ? 'mocha' : 'latte';
++            updateFlavorUI();
++            renderAccents();
++        });
++    }
++
++    updateFlavorUI();
++    renderAccents();
++  };
++
++  if (window.basecoat) {
++    window.basecoat.register('catppuccin-theme-switcher', '.catppuccin-theme-switcher', init);
++  }
++})();
+diff -Nru ./references/basecoat/src/js/command.js ./src/js/command.js
+--- ./references/basecoat/src/js/command.js	2025-12-23 02:13:27.997751023 -0800
++++ ./src/js/command.js	2025-12-29 22:44:22.976323891 -0800
+@@ -147,7 +147,9 @@
+ 
+     if (visibleMenuItems.length > 0) {
+       setActiveItem(menuItems.indexOf(visibleMenuItems[0]));
+-      visibleMenuItems[0].scrollIntoView({ block: 'nearest' });
++      // Basecoat Patch: Removed automatic scrollIntoView on init.
++      // This prevents the page from unexpectedly jumping to this component on page load.
++      // visibleMenuItems[0].scrollIntoView({ block: 'nearest' });
+     }
+ 
+     container.dataset.commandInitialized = true;
+diff -Nru ./references/basecoat/src/js/datepicker.js ./src/js/datepicker.js
+--- ./references/basecoat/src/js/datepicker.js	1969-12-31 16:00:00.000000000 -0800
++++ ./src/js/datepicker.js	2025-12-28 09:15:58.749347983 -0800
+@@ -0,0 +1,63 @@
++/**
++ * Basecoat Datepicker
++ * Wrapper around flatpickr.js
++ */
++import flatpickr from "flatpickr";
++
++// 1. Initializer
++const initDatepicker = (root = document) => {
++  const inputs = root.querySelectorAll('.datepicker');
++  
++  inputs.forEach(input => {
++    if (input._flatpickr) return; // Already initialized
++
++    // Read config from data attributes
++    // e.g. data-mode="range", data-enable-time="true"
++    const mode = input.dataset.mode || "single"; // single, multiple, range, time
++    const enableTime = input.dataset.enableTime === "true";
++    const noCalendar = input.dataset.noCalendar === "true"; // for time picker only
++    const inline = input.dataset.inline === "true"; // inline calendar
++    const dateFormat = input.dataset.dateFormat || (enableTime && noCalendar ? "H:i" : "Y-m-d");
++
++    flatpickr(input, {
++        mode: mode,
++        enableTime: enableTime,
++        noCalendar: noCalendar,
++        inline: inline,
++        dateFormat: dateFormat,
++        allowInput: true, // Allow manual typing
++        shorthandCurrentMonth: true, // Display month shorthand (e.g. "Dec" instead of "December")
++        prevArrow: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m15 18-6-6 6-6"/></svg>',
++        nextArrow: '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-4 h-4"><path d="m9 18 6-6-6-6"/></svg>',
++        static: true, // Position relative to wrapper, helps with scroll
++        // Custom class names to hook into our CSS
++        // flatpickr doesn't fully support class replacements, but we can append
++    });
++  });
++};
++
++// 2. Auto-init
++if (typeof window !== 'undefined') {
++  const observer = new MutationObserver((mutations) => {
++    mutations.forEach((mutation) => {
++      if (mutation.type === 'childList') {
++        mutation.addedNodes.forEach((node) => {
++           if (node.nodeType === 1) {
++               if (node.classList?.contains('datepicker')) {
++                   initDatepicker(node.parentNode);
++               } else if (node.querySelector?.('.datepicker')) {
++                   initDatepicker(node);
++               }
++           }
++        });
++      }
++    });
++  });
++
++  document.addEventListener('DOMContentLoaded', () => {
++    initDatepicker();
++    observer.observe(document.body, { childList: true, subtree: true });
++  });
++}
++
++export { initDatepicker };
+diff -Nru ./references/basecoat/src/js/dialog.js ./src/js/dialog.js
+--- ./references/basecoat/src/js/dialog.js	1969-12-31 16:00:00.000000000 -0800
++++ ./src/js/dialog.js	2025-12-29 09:26:26.914356540 -0800
+@@ -0,0 +1,32 @@
++(() => {
++  const initDialog = (dialog) => {
++    // Light dismiss (click outside to close)
++    // Only for dialogs that are NOT alert dialogs (role="alertdialog")
++    if (dialog.getAttribute('role') !== 'alertdialog') {
++      dialog.addEventListener('click', (event) => {
++        // Check if the dialog is open as a modal
++        if (dialog.open) {
++          const rect = dialog.getBoundingClientRect();
++          const isInDialog = (
++            rect.top <= event.clientY &&
++            event.clientY <= rect.top + rect.height &&
++            rect.left <= event.clientX &&
++            event.clientX <= rect.left + rect.width
++          );
++
++          if (!isInDialog) {
++            dialog.close();
++          }
++        }
++      });
++    }
++
++    dialog.dataset.dialogInitialized = true;
++    dialog.dispatchEvent(new CustomEvent('basecoat:initialized'));
++  };
++
++  if (window.basecoat) {
++    // Auto-init all <dialog> elements with the .dialog class
++    window.basecoat.register('dialog', 'dialog.dialog:not([data-dialog-initialized])', initDialog);
++  }
++})();
+\ 文件末尾没有换行符
+diff -Nru ./references/basecoat/src/js/dropdown-menu.js ./src/js/dropdown-menu.js
+--- ./references/basecoat/src/js/dropdown-menu.js	2025-12-23 02:13:27.997751023 -0800
++++ ./src/js/dropdown-menu.js	2025-12-28 09:15:58.749546058 -0800
+@@ -2,7 +2,7 @@
+   const initDropdownMenu = (dropdownMenuComponent) => {
+     const trigger = dropdownMenuComponent.querySelector(':scope > button');
+     const popover = dropdownMenuComponent.querySelector(':scope > [data-popover]');
+-    const menu = popover.querySelector('[role="menu"]');
++    const menu = popover?.matches('[role="menu"]') ? popover : popover?.querySelector('[role="menu"]');
+     
+     if (!trigger || !menu || !popover) {
+       const missing = [];
+@@ -161,6 +161,9 @@
+       }
+     });
+ 
++    trigger.setAttribute('aria-expanded', 'false');
++    popover.setAttribute('aria-hidden', 'true');
++
+     dropdownMenuComponent.dataset.dropdownMenuInitialized = true;
+     dropdownMenuComponent.dispatchEvent(new CustomEvent('basecoat:initialized'));
+   };
+diff -Nru ./references/basecoat/src/js/index.js ./src/js/index.js
+--- ./references/basecoat/src/js/index.js	1969-12-31 16:00:00.000000000 -0800
++++ ./src/js/index.js	2025-12-29 22:06:39.943921679 -0800
+@@ -0,0 +1,17 @@
++import "./basecoat.js";
++import "./accordion.js";
++import "./carousel.js";
++import "./catppuccin-theme-switcher.js";
++import "./command.js";
++import "./dialog.js";
++import "./dropdown-menu.js";
++import "./input-otp.js";
++import "./lighting.js";
++import "./popover.js";
++import "./select.js";
++import "./sheet.js";
++import "./sidebar.js";
++import "./slider.js";
++import "./tabs.js";
++import "./toast.js";
++import "./toggle.js";
+diff -Nru ./references/basecoat/src/js/input-otp.js ./src/js/input-otp.js
+--- ./references/basecoat/src/js/input-otp.js	1969-12-31 16:00:00.000000000 -0800
++++ ./src/js/input-otp.js	2025-12-28 09:15:58.749930033 -0800
+@@ -0,0 +1,139 @@
++/**
++ * Basecoat OTP Input
++ * A lightweight, zero-dependency OTP input handler.
++ */
++
++// 1. Initializer
++const initOTP = (root = document) => {
++    const containers = root.querySelectorAll('.input-otp');
++    
++    containers.forEach(container => {
++      if (container.hasAttribute('data-initialized')) return;
++      
++      const inputs = Array.from(container.querySelectorAll('input'));
++      
++      // Setup inputs
++      inputs.forEach((input, index) => {
++        // Force attributes for better UX
++        input.type = 'text'; // Avoid spinners
++        input.inputMode = 'text'; // Or numeric, configurable via data attr
++        input.setAttribute('maxlength', '1');
++        input.setAttribute('autocomplete', 'one-time-code');
++        
++        // --- 1. Focus Management ---
++        // Select content on focus to allow easy overwrite
++        input.addEventListener('focus', () => {
++            input.select();
++        });
++
++        // --- 2. Input Handling ---
++        input.addEventListener('input', (e) => {
++            const val = e.target.value;
++            
++            // Handle clearing (empty value)
++            if (val === '') {
++                // Do nothing specific, wait for user
++                return;
++            }
++
++            // If multiple chars (e.g. fast typing or weird paste), take the last one
++            // unless it's a paste event handled separately.
++            if (val.length > 1) {
++                input.value = val.slice(-1);
++            }
++
++            // Move to next if we have a value
++            if (input.value.length === 1 && index < inputs.length - 1) {
++                inputs[index + 1].focus();
++            }
++        });
++
++        // --- 3. Key Navigation & Backspace ---
++        input.addEventListener('keydown', (e) => {
++            if (e.key === 'Backspace') {
++                e.preventDefault(); // Control deletion manually
++                
++                if (input.value !== '') {
++                    input.value = '';
++                } else if (index > 0) {
++                    inputs[index - 1].focus();
++                    // Optional: clear previous on backspace from empty?
++                    // inputs[index - 1].value = ''; 
++                }
++            } else if (e.key === 'ArrowLeft') {
++                if (index > 0) {
++                    e.preventDefault();
++                    inputs[index - 1].focus();
++                }
++            } else if (e.key === 'ArrowRight') {
++                if (index < inputs.length - 1) {
++                    e.preventDefault();
++                    inputs[index + 1].focus();
++                }
++            }
++            // Allow typing: if key is a printable char (length 1), it will trigger 'input'.
++            // If user types a char while value is full, 'focus' selection handles overwrite.
++            // If selection was lost, we might need to manually clear.
++            else if (e.key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey) {
++                // If cursor is not selecting text and we have value, clear it first to ensure overwrite
++                // However, input event handles 'take last char', so '1' -> '12' -> input slices to '2'.
++                // So default behavior is mostly fine, but explicit overwrite is safer.
++                if (input.value.length >= 1 && input.selectionStart === input.selectionEnd) {
++                    input.value = '';
++                }
++            }
++        });
++
++        // --- 4. Paste Handling ---
++        input.addEventListener('paste', (e) => {
++            e.preventDefault();
++            const pasteData = (e.clipboardData || window.clipboardData).getData('text');
++            // Split into characters
++            const chars = pasteData.split('');
++            
++            let currentIndex = index;
++            chars.forEach((char) => {
++                if (currentIndex < inputs.length) {
++                    inputs[currentIndex].value = char;
++                    currentIndex++;
++                }
++            });
++            
++            // Focus the input after the last pasted character
++            if (currentIndex < inputs.length) {
++                inputs[currentIndex].focus();
++            } else {
++                inputs[inputs.length - 1].focus();
++            }
++        });
++      });
++
++      container.setAttribute('data-initialized', 'true');
++    });
++};
++
++// 2. Auto-init
++if (typeof window !== 'undefined') {
++  const observer = new MutationObserver((mutations) => {
++    mutations.forEach((mutation) => {
++      if (mutation.type === 'childList') {
++        mutation.addedNodes.forEach((node) => {
++           if (node.nodeType === 1) {
++               if (node.classList?.contains('input-otp')) {
++                   initOTP(node.parentNode);
++               } else if (node.querySelector?.('.input-otp')) {
++                   initOTP(node);
++               }
++           }
++        });
++      }
++    });
++  });
++
++  document.addEventListener('DOMContentLoaded', () => {
++    initOTP();
++    observer.observe(document.body, { childList: true, subtree: true });
++  });
++}
++
++export { initOTP };
+\ 文件末尾没有换行符
+diff -Nru ./references/basecoat/src/js/lighting.js ./src/js/lighting.js
+--- ./references/basecoat/src/js/lighting.js	1969-12-31 16:00:00.000000000 -0800
++++ ./src/js/lighting.js	2025-12-29 10:48:22.791066822 -0800
+@@ -0,0 +1,109 @@
++// src/js/lighting.js
++
++/**
++ * Global Neumorphic Lighting System for Basecoat
++ * Tracks mouse movement to simulate a global light source.
++ * Optimized: Only activates if Neumorphic elements are present.
++ */
++
++(() => {
++    const LIGHTING_CONFIG = {
++        maxOffset: 12,
++        variableX: '--light-x',
++        variableY: '--light-y',
++        // Selectors that require dynamic lighting
++        selector: '.neu-panel, .neu-field, .neu-btn'
++    };
++
++    let isTracking = false;
++    let isTicking = false;
++
++    const updateLightSource = (e) => {
++        const centerX = window.innerWidth / 2;
++        const centerY = window.innerHeight / 2;
++
++        // Calculate normalized position (-1 to 1)
++        const normX = (e.clientX - centerX) / centerX;
++        const normY = (e.clientY - centerY) / centerY;
++
++        // Invert X/Y logic
++        const x = normX * LIGHTING_CONFIG.maxOffset * -1;
++        const y = normY * LIGHTING_CONFIG.maxOffset * -1;
++
++        document.documentElement.style.setProperty(LIGHTING_CONFIG.variableX, `${x}px`);
++        document.documentElement.style.setProperty(LIGHTING_CONFIG.variableY, `${y}px`);
++    };
++
++    const onMouseMove = (e) => {
++        if (!isTicking) {
++            window.requestAnimationFrame(() => {
++                updateLightSource(e);
++                isTicking = false;
++            });
++            isTicking = true;
++        }
++    };
++
++    const startTracking = () => {
++        if (isTracking) return;
++        window.addEventListener('mousemove', onMouseMove);
++        isTracking = true;
++    };
++
++    const checkRequirement = () => {
++        if (isTracking) return;
++        if (document.querySelector(LIGHTING_CONFIG.selector)) {
++            startTracking();
++        }
++    };
++
++    const init = () => {
++        if (typeof window === 'undefined') return;
++
++        // 1. Initial check
++        checkRequirement();
++
++        // 2. Observer to detect if Neu elements are added dynamically
++        let timeout;
++        const observer = new MutationObserver((mutations) => {
++            if (isTracking) {
++                observer.disconnect();
++                return;
++            }
++            
++            clearTimeout(timeout);
++            timeout = setTimeout(() => {
++                 // Optimization: Check mutations first before full query
++                 const mightHaveNeu = mutations.some(m => {
++                    if (m.type === 'childList') {
++                        return Array.from(m.addedNodes).some(node => 
++                            node.nodeType === 1 && (node.matches(LIGHTING_CONFIG.selector) || node.querySelector(LIGHTING_CONFIG.selector))
++                        );
++                    }
++                    if (m.type === 'attributes' && m.attributeName === 'class') {
++                        return m.target.matches(LIGHTING_CONFIG.selector);
++                    }
++                    return false;
++                 });
++
++                 if (mightHaveNeu) {
++                     checkRequirement();
++                 }
++            }, 100);
++        });
++
++        observer.observe(document.body, { 
++            childList: true, 
++            subtree: true,
++            attributes: true, 
++            attributeFilter: ['class']
++        });
++    };
++
++    // Auto-initialize
++    if (document.readyState === 'loading') {
++        document.addEventListener('DOMContentLoaded', init);
++    } else {
++        init();
++    }
++})();
+\ 文件末尾没有换行符
+diff -Nru ./references/basecoat/src/js/popover.js ./src/js/popover.js
+--- ./references/basecoat/src/js/popover.js	2025-12-23 02:13:27.997751023 -0800
++++ ./src/js/popover.js	2025-12-28 09:15:58.750375740 -0800
+@@ -11,10 +11,30 @@
+       return;
+     }
+ 
++    // Ensure initial state
++    if (!trigger.hasAttribute('aria-expanded')) {
++        trigger.setAttribute('aria-expanded', 'false');
++    }
++    if (!content.hasAttribute('aria-hidden')) {
++        content.setAttribute('aria-hidden', 'true');
++    }
++
++    // Document click handler (only active when open)
++    const handleDocumentClick = (event) => {
++        if (!popoverComponent.contains(event.target)) {
++            closePopover();
++        }
++    };
++
+     const closePopover = (focusOnTrigger = true) => {
+       if (trigger.getAttribute('aria-expanded') === 'false') return;
++      
+       trigger.setAttribute('aria-expanded', 'false');
+       content.setAttribute('aria-hidden', 'true');
++      
++      // Remove global listener
++      document.removeEventListener('click', handleDocumentClick);
++
+       if (focusOnTrigger) {
+         trigger.focus();
+       }
+@@ -34,6 +54,12 @@
+ 
+       trigger.setAttribute('aria-expanded', 'true');
+       content.setAttribute('aria-hidden', 'false');
++      
++      // Add global listener
++      // Use setTimeout to avoid catching the current click that opened it
++      setTimeout(() => {
++          document.addEventListener('click', handleDocumentClick);
++      }, 0);
+     };
+ 
+     trigger.addEventListener('click', () => {
+@@ -50,12 +76,6 @@
+         closePopover();
+       }
+     });
+-
+-    document.addEventListener('click', (event) => {
+-      if (!popoverComponent.contains(event.target)) {
+-        closePopover();
+-      }
+-    });
+ 
+     document.addEventListener('basecoat:popover', (event) => {
+       if (event.detail.source !== popoverComponent) {
+diff -Nru ./references/basecoat/src/js/resizable.js ./src/js/resizable.js
+--- ./references/basecoat/src/js/resizable.js	1969-12-31 16:00:00.000000000 -0800
++++ ./src/js/resizable.js	2025-12-28 09:15:58.750553108 -0800
+@@ -0,0 +1,84 @@
++/**
++ * Basecoat Resizable
++ * Wrapper around split.js
++ */
++import Split from "split.js";
++
++// 1. Initializer
++const initResizable = (root = document) => {
++  const groups = root.querySelectorAll('.resizable-group');
++  
++  groups.forEach(group => {
++    if (group.dataset.splitInitialized) return;
++
++    // Determine direction
++    const direction = group.dataset.direction || 'horizontal'; // horizontal or vertical
++    
++    // Find direct children to split
++    // We expect them to have IDs usually, but Split.js can take elements
++    // We'll select direct div children
++    const children = Array.from(group.children).filter(el => el.tagName === 'DIV' || el.tagName === 'SECTION' || el.tagName === 'ASIDE');
++    
++    if (children.length < 2) return;
++
++    // Initial sizes
++    // data-sizes="25,75"
++    let sizes;
++    if (group.dataset.sizes) {
++        sizes = group.dataset.sizes.split(',').map(Number);
++    }
++
++    // Min sizes
++    // data-min-sizes="100,200"
++    let minSizes;
++    if (group.dataset.minSizes) {
++        minSizes = group.dataset.minSizes.split(',').map(Number);
++    }
++
++    Split(children, {
++        sizes: sizes || undefined, // Default is equal
++        minSize: minSizes || 100,
++        direction: direction,
++        gutterSize: 5, // 5px gutter
++        cursor: direction === 'horizontal' ? 'col-resize' : 'row-resize',
++        elementStyle: (dimension, size, gutterSize) => {
++            return {
++                'flex-basis': `calc(${size}% - ${gutterSize}px)`,
++            }
++        },
++        gutterStyle: (dimension, gutterSize) => {
++            return {
++                'flex-basis':  `${gutterSize}px`,
++            }
++        },
++    });
++
++    group.dataset.splitInitialized = "true";
++  });
++};
++
++// 2. Auto-init
++if (typeof window !== 'undefined') {
++  const observer = new MutationObserver((mutations) => {
++    mutations.forEach((mutation) => {
++      if (mutation.type === 'childList') {
++        mutation.addedNodes.forEach((node) => {
++           if (node.nodeType === 1) {
++               if (node.classList?.contains('resizable-group')) {
++                   initResizable(node.parentNode);
++               } else if (node.querySelector?.('.resizable-group')) {
++                   initResizable(node);
++               }
++           }
++        });
++      }
++    });
++  });
++
++  document.addEventListener('DOMContentLoaded', () => {
++    initResizable();
++    observer.observe(document.body, { childList: true, subtree: true });
++  });
++}
++
++export { initResizable };
+diff -Nru ./references/basecoat/src/js/sheet.js ./src/js/sheet.js
+--- ./references/basecoat/src/js/sheet.js	1969-12-31 16:00:00.000000000 -0800
++++ ./src/js/sheet.js	2025-12-28 09:15:58.750732161 -0800
+@@ -0,0 +1,111 @@
++(() => {
++  const toggleSheet = (trigger) => {
++    const targetId = trigger.getAttribute('aria-controls') || trigger.dataset.target;
++    if (!targetId) return;
++
++    const sheet = document.getElementById(targetId);
++    if (!sheet) return;
++
++    const isOpen = sheet.getAttribute('aria-hidden') === 'false';
++    const content = sheet.querySelector('.sheet-content, .drawer-content');
++
++    if (isOpen) {
++        closeSheet(sheet);
++    } else {
++        openSheet(sheet, trigger);
++    }
++  };
++
++  const openSheet = (sheet, trigger) => {
++    sheet.setAttribute('aria-hidden', 'false');
++    // Force reflow
++    sheet.offsetHeight;
++    
++    const content = sheet.querySelector('.sheet-content, .drawer-content');
++    if (content) {
++        content.dataset.state = 'open';
++    }
++    
++    if (trigger) {
++        trigger.setAttribute('aria-expanded', 'true');
++        sheet.dataset.triggerId = trigger.id || ''; // Save trigger ID to restore focus
++    }
++
++    document.body.style.overflow = 'hidden'; // Lock body scroll
++  };
++
++  const closeSheet = (sheet) => {
++    const content = sheet.querySelector('.sheet-content, .drawer-content');
++    if (content) {
++        content.dataset.state = 'closed';
++        
++        // Wait for animation
++        const transitionDuration = parseFloat(window.getComputedStyle(content).transitionDuration) * 1000 || 300;
++        
++        setTimeout(() => {
++            if (content.dataset.state === 'closed') { // Check if still closed
++                 sheet.setAttribute('aria-hidden', 'true');
++                 document.body.style.overflow = ''; // Unlock body scroll
++                 
++                 // Restore focus
++                 if (sheet.dataset.triggerId) {
++                     const trigger = document.getElementById(sheet.dataset.triggerId);
++                     trigger?.focus();
++                 }
++            }
++        }, transitionDuration);
++    } else {
++        sheet.setAttribute('aria-hidden', 'true');
++        document.body.style.overflow = '';
++    }
++    
++    const triggerId = sheet.dataset.triggerId;
++    if (triggerId) {
++         const trigger = document.getElementById(triggerId);
++         trigger?.setAttribute('aria-expanded', 'false');
++    }
++  };
++
++  // Global click handler for triggers
++  document.addEventListener('click', (e) => {
++    const trigger = e.target.closest('[data-toggle="sheet"], [data-toggle="drawer"]');
++    if (trigger) {
++        e.preventDefault();
++        // Ensure trigger has an ID for focus restoration
++        if (!trigger.id) {
++            trigger.id = 'trigger-' + Math.random().toString(36).substr(2, 9);
++        }
++        toggleSheet(trigger);
++    }
++  });
++
++  // Close when clicking backdrop
++  document.addEventListener('click', (e) => {
++    if (e.target.matches('.sheet, .drawer')) {
++        closeSheet(e.target);
++    }
++  });
++
++  // Close on Escape
++  document.addEventListener('keydown', (e) => {
++    if (e.key === 'Escape') {
++        const openSheets = document.querySelectorAll('.sheet[aria-hidden="false"], .drawer[aria-hidden="false"]');
++        openSheets.forEach(closeSheet);
++    }
++  });
++  
++  // Handle close buttons inside sheet
++  document.addEventListener('click', (e) => {
++      const closeBtn = e.target.closest('[data-close]');
++      if (closeBtn) {
++          const sheet = closeBtn.closest('.sheet, .drawer');
++          if (sheet) {
++              closeSheet(sheet);
++          }
++      }
++  });
++
++  // Expose for manual control if needed
++  if (!window.basecoat) window.basecoat = {};
++  window.basecoat.sheet = { open: openSheet, close: closeSheet };
++})();
+diff -Nru ./references/basecoat/src/js/sidebar.js ./src/js/sidebar.js
+--- ./references/basecoat/src/js/sidebar.js	2025-12-23 02:13:27.997751023 -0800
++++ ./src/js/sidebar.js	2025-12-29 22:52:14.288363288 -0800
+@@ -26,11 +26,34 @@
+       : initialOpen;
+     
+     const updateCurrentPageLinks = () => {
+-      const currentPath = window.location.pathname.replace(/\/$/, '');
++      const currentUrl = new URL(window.location.href);
++      const currentPath = currentUrl.pathname.replace(/\/$/, '');
++      
+       sidebarComponent.querySelectorAll('a').forEach(link => {
+         if (link.hasAttribute('data-ignore-current')) return;
+         
+-        const linkPath = new URL(link.href).pathname.replace(/\/$/, '');
++        const linkUrl = new URL(link.href, window.location.origin);
++        
++        // Check if it's an anchor link (href="#...") which results in same page path
++        // If the link has a hash, we require the hash to match exactly
++        if (linkUrl.hash) {
++            // Compare Path AND Hash
++            const linkPath = linkUrl.pathname.replace(/\/$/, '');
++            if (linkPath === currentPath && linkUrl.hash === currentUrl.hash) {
++                link.setAttribute('aria-current', 'page');
++            } else {
++                link.removeAttribute('aria-current');
++            }
++            return;
++        }
++
++        // Standard Page Link (No hash)
++        if (link.getAttribute('href') === '#') {
++          link.removeAttribute('aria-current');
++          return;
++        }
++        
++        const linkPath = linkUrl.pathname.replace(/\/$/, '');
+         if (linkPath === currentPath) {
+           link.setAttribute('aria-current', 'page');
+         } else {
+@@ -101,4 +124,4 @@
+   if (window.basecoat) {
+     window.basecoat.register('sidebar', '.sidebar:not([data-sidebar-initialized])', initSidebar);
+   }
+-})();
+\ 文件末尾没有换行符
++})();
+diff -Nru ./references/basecoat/src/js/slider.js ./src/js/slider.js
+--- ./references/basecoat/src/js/slider.js	1969-12-31 16:00:00.000000000 -0800
++++ ./src/js/slider.js	2025-12-28 09:15:58.751117122 -0800
+@@ -0,0 +1,21 @@
++(() => {
++  const initSlider = (slider) => {
++    const update = () => {
++      const value = slider.value;
++      const min = slider.min ? parseFloat(slider.min) : 0;
++      const max = slider.max ? parseFloat(slider.max) : 100;
++      const percentage = ((value - min) / (max - min)) * 100;
++      slider.style.setProperty('--slider-value', `${percentage}%`);
++    };
++    
++    slider.addEventListener('input', update);
++    update(); // Initial update
++    
++    slider.dataset.sliderInitialized = true;
++    slider.dispatchEvent(new CustomEvent('basecoat:initialized'));
++  };
++
++  if (window.basecoat) {
++    window.basecoat.register('slider', 'input[type="range"].slider:not([data-slider-initialized]), input[type="range"].input:not([data-slider-initialized])', initSlider);
++  }
++})();
+diff -Nru ./references/basecoat/src/js/toggle.js ./src/js/toggle.js
+--- ./references/basecoat/src/js/toggle.js	1969-12-31 16:00:00.000000000 -0800
++++ ./src/js/toggle.js	2025-12-28 09:15:58.751279180 -0800
+@@ -0,0 +1,55 @@
++(() => {
++  // Standalone Toggle
++  const initToggle = (toggle) => {
++    toggle.addEventListener('click', (e) => {
++      if (toggle.disabled || toggle.getAttribute('aria-disabled') === 'true') return;
++      
++      const isPressed = toggle.getAttribute('aria-pressed') === 'true';
++      toggle.setAttribute('aria-pressed', !isPressed);
++    });
++    toggle.dataset.toggleInitialized = true;
++  };
++
++  // Toggle Group
++  const initToggleGroup = (group) => {
++    const type = group.dataset.type || 'single';
++    
++    group.addEventListener('click', (event) => {
++      // Look for .toggle class inside the group
++      const toggle = event.target.closest('.toggle');
++      if (!toggle || !group.contains(toggle)) return;
++      
++      if (toggle.disabled || toggle.getAttribute('aria-disabled') === 'true') return;
++
++      const isPressed = toggle.getAttribute('aria-pressed') === 'true';
++      
++      if (type === 'single') {
++        // If it's a single selection group:
++        if (!isPressed) {
++             // Unpress all others
++            group.querySelectorAll('.toggle').forEach(t => {
++                if (t !== toggle) t.setAttribute('aria-pressed', 'false');
++            });
++            // Press current
++            toggle.setAttribute('aria-pressed', 'true');
++        } else {
++            // If already pressed, allow unpressing (standard behavior)
++            toggle.setAttribute('aria-pressed', 'false');
++        }
++      } else {
++        // Multiple: just toggle
++        toggle.setAttribute('aria-pressed', !isPressed);
++      }
++    });
++
++    group.dataset.toggleGroupInitialized = true;
++  };
++
++  if (window.basecoat) {
++    // Register standalone toggles (those NOT in a group)
++    window.basecoat.register('toggle', '.toggle:not(.toggle-group .toggle):not([data-toggle-initialized])', initToggle);
++    
++    // Register toggle groups
++    window.basecoat.register('toggle-group', '.toggle-group:not([data-toggle-group-initialized])', initToggleGroup);
++  }
++})();
+\ 文件末尾没有换行符

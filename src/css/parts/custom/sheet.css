@@ -1,0 +1,100 @@
+/* Sheet & Drawer */
+@layer components {
+  .sheet {
+    @apply fixed inset-0 z-50 bg-black/80;
+
+    &[aria-hidden="true"] {
+      @apply hidden;
+    }
+
+    .sheet-content {
+      @apply fixed z-50 gap-4 bg-background p-6 shadow-lg transition ease-in-out duration-300;
+      
+      &[data-side="top"] {
+        @apply inset-x-0 top-0 border-b data-[state=closed]:-translate-y-full data-[state=open]:translate-y-0;
+      }
+      &[data-side="bottom"] {
+        @apply inset-x-0 bottom-0 border-t data-[state=closed]:translate-y-full data-[state=open]:translate-y-0;
+      }
+      &[data-side="left"] {
+        @apply inset-y-0 left-0 h-full w-3/4 border-r sm:max-w-sm data-[state=closed]:-translate-x-full data-[state=open]:translate-x-0;
+      }
+      &[data-side="right"] {
+        @apply inset-y-0 right-0 h-full w-3/4 border-l sm:max-w-sm data-[state=closed]:translate-x-full data-[state=open]:translate-x-0;
+      }
+    }
+  }
+
+  .drawer {
+    @apply fixed inset-0 z-50 bg-black/80 flex flex-col items-end sm:items-center justify-end;
+
+    &[aria-hidden="true"] {
+      @apply hidden;
+    }
+
+    .drawer-content {
+        @apply fixed z-50 flex flex-col bg-background border border-b-0 rounded-t-[10px] bottom-0 inset-x-0 h-auto max-h-[35vh] transition-transform ease-in-out duration-300 data-[state=closed]:translate-y-full data-[state=open]:translate-y-0;
+    }
+  }
+}
+
+/* 
+========================================
+ANIMATIONS & KEYFRAMES
+Spring effects for Drawer and Sheet
+========================================
+*/
+@layer utilities {
+    /* Spring Bezier: Starts fast, overshoots slightly (1.1), then settles */
+    .ease-spring {
+        transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.1);
+    }
+}
+
+@layer components {
+    /* Keyframes for Slide Animations (Drawer, Sheet, etc.) */
+    @keyframes spring-slide-up {
+        0% { transform: translateY(100%); }
+        70% { transform: translateY(-10%); } /* Overshoot up */
+        100% { transform: translateY(0); }
+    }
+    
+    @keyframes spring-slide-down {
+        0% { transform: translateY(-100%); }
+        70% { transform: translateY(10%); } /* Overshoot down */
+        100% { transform: translateY(0); }
+    }
+    
+    @keyframes spring-slide-from-right {
+        0% { transform: translateX(100%); }
+        70% { transform: translateX(-2%); } /* Overshoot left */
+        100% { transform: translateX(0); }
+    }
+
+    @keyframes spring-slide-from-left {
+        0% { transform: translateX(-100%); }
+        70% { transform: translateX(2%); } /* Overshoot right */
+        100% { transform: translateX(0); }
+    }
+
+    /* Drawer Animation (Bottom Sheet) */
+    .drawer:not(.no-animation)[aria-hidden="false"] .drawer-content {
+        animation: spring-slide-up 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+    }
+
+    /* Sheet Animation (Side Panel) */
+    .sheet:not(.no-animation)[aria-hidden="false"] {
+        .sheet-content[data-side="right"] {
+            animation: spring-slide-from-right 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+        }
+        .sheet-content[data-side="left"] {
+            animation: spring-slide-from-left 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+        }
+        .sheet-content[data-side="top"] {
+            animation: spring-slide-down 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+        }
+        .sheet-content[data-side="bottom"] {
+            animation: spring-slide-up 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+        }
+    }
+}

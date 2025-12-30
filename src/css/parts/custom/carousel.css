@@ -1,0 +1,46 @@
+/* Carousel */
+@layer components {
+  .carousel {
+    @apply relative w-full;
+  }
+  .carousel-content {
+    @apply flex overflow-x-auto snap-x snap-mandatory scroll-smooth;
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+    &::-webkit-scrollbar {
+      display: none; /* Hide scrollbar for Chrome, Safari, and Opera */
+    }
+  }
+  .carousel-item {
+    @apply min-w-0 shrink-0 grow-0 basis-full snap-start;
+  }
+  .carousel-previous,
+  .carousel-next {
+    @apply absolute size-8 rounded-full z-10 flex items-center justify-center border bg-background shadow-sm transition-all hover:bg-accent hover:text-accent-foreground disabled:opacity-50 disabled:pointer-events-none;
+    & > svg {
+        @apply size-4;
+    }
+  }
+  .carousel-previous {
+    @apply -left-12 top-1/2 -translate-y-1/2;
+  }
+  .carousel-next {
+    @apply -right-12 top-1/2 -translate-y-1/2;
+  }
+
+  /* Vertical Carousel */
+  .carousel[data-orientation="vertical"] {
+    .carousel-content {
+      @apply flex-col overflow-x-hidden overflow-y-auto snap-y;
+      height: var(--carousel-height, 400px); /* Default height */
+    }
+    .carousel-previous {
+      @apply -top-8 left-1/2 -translate-x-1/2 rotate-90 translate-y-0;
+      top: -2rem !important; /* Force top */
+    }
+    .carousel-next {
+      @apply -bottom-8 top-auto left-1/2 -translate-x-1/2 rotate-90 translate-y-0;
+      bottom: -2rem !important; /* Force bottom */
+      top: auto !important;
+    }
+  }
+}

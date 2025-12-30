@@ -1,0 +1,28 @@
+{
+  "name": "@lanrenbang/basecoat-ultra",
+  "version": "0.1.0",
+  "exports": {
+    ".": "./dist/js/all.js",
+    "./basecoat": "./dist/js/basecoat.js",
+    "./command": "./dist/js/command.js",
+    "./datepicker": "./dist/js/datepicker.js",
+    "./dropdown-menu": "./dist/js/dropdown-menu.js",
+    "./popover": "./dist/js/popover.js",
+    "./resizable": "./dist/js/resizable.js",
+    "./select": "./dist/js/select.js",
+    "./sidebar": "./dist/js/sidebar.js",
+    "./tabs": "./dist/js/tabs.js",
+    "./toast": "./dist/js/toast.js",
+    "./css": "./dist/css/basecoat.css",
+    "./cdn": "./dist/css/basecoat.cdn.css",
+    "./datepicker-css": "./dist/css/datepicker.css",
+    "./resizable-css": "./dist/css/resizable.css"
+  },
+  "publish": {
+    "include": [
+      "dist",
+      "README.md",
+      "LICENSE.md"
+    ]
+  }
+}

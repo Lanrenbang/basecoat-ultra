@@ -1,0 +1,97 @@
+.accent-rosewater {
+  --primary: var(--palette-rosewater);
+  --primary-foreground: var(--palette-base);
+  --sidebar-primary: var(--palette-rosewater);
+  --sidebar-primary-foreground: var(--palette-base);
+}
+
+.accent-flamingo {
+  --primary: var(--palette-flamingo);
+  --primary-foreground: var(--palette-base);
+  --sidebar-primary: var(--palette-flamingo);
+  --sidebar-primary-foreground: var(--palette-base);
+}
+
+.accent-pink {
+  --primary: var(--palette-pink);
+  --primary-foreground: var(--palette-base);
+  --sidebar-primary: var(--palette-pink);
+  --sidebar-primary-foreground: var(--palette-base);
+}
+
+.accent-mauve {
+  --primary: var(--palette-mauve);
+  --primary-foreground: var(--palette-base);
+  --sidebar-primary: var(--palette-mauve);
+  --sidebar-primary-foreground: var(--palette-base);
+}
+
+.accent-red {
+  --primary: var(--palette-red);
+  --primary-foreground: var(--palette-base);
+  --sidebar-primary: var(--palette-red);
+  --sidebar-primary-foreground: var(--palette-base);
+}
+
+.accent-maroon {
+  --primary: var(--palette-maroon);
+  --primary-foreground: var(--palette-base);
+  --sidebar-primary: var(--palette-maroon);
+  --sidebar-primary-foreground: var(--palette-base);
+}
+
+.accent-peach {
+  --primary: var(--palette-peach);
+  --primary-foreground: var(--palette-base);
+  --sidebar-primary: var(--palette-peach);
+  --sidebar-primary-foreground: var(--palette-base);
+}
+
+.accent-yellow {
+  --primary: var(--palette-yellow);
+  --primary-foreground: var(--palette-base);
+  --sidebar-primary: var(--palette-yellow);
+  --sidebar-primary-foreground: var(--palette-base);
+}
+
+.accent-green {
+  --primary: var(--palette-green);
+  --primary-foreground: var(--palette-base);
+  --sidebar-primary: var(--palette-green);
+  --sidebar-primary-foreground: var(--palette-base);
+}
+
+.accent-teal {
+  --primary: var(--palette-teal);
+  --primary-foreground: var(--palette-base);
+  --sidebar-primary: var(--palette-teal);
+  --sidebar-primary-foreground: var(--palette-base);
+}
+
+.accent-sky {
+  --primary: var(--palette-sky);
+  --primary-foreground: var(--palette-base);
+  --sidebar-primary: var(--palette-sky);
+  --sidebar-primary-foreground: var(--palette-base);
+}
+
+.accent-sapphire {
+  --primary: var(--palette-sapphire);
+  --primary-foreground: var(--palette-base);
+  --sidebar-primary: var(--palette-sapphire);
+  --sidebar-primary-foreground: var(--palette-base);
+}
+
+.accent-blue {
+  --primary: var(--palette-blue);
+  --primary-foreground: var(--palette-base);
+  --sidebar-primary: var(--palette-blue);
+  --sidebar-primary-foreground: var(--palette-base);
+}
+
+.accent-lavender {
+  --primary: var(--palette-lavender);
+  --primary-foreground: var(--palette-base);
+  --sidebar-primary: var(--palette-lavender);
+  --sidebar-primary-foreground: var(--palette-base);
+}

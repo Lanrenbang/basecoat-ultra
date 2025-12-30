@@ -1,0 +1,25 @@
+{
+  "name": "@lanrenbang/basecoat-ultra",
+  "version": "0.1.0",
+  "description": "Basecoat UI - Ultra edition. A Tailwind-first component library.",
+  "type": "module",
+  "devDependencies": {
+    "@tailwindcss/cli": "^4.1.18",
+    "@tailwindcss/vite": "^4.1.18",
+    "@types/bun": "latest",
+    "tailwindcss": "^4.1.18",
+    "vite": "^7.3.0"
+  },
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build && vite build --mode minify && bun run build.ts",
+    "preview": "vite preview",
+    "diff": "bun run build.ts diff",
+    "split": "bun run build.ts split",
+    "check": "bun run build.ts check"
+  },
+  "dependencies": {
+    "flatpickr": "^4.6.13",
+    "split.js": "^1.6.5"
+  }
+}
