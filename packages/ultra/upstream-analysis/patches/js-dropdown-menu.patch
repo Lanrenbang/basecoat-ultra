@@ -1,0 +1,27 @@
+--- upstream-analysis/.temp/upstream-js/dropdown-menu.js	2026-01-02 03:07:16.384081276 -0800
++++ upstream-analysis/.temp/ultra-js/dropdown-menu.js	2026-01-02 03:07:16.431083930 -0800
+@@ -1,8 +1,12 @@
++import { markInitialized } from './utils/dom.js';
++
+ (() => {
+   const initDropdownMenu = (dropdownMenuComponent) => {
++    if (markInitialized(dropdownMenuComponent, 'dropdown-menu')) return;
++
+     const trigger = dropdownMenuComponent.querySelector(':scope > button');
+     const popover = dropdownMenuComponent.querySelector(':scope > [data-popover]');
+-    const menu = popover.querySelector('[role="menu"]');
++    const menu = popover?.matches('[role="menu"]') ? popover : popover?.querySelector('[role="menu"]');
+     
+     if (!trigger || !menu || !popover) {
+       const missing = [];
+@@ -161,7 +165,9 @@
+       }
+     });
+ 
+-    dropdownMenuComponent.dataset.dropdownMenuInitialized = true;
++    trigger.setAttribute('aria-expanded', 'false');
++    popover.setAttribute('aria-hidden', 'true');
++
+     dropdownMenuComponent.dispatchEvent(new CustomEvent('basecoat:initialized'));
+   };
+ 

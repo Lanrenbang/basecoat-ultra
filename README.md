@@ -1,203 +1,133 @@
 # Basecoat Ultra
 
-**English** | [中文](./README-cn.md)
+[![Version](https://img.shields.io/npm/v/@lanrenbang/basecoat-ultra?style=flat-square)](https://www.npmjs.com/package/@lanrenbang/basecoat-ultra)
+[![License](https://img.shields.io/github/license/hunvreus/basecoat?style=flat-square)](https://github.com/hunvreus/basecoat/blob/main/LICENSE.md)
 
-Basecoat is a set of components built with Tailwind CSS. It is designed to be used with any traditional web stack.
-Basecoat brings the magic of shadcn/ui to any traditional web stack: no React required.
+**Basecoat Ultra** is a Tailwind-first UI component library designed for high performance, minimalism, and deep customization. Built upon the excellent foundation of [Basecoat](https://basecoatui.com) by [hunvreus](https://github.com/hunvreus), it brings the magic of shadcn/ui to any traditional web stack without requiring React.
 
-**Basecoat Ultra** is an enhanced UI library based on [Basecoat](https://basecoatui.com). It retains the core philosophy of "Tailwind-first, framework-agnostic" while offering deep customizations tailored for modern aesthetics and lightweight requirements. We have removed native support for Nunjucks/Jinja to focus on providing richer interactive components, an out-of-the-box theming system, and refined visual enhancements.
-
-## 🎡 Components Preview
-[lanrenbang.github.io/basecoat-ultra](https://lanrenbang.github.io/basecoat-ultra)
+🎡 **[Live Demo & Documentation](https://lanrenbang.github.io/basecoat-ultra)**
 
 ## ✨ Features
 
-### 🛠️ Core Improvements
-We have polished the Basecoat core with numerous details and bug fixes (see CHANGELOG), including but not limited to:
-- **CSS Modularization**: Refactored monolithic CSS into a modular structure supporting on-demand loading.
-- **Build Fixes**: Resolved escaping issues with complex selectors in Tailwind v4.
-- **Component Optimizations**:
-    - `Button`: Fixed Ghost/Link variant background issues in specific contexts.
-    - `Dialog`: Introduced more natural scaling and bounce animations.
-    - `Dropdown Menu`: Fixed flickering issues during initialization.
-    - `Sidebar`: Intelligent logic for identifying and highlighting the current page.
+### 🛠️ Core Improvements Over Upstream
+Enhanced from the original Basecoat with numerous optimizations and bug fixes:
+- **CSS Modularization**: Refactored monolithic CSS into modular structure supporting on-demand loading
+- **Tailwind v4 Compatibility**: Fixed escaping issues with complex selectors and modern CSS nesting
+- **Component Optimizations**: 
+  - Button: Fixed Ghost/Link variant background issues
+  - Dialog: Enhanced animations with natural scaling and bounce effects
+  - Dropdown Menu: Resolved initialization flickering
+  - Sidebar: Intelligent current page highlighting logic
+  - Form Elements: Improved contrast and accessibility
 
 ### 🧩 New Components
-Introduced a series of high-frequency components inspired by shadcn/ui, completely independent of React/Vue:
-- **Accordion**: Originally only a demo in upstream docs; standardized and internalized here. Based on native `<details>`, zero-JS animation.
-- **Sheet**: Elegant side-sliding panel.
-- **Carousel**: Lightweight carousel component.
-- **Input OTP**: Dedicated one-time password input.
-- **Toggle Group**: Button-style interaction similar to Radio Group.
-- **Toggle**: Independent toggle button style.
-
-### 🔌 External Integrations
-Integrated excellent third-party libraries to bridge gaps in pure CSS/Vanilla JS (must be imported separately):
-- **Date Picker**: Deeply customized version based on [Flatpickr](https://flatpickr.js.org/), perfectly adapted to themes.
-- **Resizable**: Draggable split panel based on [Split.js](https://split.js.org/).
+Comprehensive component library inspired by shadcn/ui, completely framework-independent:
+- **Standard Components**: Accordion, Sheet, Carousel, Input OTP, Toggle Group, Toggle
+- **External Integrations**: Date Picker (Flatpickr), Resizable Panels (Split.js)
+- **Advanced Features**: Command palette, enhanced dialogs, improved navigation
 
 ### 🎨 Visual Enhancements
-- **Catppuccin Themes**: Built-in support for the full [Catppuccin](https://github.com/catppuccin/catppuccin) suite (Latte, Frappé, Macchiato, Mocha).
-- **Neumorphism Extension**:
-    - **Global Lighting System**: Unique mouse-following lighting effects (`lighting.js`), giving neumorphic feel to `.neu-panel`, `.neu-btn` elements.
-    - **3D Flip**: Supports CSS 3D Transform-based card flip effects.
+- **Catppuccin Themes**: Full suite support (Latte, Frappé, Macchiato, Mocha) with theme switcher
+- **Neumorphism Effects**: Global lighting system with mouse-following effects and 3D transforms
+- **Enhanced Animations**: Smooth transitions and micro-interactions throughout
+
+### 🏗️ Multi-Package Architecture
+- **Ultra Package**: Framework-agnostic CSS/JS components for any stack
+- **Svelte Package**: Native Svelte 5 components with Runes support
+- **CLI Tool**: Copy-paste workflow for Svelte components
+- **Documentation**: Comprehensive guides and interactive examples
 
 ## 📦 Installation
 
-Recommended using `bun`, but `npm` or `pnpm` are also supported:
+Choose the package that fits your stack:
 
+### For Vanilla HTML/JS, React, Vue, or Other Frameworks
 ```bash
 bun add @lanrenbang/basecoat-ultra
-# or
-npm install @lanrenbang/basecoat-ultra
+# or npm install @lanrenbang/basecoat-ultra
 ```
 
-## 🚀 Setup (Bundlers)
+### For Svelte 5 Projects
+```bash
+# CLI approach (recommended)
+npx basecoat-ultra-svelte@latest init
+npx basecoat-ultra-svelte@latest add button
 
-For projects using Vite, Webpack, or other bundlers with Tailwind CSS v4 configured.
+# Package approach
+bun add @lanrenbang/basecoat-ultra-svelte
+```
 
-### 1. Import CSS
+## 🚀 Quick Setup
 
-In your CSS entry file (e.g., `style.css`).
-
-**Note**: Import the raw CSS (`/css`), letting your Tailwind config handle the styles. Do NOT use the `.cdn.css` version here.
-
+### Bundler Setup (Vite, Webpack, etc.)
 ```css
+/* In your CSS file */
 @import "tailwindcss";
-
-/* 1. Basecoat Core (Required) */
 @import "@lanrenbang/basecoat-ultra";
-
-/* 2. External Components (Optional) */
-/* Only import if you use these specific components */
-@import "@lanrenbang/basecoat-ultra/datepicker.css";
-@import "@lanrenbang/basecoat-ultra/resizable.css";
-
-/* 3. Theme (Optional, must be explicit) */
-/* We provide a Catppuccin theme suite, or you can build your own */
-@import "@lanrenbang/basecoat-ultra/theme/catppuccin";
+@import "@lanrenbang/basecoat-ultra/theme/catppuccin"; /* Optional */
 ```
-
-### 2. Import JavaScript
-
-In your application entry point (e.g., `main.js` or `app.ts`).
-
-**Option A: Import All (Recommended)**
-Includes core logic and most standard components (excludes Datepicker/Resizable).
 
 ```javascript
+// In your JS file
 import '@lanrenbang/basecoat-ultra/all';
 ```
 
-**Option B: Cherry-pick**
-To reduce bundle size, import only what you need.
-**Important**: You MUST import the `basecoat` core module first, as other components rely on it for registration.
-
-```javascript
-// 1. Core first
-import '@lanrenbang/basecoat-ultra/basecoat';
-
-// 2. Then components
-import '@lanrenbang/basecoat-ultra/tabs';
-import '@lanrenbang/basecoat-ultra/select';
-import '@lanrenbang/basecoat-ultra/popover';
-```
-
-**External Components (Must be imported separately)**
-Regardless of the option above, these components are not included in the main bundle due to size or dependencies:
-
-```javascript
-import '@lanrenbang/basecoat-ultra/datepicker'; // Uses flatpickr
-import '@lanrenbang/basecoat-ultra/resizable';  // Uses split.js
-```
-
----
-
-## 🌐 CDN Usage (No Build Tool)
-
-If you are not using a bundler, you can use the pre-compiled versions via CDN (jsDelivr). These include the compiled Tailwind styles.
-
-### CSS
-
+### CDN Setup (No Build Tool)
 ```html
-<!-- Basecoat Core (includes Tailwind styles) -->
+<!-- CSS -->
 <link href="https://cdn.jsdelivr.net/npm/@lanrenbang/basecoat-ultra@latest/dist/css/basecoat.cdn.min.css" rel="stylesheet">
 
-<!-- External Components (Optional) -->
-<link href="https://cdn.jsdelivr.net/npm/@lanrenbang/basecoat-ultra@latest/dist/css/datepicker.min.css" rel="stylesheet">
-<link href="https://cdn.jsdelivr.net/npm/@lanrenbang/basecoat-ultra@latest/dist/css/resizable.min.css" rel="stylesheet">
-
-<!-- Theme (Optional) -->
-<link href="https://cdn.jsdelivr.net/npm/@lanrenbang/basecoat-ultra@latest/dist/theme/catppuccin/index.min.css" rel="stylesheet">
-```
-
-### JavaScript
-
-```html
-<!-- Core & Standard Components -->
+<!-- JavaScript -->
 <script src="https://cdn.jsdelivr.net/npm/@lanrenbang/basecoat-ultra@latest/dist/js/all.min.js" defer></script>
-
-<!-- External Components (Optional) -->
-<script src="https://cdn.jsdelivr.net/npm/@lanrenbang/basecoat-ultra@latest/dist/js/datepicker.min.js" defer></script>
-<script src="https://cdn.jsdelivr.net/npm/@lanrenbang/basecoat-ultra@latest/dist/js/resizable.min.js" defer></script>
 ```
+
+For detailed setup instructions, configuration options, and usage examples, visit our **[comprehensive documentation](https://lanrenbang.github.io/basecoat-ultra)**.
 
 ## 🛠️ Development
 
-This project uses [Bun](https://bun.sh) as the package manager and runtime, and [Vite](https://vitejs.dev) for building.
+This project uses a Bun workspace monorepo structure:
 
-### Setup
+```
+packages/
+├── ultra/          # Core CSS/JS library (framework-agnostic)
+├── svelte/         # Svelte 5 components with Runes
+├── cli/            # CLI tool for Svelte components  
+└── docs/           # Documentation site (SvelteKit)
+```
 
+### Development Commands
 ```bash
-# 1. Clone project
-git clone https://github.com/your-username/basecoat-ultra.git
-cd basecoat-ultra
-
-# 2. Install dependencies
+# Install dependencies
 bun install
 
-# 3. Start dev server
-bun run dev
+# Development servers
+bun dev:ultra      # Core Ultra package
+bun dev:svelte     # Svelte components
+bun dev:docs       # Documentation site
+
+# Build packages
+bun run build:ultra
+bun run build:svelte  
+bun run build:docs
+
+# CLI tool
+bun cli            # Run CLI locally
 ```
 
-### Anti-flash Script
-
-To prevent page flicker (FOUC) when using the Catppuccin Theme Switcher on refresh, place the following script at the top of your HTML `<head>` tag:
-
-```html
-<script>
-(function() {
-  try {
-    const t = localStorage.getItem('catppuccin-theme');
-    const a = localStorage.getItem('catppuccin-accent');
-    const m = localStorage.getItem('basecoat-mode');
-    const r = document.documentElement;
-    // Prioritize theme config
-    if (t && a) {
-      r.classList.add(`theme-${t}`, `accent-${a}`);
-      if(['frappe','macchiato','mocha'].includes(t)) r.classList.add('dark');
-    } else if (m) {
-      // Only dark/light mode preference
-      r.classList.toggle('dark', m === 'dark');
-    } else {
-      // Follow system
-      r.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches);
-    }
-  } catch(e) {}
-})();
-</script>
-```
+### Build Order
+Due to package dependencies: Ultra → Svelte → Docs
 
 ## ❤️ Credits
 
 This project stands on the shoulders of giants:
 
-*   **[Basecoat](https://basecoatui.com)**: Original creator [hunvreus](https://github.com/hunvreus). Most foundational code belongs to the original author.
-*   **[Catppuccin](https://github.com/catppuccin/palette)**: Provided the beautiful color palettes.
-*   **[puikinsh/login-forms](https://github.com/puikinsh/login-forms/tree/main/forms/neumorphism)**: Inspiration for Neumorphism lighting and 3D effects.
-*   **[Flatpickr](https://flatpickr.js.org/)** & **[Split.js](https://split.js.org/)**: Excellent third-party library support.
+- **[Basecoat](https://basecoatui.com)**: Original creator [hunvreus](https://github.com/hunvreus). Most foundational code belongs to the original author.
+- **[Catppuccin](https://github.com/catppuccin/palette)**: Beautiful color palettes for theming
+- **[Flatpickr](https://flatpickr.js.org/)** & **[Split.js](https://split.js.org/)**: Excellent third-party integrations
+- **[puikinsh/login-forms](https://github.com/puikinsh/login-forms/tree/main/forms/neumorphism)**: Inspiration for neumorphism effects
 
-## ☕ Support Me
+## ☕ Support
+
 [![BuyMeACoffee](https://img.shields.io/badge/Buy%20Me%20a%20Coffee-ffdd00?style=for-the-badge&logo=buy-me-a-coffee&logoColor=black)](https://buymeacoffee.com/bobbynona) [![Ko-Fi](https://img.shields.io/badge/Ko--fi-F16061?style=for-the-badge&logo=ko-fi&logoColor=white)](https://ko-fi.com/bobbynona) [![USDT(TRC20)/Tether](https://img.shields.io/badge/Tether-168363?style=for-the-badge&logo=tether&logoColor=white)](https://github.com/Lanrenbang/.github/blob/5b06b0b2d0b8e4ce532c1c37c72115dd98d7d849/custom/USDT-TRC20.md) [![Litecoin](https://img.shields.io/badge/Litecoin-A6A9AA?style=for-the-badge&logo=litecoin&logoColor=white)](https://github.com/Lanrenbang/.github/blob/5b06b0b2d0b8e4ce532c1c37c72115dd98d7d849/custom/Litecoin.md)
 
 ## 📄 License

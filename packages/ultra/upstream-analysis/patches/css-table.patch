@@ -1,0 +1,16 @@
+--- upstream-analysis/.temp/upstream-css/table.css	2026-01-03 09:45:31.293926645 -0800
++++ upstream-analysis/.temp/ultra-css/table.css	2026-01-03 09:45:31.313927751 -0800
+@@ -3,7 +3,7 @@
+   .table {
+     @apply w-full caption-bottom text-sm;
+     thead {
+-      @apply [&_tr]:border-b;
++      @apply bg-muted/30 [&_tr]:border-b;
+     }
+     tbody {
+       @apply [&_tr:last-child]:border-0;
+@@ -25,3 +25,4 @@
+     }
+   }
+ }
++

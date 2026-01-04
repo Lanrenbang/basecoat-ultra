@@ -1,17 +1,16 @@
-name-template: 'v$RESOLVED_VERSION 🚀'
-tag-template: 'v$RESOLVED_VERSION'
+# .github/release-drafter.yml
 
+# 模板部分仅保留 Body 内容，$CHANGES 会自动填充变更日志
 template: |
   ## What’s Changed
-
   $CHANGES
 
   ---
-  **Full Changelog**: https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...v$RESOLVED_VERSION
+  **Full Changelog**: https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...$TAG
 
 change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
 commit-template: '  - $SUBJECT'
-change-title-escapes: '\<*_&' # You can add # and @ to disable mentions, and add ` to disable code blocks.
+change-title-escapes: '\<*_&' 
 
 autolabeler:
   - label: "BREAKING CHANGE"
@@ -45,21 +44,6 @@ autolabeler:
       - 'go.mod'
       - 'go.sum'
 
-version-resolver:
-  major:
-    labels:
-      - 'BREAKING CHANGE'
-  minor:
-    labels:
-      - 'enhancement'
-  patch:
-    labels:
-      - 'documentation'
-      - 'bug'
-      - "fix"
-      - "chore"
-  default: patch
-
 categories:
   - title: "🚨 BREAKING CHANGES 🚨"
     labels:
@@ -76,4 +60,3 @@ categories:
     labels:
       - "chore"
       - "documentation"
-

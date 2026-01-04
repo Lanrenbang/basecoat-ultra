@@ -1,0 +1,76 @@
+--- upstream-analysis/.temp/upstream-js/popover.js	2026-01-02 03:07:16.390081615 -0800
++++ upstream-analysis/.temp/ultra-js/popover.js	2026-01-02 03:07:16.432083986 -0800
+@@ -1,5 +1,9 @@
++import { markInitialized } from './utils/dom.js';
++
+ (() => {
+   const initPopover = (popoverComponent) => {
++    if (markInitialized(popoverComponent, 'popover')) return;
++
+     const trigger = popoverComponent.querySelector(':scope > button');
+     const content = popoverComponent.querySelector(':scope > [data-popover]');
+ 
+@@ -11,10 +15,30 @@
+       return;
+     }
+ 
++    // Ensure initial state
++    if (!trigger.hasAttribute('aria-expanded')) {
++        trigger.setAttribute('aria-expanded', 'false');
++    }
++    if (!content.hasAttribute('aria-hidden')) {
++        content.setAttribute('aria-hidden', 'true');
++    }
++
++    // Document click handler (only active when open)
++    const handleDocumentClick = (event) => {
++        if (!popoverComponent.contains(event.target)) {
++            closePopover();
++        }
++    };
++
+     const closePopover = (focusOnTrigger = true) => {
+       if (trigger.getAttribute('aria-expanded') === 'false') return;
++      
+       trigger.setAttribute('aria-expanded', 'false');
+       content.setAttribute('aria-hidden', 'true');
++      
++      // Remove global listener
++      document.removeEventListener('click', handleDocumentClick);
++
+       if (focusOnTrigger) {
+         trigger.focus();
+       }
+@@ -34,6 +58,12 @@
+ 
+       trigger.setAttribute('aria-expanded', 'true');
+       content.setAttribute('aria-hidden', 'false');
++      
++      // Add global listener
++      // Use setTimeout to avoid catching the current click that opened it
++      setTimeout(() => {
++          document.addEventListener('click', handleDocumentClick);
++      }, 0);
+     };
+ 
+     trigger.addEventListener('click', () => {
+@@ -51,19 +81,12 @@
+       }
+     });
+ 
+-    document.addEventListener('click', (event) => {
+-      if (!popoverComponent.contains(event.target)) {
+-        closePopover();
+-      }
+-    });
+-
+     document.addEventListener('basecoat:popover', (event) => {
+       if (event.detail.source !== popoverComponent) {
+         closePopover(false);
+       }
+     });
+ 
+-    popoverComponent.dataset.popoverInitialized = true;
+     popoverComponent.dispatchEvent(new CustomEvent('basecoat:initialized'));
+   };
+ 

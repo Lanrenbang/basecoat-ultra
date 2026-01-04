@@ -1,0 +1,95 @@
+name: Publish to npm
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        description: 'Package to publish'
+        required: true
+        type: choice
+        options:
+          - ultra
+          - svelte
+          - both
+      dry_run:
+        description: 'Dry run (no actual publish)'
+        required: false
+        type: boolean
+        default: false
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      id-token: write  # 必须：用于申请 OIDC Token
+    
+    steps:
+      - name: Checkout
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3  # v6.0.0
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@b7a1c7ccf290d58743029c4f6903da283811b979 # v2.1.0
+        with:
+          bun-version: latest
+
+      - name: Setup Node.js
+        uses: actions/setup-node@395ad3262231945c25e8478fd5baf05154b1d79f  # v6.1.0
+        with:
+          node-version: '24'
+          registry-url: 'https://registry.npmjs.org' 
+          # setup-node 会自动检测 id-token 权限并生成 .npmrc 配置，无需手动设置 env
+
+      - name: Install dependencies
+        run: bun install
+
+      - name: Copy shared files to packages
+        run: |
+          cp README.md LICENSE.md packages/ultra/
+          cp README.md LICENSE.md packages/svelte/
+
+      - name: Build Ultra
+        if: inputs.package == 'ultra' || inputs.package == 'both'
+        run: bun run build:ultra
+
+      - name: Build Svelte
+        if: inputs.package == 'svelte' || inputs.package == 'both'
+        run: bun run build:svelte
+
+      # Dry Run 不需要 provenance，因为它不真正上传
+      - name: Publish Ultra (dry run)
+        if: (inputs.package == 'ultra' || inputs.package == 'both') && inputs.dry_run
+        run: npm publish --access public --dry-run
+        working-directory: packages/ultra
+
+      - name: Publish Svelte (dry run)
+        if: (inputs.package == 'svelte' || inputs.package == 'both') && inputs.dry_run
+        run: npm publish --access public --dry-run
+        working-directory: packages/svelte
+
+      # 正式发布：移除 secrets 引用，添加 --provenance
+      - name: Publish Ultra
+        if: (inputs.package == 'ultra' || inputs.package == 'both') && !inputs.dry_run
+        run: npm publish --access public --provenance
+        working-directory: packages/ultra
+
+      - name: Publish Svelte
+        if: (inputs.package == 'svelte' || inputs.package == 'both') && !inputs.dry_run
+        run: npm publish --access public --provenance
+        working-directory: packages/svelte
+
+      - name: Summary
+        run: |
+          echo "## 📦 Publish Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ "${{ inputs.dry_run }}" == "true" ]; then
+            echo "🔍 **Dry run completed** - no packages were actually published" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "✅ **Published packages:**" >> $GITHUB_STEP_SUMMARY
+            if [ "${{ inputs.package }}" == "ultra" ] || [ "${{ inputs.package }}" == "both" ]; then
+              echo "- @lanrenbang/basecoat-ultra" >> $GITHUB_STEP_SUMMARY
+            fi
+            if [ "${{ inputs.package }}" == "svelte" ] || [ "${{ inputs.package }}" == "both" ]; then
+              echo "- @lanrenbang/basecoat-ultra-svelte" >> $GITHUB_STEP_SUMMARY
+            fi
+          fi

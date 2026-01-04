@@ -1,0 +1,7 @@
+--- upstream-analysis/.temp/upstream-css/collapsible.css	2026-01-03 09:45:31.286926258 -0800
++++ upstream-analysis/.temp/ultra-css/collapsible.css	2026-01-03 09:45:31.305927309 -0800
+@@ -18,3 +18,4 @@
+     display: none;
+   }
+ }
++

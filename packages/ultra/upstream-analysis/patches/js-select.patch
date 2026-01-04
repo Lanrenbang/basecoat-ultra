@@ -1,0 +1,20 @@
+--- upstream-analysis/.temp/upstream-js/select.js	2026-01-02 03:07:16.399082123 -0800
++++ upstream-analysis/.temp/ultra-js/select.js	2026-01-02 03:07:16.422083421 -0800
+@@ -1,5 +1,9 @@
++import { markInitialized } from './utils/dom.js';
++
+ (() => {
+   const initSelect = (selectComponent) => {
++    if (markInitialized(selectComponent, 'select')) return;
++
+     const trigger = selectComponent.querySelector(':scope > button');
+     const selectedLabel = trigger.querySelector(':scope > span');
+     const popover = selectComponent.querySelector(':scope > [data-popover]');
+@@ -287,7 +291,6 @@
+     popover.setAttribute('aria-hidden', 'true');
+     
+     selectComponent.selectByValue = selectByValue;
+-    selectComponent.dataset.selectInitialized = true;
+     selectComponent.dispatchEvent(new CustomEvent('basecoat:initialized'));
+   };
+ 

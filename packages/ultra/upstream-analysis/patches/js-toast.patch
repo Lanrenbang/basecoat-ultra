@@ -1,0 +1,64 @@
+--- upstream-analysis/.temp/upstream-js/toast.js	2026-01-02 03:07:16.419083252 -0800
++++ upstream-analysis/.temp/ultra-js/toast.js	2026-01-02 03:07:16.425083591 -0800
+@@ -1,3 +1,5 @@
++import { markInitialized } from './utils/dom.js';
++
+ (() => {
+   let toaster;
+   const toasts = new WeakMap();
+@@ -10,7 +12,7 @@
+   };
+ 
+   function initToaster(toasterElement) {
+-    if (toasterElement.dataset.toasterInitialized) return;
++    if (markInitialized(toasterElement, 'toaster')) return;
+     toaster = toasterElement;
+ 
+     toaster.addEventListener('mouseenter', pauseAllTimeouts);
+@@ -24,12 +26,11 @@
+     });
+ 
+     toaster.querySelectorAll('.toast:not([data-toast-initialized])').forEach(initToast);
+-    toaster.dataset.toasterInitialized = 'true';
+     toaster.dispatchEvent(new CustomEvent('basecoat:initialized'));
+   }
+ 
+   function initToast(element) {
+-    if (element.dataset.toastInitialized) return;
++    if (markInitialized(element, 'toast')) return;
+ 
+     const duration = parseInt(element.dataset.duration);
+     const timeoutDuration = duration !== -1
+@@ -51,8 +52,6 @@
+       }
+     }
+     toasts.set(element, state);
+-    
+-    element.dataset.toastInitialized = 'true';
+   }
+ 
+   function pauseAllTimeouts() {
+@@ -165,10 +164,21 @@
+   }
+ 
+   document.addEventListener('basecoat:toast', (event) => {
++    // 如果 toaster 不存在，自动创建一个
+     if (!toaster) {
+-      console.error('Cannot create toast: toaster container not found on page.');
+-      return;
++      const existingToaster = document.getElementById('toaster') || document.querySelector('.toaster');
++      if (existingToaster) {
++        initToaster(existingToaster);
++      } else {
++        // 动态创建 toaster 容器
++        const newToaster = document.createElement('section');
++        newToaster.id = 'toaster';
++        newToaster.className = 'toaster';
++        document.body.appendChild(newToaster);
++        initToaster(newToaster);
++      }
+     }
++    
+     const config = event.detail?.config || {};
+     const toastElement = createToast(config);
+     toaster.appendChild(toastElement);

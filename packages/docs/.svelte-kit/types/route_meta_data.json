@@ -1,0 +1,21 @@
+{
+	"/": [
+		"src/routes/+layout.ts",
+		"src/routes/+layout.ts"
+	],
+	"/introduction": [
+		"src/routes/+layout.ts"
+	],
+	"/svelte": [
+		"src/routes/+layout.ts"
+	],
+	"/svelte/neumorphism-demo": [
+		"src/routes/+layout.ts"
+	],
+	"/ultra": [
+		"src/routes/+layout.ts"
+	],
+	"/ultra/neumorphism-demo": [
+		"src/routes/+layout.ts"
+	]
+}

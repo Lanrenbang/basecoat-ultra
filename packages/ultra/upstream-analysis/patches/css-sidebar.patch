@@ -1,0 +1,7 @@
+--- upstream-analysis/.temp/upstream-css/sidebar.css	2026-01-03 09:45:31.290926479 -0800
++++ upstream-analysis/.temp/ultra-css/sidebar.css	2026-01-03 09:45:31.309927530 -0800
+@@ -119,3 +119,4 @@
+     }
+   }
+ }
++

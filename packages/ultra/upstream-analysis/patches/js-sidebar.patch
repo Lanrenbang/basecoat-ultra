@@ -1,0 +1,68 @@
+--- upstream-analysis/.temp/upstream-js/sidebar.js	2026-01-02 03:07:16.404082405 -0800
++++ upstream-analysis/.temp/ultra-js/sidebar.js	2026-01-02 03:07:16.434084099 -0800
+@@ -1,3 +1,5 @@
++import { markInitialized } from './utils/dom.js';
++
+ (() => {
+   // Monkey patching the history API to detect client-side navigation
+   if (!window.history.__basecoatPatched) {
+@@ -17,6 +19,8 @@
+   }
+ 
+   const initSidebar = (sidebarComponent) => {
++    if (markInitialized(sidebarComponent, 'sidebar')) return;
++
+     const initialOpen = sidebarComponent.dataset.initialOpen !== 'false';
+     const initialMobileOpen = sidebarComponent.dataset.initialMobileOpen === 'true';
+     const breakpoint = parseInt(sidebarComponent.dataset.breakpoint) || 768;
+@@ -26,11 +30,34 @@
+       : initialOpen;
+     
+     const updateCurrentPageLinks = () => {
+-      const currentPath = window.location.pathname.replace(/\/$/, '');
++      const currentUrl = new URL(window.location.href);
++      const currentPath = currentUrl.pathname.replace(/\/$/, '');
++      
+       sidebarComponent.querySelectorAll('a').forEach(link => {
+         if (link.hasAttribute('data-ignore-current')) return;
+         
+-        const linkPath = new URL(link.href).pathname.replace(/\/$/, '');
++        const linkUrl = new URL(link.href, window.location.origin);
++        
++        // Check if it's an anchor link (href="#...") which results in same page path
++        // If the link has a hash, we require the hash to match exactly
++        if (linkUrl.hash) {
++            // Compare Path AND Hash
++            const linkPath = linkUrl.pathname.replace(/\/$/, '');
++            if (linkPath === currentPath && linkUrl.hash === currentUrl.hash) {
++                link.setAttribute('aria-current', 'page');
++            } else {
++                link.removeAttribute('aria-current');
++            }
++            return;
++        }
++
++        // Standard Page Link (No hash)
++        if (link.getAttribute('href') === '#') {
++          link.removeAttribute('aria-current');
++          return;
++        }
++        
++        const linkPath = linkUrl.pathname.replace(/\/$/, '');
+         if (linkPath === currentPath) {
+           link.setAttribute('aria-current', 'page');
+         } else {
+@@ -94,11 +121,10 @@
+ 
+     updateState();
+     updateCurrentPageLinks();
+-    sidebarComponent.dataset.sidebarInitialized = true;
+     sidebarComponent.dispatchEvent(new CustomEvent('basecoat:initialized'));
+   };
+ 
+   if (window.basecoat) {
+     window.basecoat.register('sidebar', '.sidebar:not([data-sidebar-initialized])', initSidebar);
+   }
+-})();
+\ 文件末尾没有换行符
++})();

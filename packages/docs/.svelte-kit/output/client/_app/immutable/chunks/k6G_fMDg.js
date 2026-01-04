@@ -1,0 +1,1 @@
+import{f as o,m as f,w as c,E as d,x as y,H as E,y as T,z as b,A as _}from"./BS2-Cwni.js";import{B as m}from"./B1ahk-1M.js";function g(t,i,u=!1){f&&c();var e=new m(t),h=u?d:0;function n(a,r){if(f){const l=y(t)===E;if(a===l){var s=T();b(s),e.anchor=s,_(!1),e.ensure(a,r),_(!0);return}}e.ensure(a,r)}o(()=>{var a=!1;i((r,s=!0)=>{a=!0,n(s,r)}),a||n(!1,null)},h)}export{g as i};

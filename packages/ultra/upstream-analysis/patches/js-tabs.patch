@@ -1,0 +1,20 @@
+--- upstream-analysis/.temp/upstream-js/tabs.js	2026-01-02 03:07:16.413082913 -0800
++++ upstream-analysis/.temp/ultra-js/tabs.js	2026-01-02 03:07:16.423083478 -0800
+@@ -1,5 +1,9 @@
++import { markInitialized } from './utils/dom.js';
++
+ (() => {
+   const initTabs = (tabsComponent) => {
++    if (markInitialized(tabsComponent, 'tabs')) return;
++
+     const tablist = tabsComponent.querySelector('[role="tablist"]');
+     if (!tablist) return;
+ 
+@@ -53,7 +57,6 @@
+       nextTab.focus();
+     });
+     
+-    tabsComponent.dataset.tabsInitialized = true;
+     tabsComponent.dispatchEvent(new CustomEvent('basecoat:initialized'));
+   };
+ 

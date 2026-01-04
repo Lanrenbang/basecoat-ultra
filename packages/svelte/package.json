@@ -1,0 +1,70 @@
+{
+  "name": "@lanrenbang/basecoat-ultra-svelte",
+  "version": "0.1.0",
+  "description": "Svelte 5 components for Basecoat Ultra with Runes support.",
+  "type": "module",
+  "license": "MIT",
+  "author": "Lanrenbang",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Lanrenbang/basecoat-ultra.git",
+    "directory": "packages/svelte"
+  },
+  "homepage": "https://lanrenbang.github.io/basecoat-ultra",
+  "bugs": {
+    "url": "https://github.com/Lanrenbang/basecoat-ultra/issues"
+  },
+  "keywords": [
+    "svelte",
+    "svelte5",
+    "runes",
+    "tailwind",
+    "ui",
+    "components",
+    "basecoat"
+  ],
+  "svelte": "./dist/index.js",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "svelte": "./dist/index.js",
+      "default": "./dist/index.js"
+    },
+    "./components/*": {
+      "types": "./dist/components/*.svelte.d.ts",
+      "svelte": "./dist/components/*.svelte",
+      "default": "./dist/components/*.svelte"
+    },
+    "./*": {
+      "types": "./dist/components/*.svelte.d.ts",
+      "svelte": "./dist/components/*.svelte",
+      "default": "./dist/components/*.svelte"
+    }
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE.md"
+  ],
+  "scripts": {
+    "dev": "vite build --watch",
+    "build": "vite build && svelte-package"
+  },
+  "dependencies": {
+    "flatpickr": "^4.6.13",
+    "split.js": "^1.6.5"
+  },
+  "peerDependencies": {
+    "@lanrenbang/basecoat-ultra": ">=0.2.0",
+    "svelte": "^5.0.0"
+  },
+  "devDependencies": {
+    "@lanrenbang/basecoat-ultra": "workspace:^",
+    "@sveltejs/package": "^2.3.9",
+    "@sveltejs/vite-plugin-svelte": "^6.2.1",
+    "@tailwindcss/vite": "^4.1.18",
+    "svelte": "^5.0.0",
+    "tailwindcss": "^4.1.18",
+    "vite": "^7.3.0"
+  }
+}

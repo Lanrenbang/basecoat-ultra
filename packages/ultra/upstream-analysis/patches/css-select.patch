@@ -1,0 +1,20 @@
+--- upstream-analysis/.temp/upstream-css/select.css	2026-01-03 09:45:31.290926479 -0800
++++ upstream-analysis/.temp/ultra-css/select.css	2026-01-03 09:45:31.307927419 -0800
+@@ -17,7 +17,11 @@
+       @apply p-1;
+ 
+       [role='option'] {
+-        @apply aria-hidden:hidden [&_svg]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm pl-2 py-1.5 pr-7.5 text-sm outline-hidden select-none [&_svg]:shrink-0 [&_svg]:size-4 aria-disabled:opacity-50 aria-disabled:pointer-events-none disabled:opacity-50 disabled:pointer-events-none w-full truncate;
++        @apply aria-hidden:hidden [&_svg]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm pl-2 py-1.5 pr-7.5 text-sm outline-hidden select-none [&_svg]:shrink-0 aria-disabled:opacity-50 aria-disabled:pointer-events-none disabled:opacity-50 disabled:pointer-events-none w-full truncate;
++        
++        & svg:not([class*="size-"]) {
++          @apply size-4;
++        }
+         
+         &[aria-selected='true'] {
+           @apply bg-[image:var(--check-icon)] bg-no-repeat bg-position-[center_right_0.5rem] bg-size-[0.875rem];
+@@ -64,3 +68,4 @@
+     }
+   }
+ }
++

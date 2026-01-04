@@ -1,0 +1,256 @@
+/* 
+========================================
+BASECOAT NEUMORPHISM EXTENSION
+========================================
+Global adaptive lighting system.
+*/
+
+@layer components {
+  :root {
+      /* Global Light Coordinates (Updated by JS) */
+      --light-x: -8px;
+      --light-y: -8px;
+      
+      /* Shape Factors */
+      --neu-radius: 24px;
+      --neu-blur: 20px;
+
+      /* Color Logic - Light Mode (Default) */
+      --neu-highlight-color: color-mix(in srgb, white, transparent 10%);
+      --neu-shadow-color: rgba(0, 0, 0, 0.15);
+      
+      /* Shine Color: Light Mode uses a subtle dark sweep (via foreground) for visibility on white */
+      --neu-shine-color: color-mix(in srgb, var(--foreground), transparent 90%);
+  }
+
+  /* Dark Mode Adaptation */
+  :root.dark {
+      --neu-highlight-color: rgba(255, 255, 255, 0.12);
+      --neu-shadow-color: rgba(0, 0, 0, 0.5);
+      
+      /* Shine Color: Dark Mode uses white sweep */
+      --neu-shine-color: rgba(255, 255, 255, 0.1);
+  }
+
+  /* 
+     Panel / Container (Convex)
+     Applies an outer shadow to simulate a raised surface.
+  */
+  .neu-panel {
+      @apply bg-background text-foreground transition-colors duration-300 ease-out;
+      border-radius: var(--neu-radius);
+      border: 1px solid color-mix(in srgb, var(--foreground), transparent 97%);
+      
+      box-shadow: 
+          calc(var(--light-x) * -1) calc(var(--light-y) * -1) var(--neu-blur) var(--neu-shadow-color),
+          var(--light-x) var(--light-y) var(--neu-blur) var(--neu-highlight-color);
+  }
+
+  /* 
+     Field / Input (Concave)
+     Applies an inner shadow to simulate a recessed surface.
+  */
+  .neu-field {
+      @apply bg-background text-foreground transition-all duration-200 border-none outline-none;
+      border-radius: 12px;
+      
+      box-shadow: 
+          inset calc(var(--light-x) * -1) calc(var(--light-y) * -1) 12px var(--neu-shadow-color),
+          inset var(--light-x) var(--light-y) 12px var(--neu-highlight-color);
+
+      &:focus {
+          @apply text-primary;
+          box-shadow: 
+              inset calc(var(--light-x) * -0.5) calc(var(--light-y) * -0.5) 8px var(--neu-shadow-color),
+              inset var(--light-x) var(--light-y) 8px var(--neu-highlight-color);
+      }
+  }
+
+  /* 
+     Button (Convex + Interactive)
+     Simulates a raised button that presses down (becomes concave/flat) on active.
+  */
+  .neu-btn {
+      @apply bg-background text-foreground font-semibold cursor-pointer transition-all duration-100 border-none;
+      border-radius: 12px;
+      
+      box-shadow: 
+          calc(var(--light-x) * -1) calc(var(--light-y) * -1) 16px var(--neu-shadow-color),
+          var(--light-x) var(--light-y) 16px var(--neu-highlight-color);
+
+      &:hover {
+          @apply text-primary -translate-y-0.5;
+          box-shadow: 
+              calc(var(--light-x) * -1.2) calc(var(--light-y) * -1.2) 20px var(--neu-shadow-color),
+              calc(var(--light-x) * 1.2) calc(var(--light-y) * 1.2) 20px var(--neu-highlight-color);
+      }
+
+      &:active, &.neu-pressed {
+          @apply translate-y-0 bg-background;
+          box-shadow: 
+              inset 4px 4px 8px var(--neu-shadow-color),
+              inset -4px -4px 8px var(--neu-highlight-color);
+      }
+  }
+
+  /* Utility: Round Shape */
+  .neu-round {
+      @apply rounded-full flex items-center justify-center aspect-square;
+  }
+
+  /* 
+     Effect: Shine (流光)
+     Restored: Uses a "light beam" gradient that sweeps across.
+     Technique: Uses ::after with inset:0 and border-radius:inherit to mask the shine 
+     without requiring overflow:hidden on the parent (which breaks Tooltips).
+  */
+  .effect-shine,
+  .btn:not(.btn-link):not(:disabled):not(.no-shine),
+  .neu-btn:not(:disabled):not(.no-shine),
+  .toggle:not(:disabled):not(.no-shine),
+  [role="tab"]:not([aria-selected="true"]):not(:disabled):not(.no-shine) {
+      @apply relative;
+  }
+
+  .effect-shine,
+  .btn:not(.btn-link):not(:disabled):not(.no-shine),
+  .neu-btn:not(:disabled):not(.no-shine),
+  .toggle:not(:disabled):not(.no-shine),
+  [role="tab"]:not([aria-selected="true"]):not(:disabled):not(.no-shine),
+  .carousel-previous:not(:disabled):not(.no-shine),
+  .carousel-next:not(:disabled):not(.no-shine) {
+      &::after {
+          content: '';
+          @apply absolute inset-0 z-10 pointer-events-none;
+          border-radius: inherit;
+          
+          /* 
+             The "Beam" Shine (Restored)
+             - 90deg gradient (vertical lines)
+             - Uses currentColor mix as per original
+             - Simulates the 'left' transition using background-position
+          */
+          background: linear-gradient(
+              90deg, 
+              transparent, 
+              color-mix(in srgb, currentColor, transparent 90%), 
+              transparent
+          );
+          background-size: 50% 100%; /* The beam width */
+          background-repeat: no-repeat;
+          background-position: -100% 0; /* Start off-left */
+          transition: background-position 0.5s ease-in-out;
+      }
+      
+      &:hover::after {
+          background-position: 200% 0; /* Slide to off-right */
+      }
+  }
+
+  /* 
+     Effect: Lift (上浮)
+     Excluded for Tabs as requested.
+     Excluded Carousel buttons to avoid conflict with absolute centering transform.
+  */
+  .effect-lift,
+  .btn:not(.btn-link):not(:disabled):not(.no-lift),
+  .neu-btn:not(:disabled):not(.no-lift),
+  .toggle:not(:disabled):not(.no-lift) {
+      @apply transition-transform duration-200 ease-out will-change-transform;
+      
+      &:hover {
+          @apply -translate-y-0.5;
+      }
+      
+      &:active {
+          @apply translate-y-0;
+      }
+  }
+
+  /*
+     Pattern: Floating Label Group
+     Requires: <div class="neu-floating-group"><input placeholder=" "><label>...</label></div>
+     Uses pure CSS (:placeholder-shown) to toggle label position.
+  */
+  .neu-floating-group {
+      @apply relative w-full;
+
+      input {
+          /* Increase height and padding to make room for the label */
+          @apply w-full h-14 pt-6 pb-2 px-4;
+          
+          /* Ensure placeholder is hidden (opacity 0) but present for the selector to work */
+          &::placeholder {
+              @apply text-transparent;
+          }
+      }
+
+      label {
+          @apply absolute left-4 top-1/2 -translate-y-1/2 text-muted-foreground transition-all duration-200 ease-out pointer-events-none;
+      }
+
+      /* 
+         State: Focused OR Not Placeholder Shown (Has Content) 
+         Move label to top.
+      */
+      input:focus + label,
+      input:not(:placeholder-shown) + label {
+          @apply top-4 -translate-y-1/2 text-xs font-medium;
+      }
+      
+      /* Active Highlight Color */
+      input:focus + label {
+          @apply text-primary;
+      }
+  }
+
+  /*
+     Pattern: 3D Flip (Checkbox Hack)
+     Allows a card to flip 180deg without JavaScript.
+     
+     Structure:
+     <div class="neu-flip-container [neu-flip-vertical]">
+       <input type="checkbox" class="neu-flip-toggle" id="flip-id">
+       <div class="neu-flip-inner">
+         <div class="neu-flip-face">Front Content</div>
+         <div class="neu-flip-face neu-flip-back">Back Content</div>
+       </div>
+     </div>
+  */
+  .neu-flip-container {
+      perspective: 1000px;
+  }
+
+  .neu-flip-toggle {
+      @apply hidden;
+  }
+
+  .neu-flip-inner {
+      @apply relative w-full h-full transition-transform duration-700 ease-in-out;
+      transform-style: preserve-3d;
+  }
+
+  .neu-flip-face {
+      @apply absolute inset-0 backface-hidden;
+      backface-visibility: hidden;
+      -webkit-backface-visibility: hidden;
+  }
+
+  /* Default Horizontal Flip (Rotate Y) */
+  .neu-flip-back {
+      transform: rotateY(180deg);
+  }
+  .neu-flip-toggle:checked ~ .neu-flip-inner {
+      transform: rotateY(180deg);
+  }
+
+  /* Vertical Flip Variant (Rotate X) */
+  .neu-flip-container.neu-flip-vertical {
+      .neu-flip-back {
+          transform: rotateX(180deg);
+      }
+      .neu-flip-toggle:checked ~ .neu-flip-inner {
+          transform: rotateX(180deg);
+      }
+  }
+}

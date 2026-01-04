@@ -1,0 +1,417 @@
+{
+  "timestamp": "2026-01-03T17:45:31.557Z",
+  "upstream": {
+    "commit": "167b98e",
+    "tag": "0.3.9-7-g167b98e",
+    "date": "2025-12-30 18:41:15 +0800"
+  },
+  "tracking": {
+    "commit": "167b98e",
+    "date": "2025-12-30 18:41:15 +0800"
+  },
+  "cssDiffs": [
+    {
+      "name": "alert",
+      "type": "css",
+      "status": "modified",
+      "insertions": 1,
+      "deletions": 0,
+      "patch": "--- upstream-analysis/.temp/upstream-css/alert.css\t2026-01-03 09:45:31.284926147 -0800\n+++ upstream-analysis/.temp/ultra-css/alert.css\t2026-01-03 09:45:31.297926866 -0800\n@@ -32,3 +32,4 @@\n     }\n   }\n }\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "badge",
+      "type": "css",
+      "status": "modified",
+      "insertions": 2,
+      "deletions": 1,
+      "patch": "--- upstream-analysis/.temp/upstream-css/badge.css\t2026-01-03 09:45:31.285926202 -0800\n+++ upstream-analysis/.temp/ultra-css/badge.css\t2026-01-03 09:45:31.300927032 -0800\n@@ -18,6 +18,7 @@\n     @apply border-transparent bg-destructive text-white [a&]:hover:bg-destructive/90 focus-visible:ring-destructive/20 dark:focus-visible:ring-destructive/40 dark:bg-destructive/60;\n   }\n   .badge-outline {\n-    @apply text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground;\n+    @apply border-border bg-background text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground;\n   }\n }\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "base",
+      "type": "css",
+      "status": "modified",
+      "insertions": 0,
+      "deletions": 112,
+      "patch": "--- upstream-analysis/.temp/upstream-css/base.css\t2026-01-03 09:45:31.282926036 -0800\n+++ upstream-analysis/.temp/ultra-css/base.css\t2026-01-03 09:45:31.297926866 -0800\n@@ -1,88 +1,3 @@\n-@custom-variant dark (&:is(.dark *));\n-\n-:root {\n-  --radius: 0.625rem;\n-  --background: oklch(1 0 0);\n-  --foreground: oklch(0.145 0 0);\n-  --card: oklch(1 0 0);\n-  --card-foreground: oklch(0.145 0 0);\n-  --popover: oklch(1 0 0);\n-  --popover-foreground: oklch(0.145 0 0);\n-  --primary: oklch(0.205 0 0);\n-  --primary-foreground: oklch(0.985 0 0);\n-  --secondary: oklch(0.97 0 0);\n-  --secondary-foreground: oklch(0.205 0 0);\n-  --muted: oklch(0.97 0 0);\n-  --muted-foreground: oklch(0.556 0 0);\n-  --accent: oklch(0.97 0 0);\n-  --accent-foreground: oklch(0.205 0 0);\n-  --destructive: oklch(0.577 0.245 27.325);\n-  --border: oklch(0.922 0 0);\n-  --input: oklch(0.922 0 0);\n-  --ring: oklch(0.708 0 0);\n-  --chart-1: oklch(0.646 0.222 41.116);\n-  --chart-2: oklch(0.6 0.118 184.704);\n-  --chart-3: oklch(0.398 0.07 227.392);\n-  --chart-4: oklch(0.828 0.189 84.429);\n-  --chart-5: oklch(0.769 0.188 70.08);\n-  --sidebar: oklch(0.985 0 0);\n-  --sidebar-foreground: oklch(0.145 0 0);\n-  --sidebar-primary: oklch(0.205 0 0);\n-  --sidebar-primary-foreground: oklch(0.985 0 0);\n-  --sidebar-accent: oklch(0.97 0 0);\n-  --sidebar-accent-foreground: oklch(0.205 0 0);\n-  --sidebar-border: oklch(0.922 0 0);\n-  --sidebar-ring: oklch(0.708 0 0);\n-  --sidebar-width: 16rem;\n-  --sidebar-mobile-width: 18rem;\n-  --scrollbar-track: transparent;\n-  --scrollbar-thumb: rgba(0, 0, 0, 0.3);\n-  --scrollbar-width: 6px;\n-  --scrollbar-radius: 6px;\n-  --chevron-down-icon: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"oklch(0.556 0 0)\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-chevron-down-icon lucide-chevron-down\"><path d=\"m6 9 6 6 6-6\"/></svg>'); /* --muted-foreground */\n-  --chevron-down-icon-50: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"oklch(0.556 0 0 / 0.5)\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-chevron-down-icon lucide-chevron-down\"><path d=\"m6 9 6 6 6-6\"/></svg>'); /* --muted-foreground + 50% opacity */\n-  --check-icon: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"oklch(0.556 0 0)\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-check-icon lucide-check\"><path d=\"M20 6 9 17l-5-5\"/></svg>'); /* --muted-foreground */\n-}\n-\n-.dark {\n-  --background: oklch(0.145 0 0);\n-  --foreground: oklch(0.985 0 0);\n-  --card: oklch(0.205 0 0);\n-  --card-foreground: oklch(0.985 0 0);\n-  --popover: oklch(0.269 0 0);\n-  --popover-foreground: oklch(0.985 0 0);\n-  --primary: oklch(0.922 0 0);\n-  --primary-foreground: oklch(0.205 0 0);\n-  --secondary: oklch(0.269 0 0);\n-  --secondary-foreground: oklch(0.985 0 0);\n-  --muted: oklch(0.269 0 0);\n-  --muted-foreground: oklch(0.708 0 0);\n-  --accent: oklch(0.371 0 0);\n-  --accent-foreground: oklch(0.985 0 0);\n-  --destructive: oklch(0.704 0.191 22.216);\n-  --border: oklch(1 0 0 / 10%);\n-  --input: oklch(1 0 0 / 15%);\n-  --ring: oklch(0.556 0 0);\n-  --chart-1: oklch(0.488 0.243 264.376);\n-  --chart-2: oklch(0.696 0.17 162.48);\n-  --chart-3: oklch(0.769 0.188 70.08);\n-  --chart-4: oklch(0.627 0.265 303.9);\n-  --chart-5: oklch(0.645 0.246 16.439);\n-  --sidebar: oklch(0.205 0 0);\n-  --sidebar-foreground: oklch(0.985 0 0);\n-  --sidebar-primary: oklch(0.488 0.243 264.376);\n-  --sidebar-primary-foreground: oklch(0.985 0 0);\n-  --sidebar-accent: oklch(0.269 0 0);\n-  --sidebar-accent-foreground: oklch(0.985 0 0);\n-  --sidebar-border: oklch(1 0 0 / 10%);\n-  --sidebar-ring: oklch(0.439 0 0);\n-  --scrollbar-thumb: rgba(255, 255, 255, 0.3);\n-  --chevron-down-icon: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"oklch(0.708 0 0)\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-chevron-down-icon lucide-chevron-down\"><path d=\"m6 9 6 6 6-6\"/></svg>'); /* --muted-foreground */\n-  --chevron-down-icon-50: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"oklch(0.708 0 0 / 0.5)\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-chevron-down-icon lucide-chevron-down\"><path d=\"m6 9 6 6 6-6\"/></svg>'); /* --muted-foreground + 50% opacity */\n-  --check-icon: url('data:image/svg+xml;utf8,<svg xmlns=\"http://www.w3.org/2000/svg\" width=\"24\" height=\"24\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"oklch(0.708 0 0)\" stroke-width=\"2\" stroke-linecap=\"round\" stroke-linejoin=\"round\" class=\"lucide lucide-check-icon lucide-check\"><path d=\"M20 6 9 17l-5-5\"/></svg>');/* --muted-foreground */\n-  color-scheme: dark;\n-}\n-\n @theme {\n   --radius-sm: calc(var(--radius) - 4px);\n   --radius-md: calc(var(--radius) - 2px);\n@@ -120,30 +35,3 @@\n   --color-sidebar-border: var(--sidebar-border);\n   --color-sidebar-ring: var(--sidebar-ring);\n }\n-\n-@layer base {\n-  * {\n-    @apply border-border outline-ring/50;\n-  }\n-  html {\n-    @apply scroll-smooth;\n-  }\n-  body {\n-    @apply bg-background text-foreground overscroll-none antialiased;\n-  }\n-  .scrollbar {\n-    scrollbar-width: thin;\n-    scrollbar-color: var(--scrollbar-thumb) var(--scrollbar-track);\n-\n-    &::-webkit-scrollbar {\n-      width: var(--scrollbar-width);\n-    }\n-    &::-webkit-scrollbar-track {\n-      background: var(--scrollbar-track);\n-    }\n-    &::-webkit-scrollbar-thumb {\n-      background: var(--scrollbar-thumb);\n-      border-radius: var(--scrollbar-radius);\n-    }\n-  }\n-}\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "button",
+      "type": "css",
+      "status": "modified",
+      "insertions": 11,
+      "deletions": 5,
+      "patch": "--- upstream-analysis/.temp/upstream-css/button.css\t2026-01-03 09:45:31.285926202 -0800\n+++ upstream-analysis/.temp/ultra-css/button.css\t2026-01-03 09:45:31.300927032 -0800\n@@ -42,7 +42,11 @@\n   .btn-lg-icon-ghost,\n   .btn-lg-icon-link,\n   .btn-lg-icon-destructive {\n-    @apply inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg:not([class*='size-'])]:size-4 shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer rounded-md;\n+    @apply inline-flex items-center justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:ring-[3px] aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive cursor-pointer rounded-md relative;\n+    \n+    & svg:not([class*=\"size-\"]) {\n+      @apply size-4;\n+    }\n   }\n   .btn,\n   .btn-primary,\n@@ -109,7 +113,7 @@\n   .btn-sm-icon,\n   .btn-sm-icon-primary,\n   .btn-lg-icon,\n-  .btn-lg-icon-primary {  \n+  .btn-lg-icon-primary {\n     @apply bg-primary text-primary-foreground shadow-xs hover:bg-primary/90;\n     &[aria-pressed='true'] {\n       @apply bg-primary/90;\n@@ -133,7 +137,7 @@\n   .btn-icon-outline,\n   .btn-sm-icon-outline,\n   .btn-lg-icon-outline {\n-    @apply border bg-background shadow-xs dark:bg-input/30 dark:border-input;\n+    @apply border bg-background text-foreground shadow-xs dark:bg-input/30 dark:border-input;\n     &:hover,\n     &[aria-pressed='true'] {\n       @apply bg-accent text-accent-foreground dark:bg-accent/50;\n@@ -145,6 +149,7 @@\n   .btn-icon-ghost,\n   .btn-sm-icon-ghost,\n   .btn-lg-icon-ghost {\n+    @apply bg-transparent text-foreground shadow-none;\n     &:hover,\n     &[aria-pressed='true'] {\n       @apply bg-accent text-accent-foreground dark:bg-accent/50;\n@@ -156,10 +161,10 @@\n   .btn-icon-link,\n   .btn-sm-icon-link,\n   .btn-lg-icon-link {\n-    @apply text-primary underline-offset-4;\n+    @apply bg-transparent text-primary underline-offset-4 shadow-none;\n     &:hover,\n     &[aria-pressed='true'] {\n-      @apply hover:underline;\n+      @apply hover:underline hover:bg-transparent;\n     }\n   }\n   .btn-destructive,\n@@ -175,3 +180,4 @@\n     }\n   }\n }\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "button-group",
+      "type": "css",
+      "status": "modified",
+      "insertions": 1,
+      "deletions": 0,
+      "patch": "--- upstream-analysis/.temp/upstream-css/button-group.css\t2026-01-03 09:45:31.285926202 -0800\n+++ upstream-analysis/.temp/ultra-css/button-group.css\t2026-01-03 09:45:31.300927032 -0800\n@@ -40,3 +40,4 @@\n     }\n   }\n }\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "card",
+      "type": "css",
+      "status": "modified",
+      "insertions": 1,
+      "deletions": 0,
+      "patch": "--- upstream-analysis/.temp/upstream-css/card.css\t2026-01-03 09:45:31.285926202 -0800\n+++ upstream-analysis/.temp/ultra-css/card.css\t2026-01-03 09:45:31.301927088 -0800\n@@ -22,3 +22,4 @@\n     }\n   }\n }\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "checkbox",
+      "type": "css",
+      "status": "modified",
+      "insertions": 1,
+      "deletions": 0,
+      "patch": "--- upstream-analysis/.temp/upstream-css/checkbox.css\t2026-01-03 09:45:31.285926202 -0800\n+++ upstream-analysis/.temp/ultra-css/checkbox.css\t2026-01-03 09:45:31.305927309 -0800\n@@ -10,3 +10,4 @@\n     }\n   }\n }\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "collapsible",
+      "type": "css",
+      "status": "modified",
+      "insertions": 1,
+      "deletions": 0,
+      "patch": "--- upstream-analysis/.temp/upstream-css/collapsible.css\t2026-01-03 09:45:31.286926258 -0800\n+++ upstream-analysis/.temp/ultra-css/collapsible.css\t2026-01-03 09:45:31.305927309 -0800\n@@ -18,3 +18,4 @@\n     display: none;\n   }\n }\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "command",
+      "type": "css",
+      "status": "modified",
+      "insertions": 11,
+      "deletions": 2,
+      "patch": "--- upstream-analysis/.temp/upstream-css/command.css\t2026-01-03 09:45:31.286926258 -0800\n+++ upstream-analysis/.temp/ultra-css/command.css\t2026-01-03 09:45:31.305927309 -0800\n@@ -37,7 +37,11 @@\n       }\n       > button,\n       > form[method='dialog'] > button {\n-        @apply ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground  rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4;\n+        @apply ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground  rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0;\n+        \n+        & svg:not([class*=\"size-\"]) {\n+          @apply size-4;\n+        }\n       }\n     }\n \n@@ -73,7 +77,11 @@\n       @apply max-h-[300px] overflow-y-auto overflow-x-hidden p-1;\n \n       [role='menuitem'] {\n-        @apply aria-hidden:hidden relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none aria-disabled:opacity-50 aria-disabled:pointer-events-none disabled:opacity-50 disabled:pointer-events-none w-full truncate [&_svg:not([class*='text-'])]:text-muted-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4;\n+        @apply aria-hidden:hidden relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none aria-disabled:opacity-50 aria-disabled:pointer-events-none disabled:opacity-50 disabled:pointer-events-none w-full truncate [&_svg:not([class*='text-'])]:text-muted-foreground [&_svg]:pointer-events-none [&_svg]:shrink-0;\n+\n+        & svg:not([class*=\"size-\"]) {\n+          @apply size-4;\n+        }\n \n         &.active {\n           @apply bg-accent text-accent-foreground;\n@@ -106,3 +114,4 @@\n     }\n   }\n }\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "dialog",
+      "type": "css",
+      "status": "modified",
+      "insertions": 65,
+      "deletions": 47,
+      "patch": "--- upstream-analysis/.temp/upstream-css/dialog.css\t2026-01-03 09:45:31.286926258 -0800\n+++ upstream-analysis/.temp/ultra-css/dialog.css\t2026-01-03 09:45:31.305927309 -0800\n@@ -1,60 +1,78 @@\n /* Dialog */\n @layer components {\n-  .dialog {\n-    @apply inset-y-0 opacity-0 transition-all transition-discrete;\n-\n-    &:is([open],:popover-open) {\n-      @apply opacity-100;\n-\n-      &::backdrop {\n-        @apply opacity-100;\n-      }\n-      > * {\n-        @apply scale-100;\n-      }\n-\n-      @starting-style {\n-        @apply opacity-0;\n+  @keyframes dialog-spring-in {\n+    0% { \n+      opacity: 0; \n+      transform: translateY(20px); \n+    }\n+    70% { \n+      opacity: 0.9; \n+      transform: translateY(-4px); /* Small overshoot up */\n+    }\n+    100% { \n+      opacity: 1; \n+      transform: translateY(0); /* Perfect final position */\n+    }\n+  }\n+  \n+  @keyframes backdrop-in {\n+    from { opacity: 0; }\n+    to { opacity: 1; }\n+  }\n \n-        &::backdrop {\n-          @apply opacity-0;\n-        }\n-        > * {\n-          @apply scale-95;\n-        }\n-      }\n+  .dialog {\n+    /* \n+       Base Modal Styles \n+       Position: Fixed (Native behavior uses fixed/absolute in top layer)\n+       Centering: Native <dialog> uses 'margin: auto' and 'inset: 0' by default.\n+       We enforce this to ensure it works even if overrides existed.\n+    */\n+    @apply fixed inset-0 z-50 grid w-full max-w-lg gap-4 border bg-background p-6 shadow-lg duration-200 sm:rounded-lg opacity-0 invisible;\n+    \n+    margin: auto !important; \n+    height: fit-content !important;\n+\n+    /* Open state with spring animation - translate only, no scale */\n+    &[open] {\n+      @apply opacity-100 visible;\n+      animation: dialog-spring-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;\n+      \n+      /* Ensure final state is pixel-perfect */\n+      animation-fill-mode: forwards;\n     }\n+\n+    /* Backdrop */\n     &::backdrop {\n-      @apply bg-black/50 opacity-0 transition-all transition-discrete;\n+      @apply fixed inset-0 z-50 bg-black/50;\n+      animation: backdrop-in 0.3s ease-out forwards;\n     }\n-    > * {\n-      @apply bg-background fixed top-[50%] left-[50%] z-50 flex flex-col w-full max-w-[calc(100%_-_2rem)] -translate-x-1/2 -translate-y-1/2 gap-4 rounded-lg border p-6 shadow-lg sm:max-w-lg max-h-[calc(100%_-_2rem)];\n-      @apply transition-all scale-95;\n \n-      > header {\n-        @apply flex flex-col gap-2 text-center sm:text-left;\n+    /* Inner Layout */\n+    > header {\n+      @apply flex flex-col gap-2 text-center sm:text-left;\n \n-        > h2 {\n-          @apply text-lg leading-none font-semibold;\n-        }\n-        > p {\n-          @apply text-muted-foreground text-sm;\n-        }\n-      }\n-      > section {\n-        @apply flex-1 -mx-6 px-6;\n+      > h2 {\n+        @apply text-lg leading-none font-semibold;\n       }\n-      > footer {\n-        @apply flex flex-col-reverse gap-2 sm:flex-row sm:justify-end;\n+      > p {\n+        @apply text-muted-foreground text-sm;\n       }\n-      > button,\n-      > form[method='dialog'] {\n-        @apply absolute top-4 right-4;\n-      }\n-      > button,\n-      > form[method='dialog'] > button {\n-        @apply ring-offset-background focus:ring-ring data-[state=open]:bg-accent data-[state=open]:text-muted-foreground  rounded-xs opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4;\n+    }\n+    > section {\n+      @apply flex-1;\n+    }\n+    > footer {\n+      @apply flex flex-col-reverse gap-2 sm:flex-row sm:justify-end;\n+    }\n+    \n+    /* Close Button - positioned absolute top-right, same level as header */\n+    > button.close {\n+      @apply absolute top-4 right-4 p-0 bg-transparent border-0 cursor-pointer;\n+      @apply ring-offset-background focus:ring-ring text-muted-foreground hover:text-foreground rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none;\n+      \n+      & svg {\n+        @apply size-4;\n       }\n     }\n   }\n-}\n+}\n\\ 文件末尾没有换行符\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "css",
+      "status": "modified",
+      "insertions": 9,
+      "deletions": 5,
+      "patch": "--- upstream-analysis/.temp/upstream-css/dropdown-menu.css\t2026-01-03 09:45:31.286926258 -0800\n+++ upstream-analysis/.temp/ultra-css/dropdown-menu.css\t2026-01-03 09:45:31.306927364 -0800\n@@ -7,11 +7,14 @@\n       @apply p-1;\n       min-width: anchor-size(width);\n \n-      [role='menuitem'],\n-      [role='menuitemcheckbox'],\n-      [role='menuitemradio'] {\n-        @apply aria-hidden:hidden [&_svg]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none [&_svg]:shrink-0 [&_svg]:size-4 aria-disabled:opacity-50 aria-disabled:pointer-events-none disabled:opacity-50 disabled:pointer-events-none w-full truncate;\n-\n+            [role='menuitem'],\n+            [role='menuitemcheckbox'],\n+            [role='menuitemradio'] {\n+              @apply aria-hidden:hidden [&_svg]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm px-2 py-1.5 text-sm outline-hidden select-none [&_svg]:shrink-0 aria-disabled:opacity-50 aria-disabled:pointer-events-none disabled:opacity-50 disabled:pointer-events-none w-full truncate;\n+      \n+              & svg:not([class*=\"size-\"]) {\n+                @apply size-4;\n+              }\n         &:not([aria-disabled='true']) {\n           @apply focus-visible:bg-accent focus-visible:text-accent-foreground;\n         }\n@@ -36,3 +39,4 @@\n     }\n   }\n }\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "field",
+      "type": "css",
+      "status": "modified",
+      "insertions": 3,
+      "deletions": 2,
+      "patch": "--- upstream-analysis/.temp/upstream-css/field.css\t2026-01-03 09:45:31.287926313 -0800\n+++ upstream-analysis/.temp/ultra-css/field.css\t2026-01-03 09:45:31.306927364 -0800\n@@ -15,7 +15,7 @@\n       @apply flex w-fit items-center gap-2 text-sm leading-snug font-medium;\n     }\n     [role=\"alert\"] {\n-      @apply text-sm text-destructive font-normal;\n+      @apply text-xs text-destructive font-normal;\n       \n       ul {\n         @apply ml-4 flex list-disc flex-col gap-1;\n@@ -32,7 +32,7 @@\n   .fieldset legend + p,\n   .field > p,\n   .field section > p {\n-    @apply text-muted-foreground text-sm leading-normal font-normal [&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4;\n+    @apply text-muted-foreground text-xs leading-normal font-normal [&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4;\n   }\n   .fieldset legend + p {\n     @apply -mt-1.5;\n@@ -41,3 +41,4 @@\n     @apply last:mt-0 nth-last-2:-mt-1;\n   }\n }\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "input",
+      "type": "css",
+      "status": "modified",
+      "insertions": 1,
+      "deletions": 0,
+      "patch": "--- upstream-analysis/.temp/upstream-css/input.css\t2026-01-03 09:45:31.287926313 -0800\n+++ upstream-analysis/.temp/ultra-css/input.css\t2026-01-03 09:45:31.306927364 -0800\n@@ -31,3 +31,4 @@\n     @apply aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive;\n   }\n }\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "kbd",
+      "type": "css",
+      "status": "modified",
+      "insertions": 7,
+      "deletions": 1,
+      "patch": "--- upstream-analysis/.temp/upstream-css/kbd.css\t2026-01-03 09:45:31.287926313 -0800\n+++ upstream-analysis/.temp/ultra-css/kbd.css\t2026-01-03 09:45:31.306927364 -0800\n@@ -1,6 +1,12 @@\n /* Kbd */\n @layer components {\n   .kbd {\n-    @apply bg-muted text-muted-foreground pointer-events-none inline-flex h-5 w-fit min-w-5 items-center justify-center gap-1 rounded-sm px-1 font-sans text-xs font-medium select-none [&_svg:not([class*='size-'])]:size-3;\n+    @apply bg-muted text-muted-foreground pointer-events-none inline-flex h-5 w-fit min-w-5 items-center justify-center gap-1 rounded-sm px-1 font-sans text-xs font-medium select-none;\n+    \n+    & svg:not([class*=\"size-\"]) {\n+      @apply size-3;\n+    }\n   }\n }\n+\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "label",
+      "type": "css",
+      "status": "modified",
+      "insertions": 1,
+      "deletions": 0,
+      "patch": "--- upstream-analysis/.temp/upstream-css/label.css\t2026-01-03 09:45:31.287926313 -0800\n+++ upstream-analysis/.temp/ultra-css/label.css\t2026-01-03 09:45:31.307927419 -0800\n@@ -10,3 +10,4 @@\n      }\n   }\n }\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "popover",
+      "type": "css",
+      "status": "modified",
+      "insertions": 2,
+      "deletions": 1,
+      "patch": "--- upstream-analysis/.temp/upstream-css/popover.css\t2026-01-03 09:45:31.290595903 -0800\n+++ upstream-analysis/.temp/ultra-css/popover.css\t2026-01-03 09:45:31.307927419 -0800\n@@ -62,10 +62,11 @@\n     }\n   }\n   .popover {\n-    @apply relative inline-flex;\n+    @apply relative inline-block;\n \n     [data-popover] {\n       @apply p-4;\n     }\n   } \n }\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "radio",
+      "type": "css",
+      "status": "modified",
+      "insertions": 1,
+      "deletions": 0,
+      "patch": "--- upstream-analysis/.temp/upstream-css/radio.css\t2026-01-03 09:45:31.290595903 -0800\n+++ upstream-analysis/.temp/ultra-css/radio.css\t2026-01-03 09:45:31.307927419 -0800\n@@ -9,3 +9,4 @@\n     }\n   }\n }\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "range",
+      "type": "css",
+      "status": "modified",
+      "insertions": 19,
+      "deletions": 12,
+      "patch": "--- upstream-analysis/.temp/upstream-css/range.css\t2026-01-03 09:45:31.290926479 -0800\n+++ upstream-analysis/.temp/ultra-css/range.css\t2026-01-03 09:45:31.312927696 -0800\n@@ -1,42 +1,48 @@\n /* Range */\n @layer components {\n   :is(.form, .field) input[type='range'],\n-  .input[type='range'] {\n+  .input[type='range'],\n+  .slider {\n     @apply appearance-none flex items-center p-0 outline-none;\n-    --slider-value: 20%;\n+    --slider-value: 0%; /* Default value, updated by JS */\n \n     &:hover,\n     &:focus-visible {\n       &::-webkit-slider-thumb {\n-        @apply ring-4;\n+        @apply ring-4 ring-ring/20 shadow-sm;\n       }\n       &::-moz-range-thumb {\n-        @apply ring-4;\n+        @apply ring-4 ring-ring/20 shadow-sm;\n       }\n       &::-ms-thumb {\n-        @apply ring-4;\n+        @apply ring-4 ring-ring/20 shadow-sm;\n       }\n     }\n \n     &::-webkit-slider-thumb {\n-      @apply appearance-none border-primary bg-background ring-ring/50 block size-4 shrink-0 rounded-full border shadow-sm -mt-1.25;\n+      @apply appearance-none block size-4 shrink-0 rounded-full border border-primary bg-background shadow-sm -mt-1.25 cursor-pointer transition-[box-shadow];\n     }\n     &::-webkit-slider-runnable-track {\n-      @apply appearance-none rounded-full h-1.5 w-full;\n+      @apply appearance-none rounded-full h-1.5 w-full cursor-pointer;\n       background: linear-gradient(to right, var(--primary) var(--slider-value), var(--muted) var(--slider-value));\n-    }    \n+    }\n+    \n     &::-moz-range-thumb {\n-      @apply appearance-none border-primary bg-background ring-ring/50 block size-4 shrink-0 rounded-full border shadow-sm -mt-1.25;\n+      @apply appearance-none block size-4 shrink-0 rounded-full border border-primary bg-background shadow-sm -mt-1.25 cursor-pointer transition-[box-shadow];\n     }\n     &::-moz-range-track {\n-      @apply appearance-none rounded-full h-1.5 w-full;\n+      @apply appearance-none rounded-full h-1.5 w-full cursor-pointer;\n       background: linear-gradient(to right, var(--primary) var(--slider-value), var(--muted) var(--slider-value));\n     }\n+\n     &::-ms-thumb {\n-      @apply appearance-none border-primary bg-background ring-ring/50 block size-4 shrink-0 rounded-full border shadow-sm -mt-1.25;\n+      @apply appearance-none block size-4 shrink-0 rounded-full border border-primary bg-background shadow-sm -mt-1.25 cursor-pointer transition-[box-shadow];\n     }\n     &::-ms-track {\n-      @apply appearance-none rounded-full h-1.5 w-full;\n+      @apply appearance-none rounded-full h-1.5 w-full cursor-pointer;\n+      background: transparent; \n+      border-color: transparent;\n+      color: transparent;\n     }\n     &::-ms-fill-lower {\n       @apply bg-primary rounded-full;\n@@ -46,3 +52,4 @@\n     }\n   }\n }\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "select",
+      "type": "css",
+      "status": "modified",
+      "insertions": 6,
+      "deletions": 1,
+      "patch": "--- upstream-analysis/.temp/upstream-css/select.css\t2026-01-03 09:45:31.290926479 -0800\n+++ upstream-analysis/.temp/ultra-css/select.css\t2026-01-03 09:45:31.307927419 -0800\n@@ -17,7 +17,11 @@\n       @apply p-1;\n \n       [role='option'] {\n-        @apply aria-hidden:hidden [&_svg]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm pl-2 py-1.5 pr-7.5 text-sm outline-hidden select-none [&_svg]:shrink-0 [&_svg]:size-4 aria-disabled:opacity-50 aria-disabled:pointer-events-none disabled:opacity-50 disabled:pointer-events-none w-full truncate;\n+        @apply aria-hidden:hidden [&_svg]:text-muted-foreground relative flex cursor-default items-center gap-2 rounded-sm pl-2 py-1.5 pr-7.5 text-sm outline-hidden select-none [&_svg]:shrink-0 aria-disabled:opacity-50 aria-disabled:pointer-events-none disabled:opacity-50 disabled:pointer-events-none w-full truncate;\n+        \n+        & svg:not([class*=\"size-\"]) {\n+          @apply size-4;\n+        }\n         \n         &[aria-selected='true'] {\n           @apply bg-[image:var(--check-icon)] bg-no-repeat bg-position-[center_right_0.5rem] bg-size-[0.875rem];\n@@ -64,3 +68,4 @@\n     }\n   }\n }\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "sidebar",
+      "type": "css",
+      "status": "modified",
+      "insertions": 1,
+      "deletions": 0,
+      "patch": "--- upstream-analysis/.temp/upstream-css/sidebar.css\t2026-01-03 09:45:31.290926479 -0800\n+++ upstream-analysis/.temp/ultra-css/sidebar.css\t2026-01-03 09:45:31.309927530 -0800\n@@ -119,3 +119,4 @@\n     }\n   }\n }\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "switch",
+      "type": "css",
+      "status": "modified",
+      "insertions": 1,
+      "deletions": 0,
+      "patch": "--- upstream-analysis/.temp/upstream-css/switch.css\t2026-01-03 09:45:31.293926645 -0800\n+++ upstream-analysis/.temp/ultra-css/switch.css\t2026-01-03 09:45:31.313927751 -0800\n@@ -9,3 +9,4 @@\n     @apply dark:checked:before:bg-primary-foreground checked:before:ms-3.5;\n   }\n }\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "table",
+      "type": "css",
+      "status": "modified",
+      "insertions": 2,
+      "deletions": 1,
+      "patch": "--- upstream-analysis/.temp/upstream-css/table.css\t2026-01-03 09:45:31.293926645 -0800\n+++ upstream-analysis/.temp/ultra-css/table.css\t2026-01-03 09:45:31.313927751 -0800\n@@ -3,7 +3,7 @@\n   .table {\n     @apply w-full caption-bottom text-sm;\n     thead {\n-      @apply [&_tr]:border-b;\n+      @apply bg-muted/30 [&_tr]:border-b;\n     }\n     tbody {\n       @apply [&_tr:last-child]:border-0;\n@@ -25,3 +25,4 @@\n     }\n   }\n }\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "tabs",
+      "type": "css",
+      "status": "modified",
+      "insertions": 7,
+      "deletions": 1,
+      "patch": "--- upstream-analysis/.temp/upstream-css/tabs.css\t2026-01-03 09:45:31.294926700 -0800\n+++ upstream-analysis/.temp/ultra-css/tabs.css\t2026-01-03 09:45:31.313927751 -0800\n@@ -7,7 +7,11 @@\n       @apply bg-muted text-muted-foreground inline-flex h-9 w-fit items-center justify-center rounded-lg p-[3px];\n \n       [role='tab'] {\n-        @apply focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring text-foreground dark:text-muted-foreground inline-flex h-[calc(100%_-_1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0 [&_svg:not([class*='size-'])]:size-4;\n+        @apply focus-visible:border-ring focus-visible:ring-ring/50 focus-visible:outline-ring text-foreground dark:text-muted-foreground inline-flex h-[calc(100%_-_1px)] flex-1 items-center justify-center gap-1.5 rounded-md border border-transparent px-2 py-1 text-sm font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:ring-[3px] focus-visible:outline-1 disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none [&_svg]:shrink-0;\n+\n+        & svg:not([class*=\"size-\"]) {\n+          @apply size-4;\n+        }\n \n         &[aria-selected='true'] {\n           @apply bg-background dark:text-foreground dark:border-input dark:bg-input/30 shadow-sm;\n@@ -19,3 +23,5 @@\n     }\n   }\n }\n+\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "textarea",
+      "type": "css",
+      "status": "modified",
+      "insertions": 1,
+      "deletions": 0,
+      "patch": "--- upstream-analysis/.temp/upstream-css/textarea.css\t2026-01-03 09:45:31.296926811 -0800\n+++ upstream-analysis/.temp/ultra-css/textarea.css\t2026-01-03 09:45:31.313927751 -0800\n@@ -5,3 +5,4 @@\n     @apply border-input placeholder:text-muted-foreground focus-visible:border-ring focus-visible:ring-ring/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive dark:bg-input/30 flex field-sizing-content min-h-16 w-full rounded-md border bg-transparent px-3 py-2 text-base shadow-xs transition-[color,box-shadow] outline-none focus-visible:ring-[3px] disabled:cursor-not-allowed disabled:opacity-50 md:text-sm;\n   }\n }\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "toast",
+      "type": "css",
+      "status": "modified",
+      "insertions": 1,
+      "deletions": 0,
+      "patch": "--- upstream-analysis/.temp/upstream-css/toast.css\t2026-01-03 09:45:31.296926811 -0800\n+++ upstream-analysis/.temp/ultra-css/toast.css\t2026-01-03 09:45:31.314927807 -0800\n@@ -55,3 +55,4 @@\n     transform: translateY(100%);\n   }\n }\n+\n",
+      "isUltraOnly": false
+    },
+    {
+      "name": "tooltip",
+      "type": "css",
+      "status": "modified",
+      "insertions": 1,
+      "deletions": 0,
+      "patch": "--- upstream-analysis/.temp/upstream-css/tooltip.css\t2026-01-03 09:45:31.297926866 -0800\n+++ upstream-analysis/.temp/ultra-css/tooltip.css\t2026-01-03 09:45:31.314927807 -0800\n@@ -54,3 +54,4 @@\n     }\n   }\n }\n+\n",
+      "isUltraOnly": false
+    }
+  ],
+  "jsDiffs": [
+    {
+      "name": "accordion",
+      "type": "js",
+      "status": "added",
+      "insertions": 25,
+      "deletions": 0,
+      "isUltraOnly": true
+    },
+    {
+      "name": "basecoat",
+      "type": "js",
+      "status": "added",
+      "insertions": 106,
+      "deletions": 0,
+      "isUltraOnly": true
+    },
+    {
+      "name": "carousel",
+      "type": "js",
+      "status": "added",
+      "insertions": 133,
+      "deletions": 0,
+      "isUltraOnly": true
+    },
+    {
+      "name": "catppuccin-theme-switcher",
+      "type": "js",
+      "status": "added",
+      "insertions": 210,
+      "deletions": 0,
+      "isUltraOnly": true
+    },
+    {
+      "name": "command",
+      "type": "js",
+      "status": "added",
+      "insertions": 163,
+      "deletions": 0,
+      "isUltraOnly": true
+    },
+    {
+      "name": "datepicker",
+      "type": "js",
+      "status": "added",
+      "insertions": 93,
+      "deletions": 0,
+      "isUltraOnly": true
+    },
+    {
+      "name": "dialog",
+      "type": "js",
+      "status": "added",
+      "insertions": 33,
+      "deletions": 0,
+      "isUltraOnly": true
+    },
+    {
+      "name": "dropdown-menu",
+      "type": "js",
+      "status": "added",
+      "insertions": 175,
+      "deletions": 0,
+      "isUltraOnly": true
+    },
+    {
+      "name": "input-otp",
+      "type": "js",
+      "status": "added",
+      "insertions": 106,
+      "deletions": 0,
+      "isUltraOnly": true
+    },
+    {
+      "name": "lighting",
+      "type": "js",
+      "status": "added",
+      "insertions": 109,
+      "deletions": 0,
+      "isUltraOnly": true
+    },
+    {
+      "name": "pagination",
+      "type": "js",
+      "status": "added",
+      "insertions": 136,
+      "deletions": 0,
+      "isUltraOnly": true
+    },
+    {
+      "name": "popover",
+      "type": "js",
+      "status": "added",
+      "insertions": 94,
+      "deletions": 0,
+      "isUltraOnly": true
+    },
+    {
+      "name": "resizable",
+      "type": "js",
+      "status": "added",
+      "insertions": 64,
+      "deletions": 0,
+      "isUltraOnly": true
+    },
+    {
+      "name": "select",
+      "type": "js",
+      "status": "added",
+      "insertions": 298,
+      "deletions": 0,
+      "isUltraOnly": true
+    },
+    {
+      "name": "sheet",
+      "type": "js",
+      "status": "added",
+      "insertions": 106,
+      "deletions": 0,
+      "isUltraOnly": true
+    },
+    {
+      "name": "sidebar",
+      "type": "js",
+      "status": "added",
+      "insertions": 128,
+      "deletions": 0,
+      "isUltraOnly": true
+    },
+    {
+      "name": "slider",
+      "type": "js",
+      "status": "added",
+      "insertions": 22,
+      "deletions": 0,
+      "isUltraOnly": true
+    },
+    {
+      "name": "tabs",
+      "type": "js",
+      "status": "added",
+      "insertions": 64,
+      "deletions": 0,
+      "isUltraOnly": true
+    },
+    {
+      "name": "toast",
+      "type": "js",
+      "status": "added",
+      "insertions": 156,
+      "deletions": 0,
+      "isUltraOnly": true
+    },
+    {
+      "name": "toggle",
+      "type": "js",
+      "status": "added",
+      "insertions": 54,
+      "deletions": 0,
+      "isUltraOnly": true
+    }
+  ],
+  "summary": {
+    "totalComponents": 46,
+    "modified": 26,
+    "added": 20,
+    "unchanged": 0,
+    "ultraOnly": 20
+  }
+}
