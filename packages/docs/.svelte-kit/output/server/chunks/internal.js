@@ -2,6 +2,7 @@ import { H as HYDRATION_ERROR, C as COMMENT_NODE, a as HYDRATION_END, b as HYDRA
 import { D as DEV } from "./environment.js";
 import { r as run_all, d as deferred, o as object_prototype, a as array_prototype, g as get_descriptor, b as get_prototype_of, i as is_array, c as is_extensible, e as index_of, f as define_property, h as array_from, s as setContext } from "./context.js";
 import { s as safe_equals, e as equals } from "./equality.js";
+import "./server.js";
 let public_env = {};
 function set_private_env(environment) {
 }
@@ -2643,7 +2644,7 @@ const options = {
 		<div class="error">
 			<span class="status">` + status + '</span>\n			<div class="message">\n				<h1>' + message + "</h1>\n			</div>\n		</div>\n	</body>\n</html>\n"
   },
-  version_hash: "j1t0c8"
+  version_hash: "f2phxy"
 };
 async function get_hooks() {
   let handle;

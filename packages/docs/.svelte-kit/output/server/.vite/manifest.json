@@ -6,7 +6,8 @@
     "isEntry": true,
     "imports": [
       "_shared.js",
-      "_environment.js"
+      "_environment.js",
+      "_server.js"
     ]
   },
   "../../node_modules/.bun/@sveltejs+kit@2.49.2+eca6e31d7f287fb0/node_modules/@sveltejs/kit/src/runtime/components/svelte-5/error.svelte": {
@@ -29,6 +30,7 @@
     "isEntry": true,
     "imports": [
       "_environment.js",
+      "_server.js",
       "_shared.js",
       "_exports.js",
       "_utils.js",
@@ -43,7 +45,8 @@
     "isEntry": true,
     "imports": [
       "_internal.js",
-      "_environment.js"
+      "_environment.js",
+      "_server.js"
     ]
   },
   "_atom-one-dark.ZgkIHsf0.css": {
@@ -102,8 +105,13 @@
       "_index2.js",
       "_environment.js",
       "_context.js",
-      "_equality.js"
+      "_equality.js",
+      "_server.js"
     ]
+  },
+  "_server.js": {
+    "file": "chunks/server.js",
+    "name": "server"
   },
   "_shared.js": {
     "file": "chunks/shared.js",
@@ -147,6 +155,7 @@
       "_index2.js",
       "_exports.js",
       "_utils.js",
+      "_server.js",
       "_state.svelte.js"
     ]
   },
@@ -156,7 +165,8 @@
     "src": "src/routes/introduction/+page.svelte",
     "isEntry": true,
     "imports": [
-      "_index2.js"
+      "_index2.js",
+      "_server.js"
     ]
   },
   "src/routes/svelte/+page.svelte": {
@@ -168,6 +178,7 @@
       "_index2.js",
       "_context.js",
       "_index-server.js",
+      "_server.js",
       "_atom-one-dark.js"
     ],
     "css": [
@@ -191,6 +202,7 @@
     "imports": [
       "_index2.js",
       "_index-server.js",
+      "_server.js",
       "_atom-one-dark.js",
       "_context.js"
     ],

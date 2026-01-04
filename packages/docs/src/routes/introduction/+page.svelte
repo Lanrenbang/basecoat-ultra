@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount } from 'svelte';
+  import { base } from '$app/paths';
   
   let selectedPackage = $state('ultra');
   
@@ -53,7 +54,7 @@
 <div class="bg-background text-foreground antialiased min-h-screen introduction-page">
   <!-- Top Header -->
   <header class="bg-background sticky inset-x-0 top-0 isolate flex shrink-0 items-center gap-2 border-b z-30 h-14 px-4 shadow-sm">
-    <a href="/introduction" class="flex items-center gap-2 font-semibold text-lg">
+    <a href="{base}/introduction" class="flex items-center gap-2 font-semibold text-lg">
       <div class="bg-primary text-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
         <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="h-4 w-4"><rect width="256" height="256" fill="none"></rect><line x1="208" y1="128" x2="128" y2="208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></line><line x1="192" y1="40" x2="40" y2="192" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></line></svg>
       </div>
@@ -61,8 +62,8 @@
     </a>
 
     <div class="ml-auto flex items-center gap-2">
-      <a href="/ultra" class="btn btn-sm btn-ghost text-sm">Ultra Components</a>
-      <a href="/svelte" class="btn btn-sm btn-ghost text-sm">Svelte Components</a>
+      <a href="{base}/ultra" class="btn btn-sm btn-ghost text-sm">Ultra Components</a>
+      <a href="{base}/svelte" class="btn btn-sm btn-ghost text-sm">Svelte Components</a>
       <div class="popover">
         <button type="button" class="btn btn-sm btn-ghost btn-icon text-muted-foreground hover:text-foreground" title="Theme Switcher" aria-expanded="false">
           <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>

@@ -62,9 +62,11 @@ declare module '$env/static/private' {
 	export const CARGO_HOME: string;
 	export const RUSTUP_TOOLCHAIN: string;
 	export const npm_package_version: string;
+	export const VTE_VERSION: string;
 	export const WAYLAND_DISPLAY: string;
 	export const __MISE_DIFF: string;
 	export const GIT_ASKPASS: string;
+	export const PROMPT_COMMAND: string;
 	export const GDK_DEBUG: string;
 	export const GOROOT: string;
 	export const CHROME_DESKTOP: string;
@@ -78,6 +80,7 @@ declare module '$env/static/private' {
 	export const RUSTUP_HOME: string;
 	export const ZDOTDIR: string;
 	export const USER: string;
+	export const GIT_PAGER: string;
 	export const SDL_VIDEODRIVER: string;
 	export const VSCODE_GIT_IPC_HANDLE: string;
 	export const __MISE_SESSION: string;
@@ -94,6 +97,7 @@ declare module '$env/static/private' {
 	export const npm_execpath: string;
 	export const BUN_INSTALL_BIN: string;
 	export const XDG_RUNTIME_DIR: string;
+	export const Q_TERM_DISABLED: string;
 	export const DEBUGINFOD_URLS: string;
 	export const npm_package_json: string;
 	export const P9K_SSH: string;
@@ -178,9 +182,11 @@ declare module '$env/dynamic/private' {
 		CARGO_HOME: string;
 		RUSTUP_TOOLCHAIN: string;
 		npm_package_version: string;
+		VTE_VERSION: string;
 		WAYLAND_DISPLAY: string;
 		__MISE_DIFF: string;
 		GIT_ASKPASS: string;
+		PROMPT_COMMAND: string;
 		GDK_DEBUG: string;
 		GOROOT: string;
 		CHROME_DESKTOP: string;
@@ -194,6 +200,7 @@ declare module '$env/dynamic/private' {
 		RUSTUP_HOME: string;
 		ZDOTDIR: string;
 		USER: string;
+		GIT_PAGER: string;
 		SDL_VIDEODRIVER: string;
 		VSCODE_GIT_IPC_HANDLE: string;
 		__MISE_SESSION: string;
@@ -210,6 +217,7 @@ declare module '$env/dynamic/private' {
 		npm_execpath: string;
 		BUN_INSTALL_BIN: string;
 		XDG_RUNTIME_DIR: string;
+		Q_TERM_DISABLED: string;
 		DEBUGINFOD_URLS: string;
 		npm_package_json: string;
 		P9K_SSH: string;

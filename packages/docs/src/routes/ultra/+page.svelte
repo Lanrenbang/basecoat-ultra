@@ -1,5 +1,6 @@
 <script lang="ts">
   import { onMount, onDestroy } from 'svelte';
+  import { base } from '$app/paths';
   import { registry } from '$lib/registry';
   import hljs from 'highlight.js/lib/core';
   import xml from 'highlight.js/lib/languages/xml';
@@ -286,7 +287,7 @@
   >
     <nav aria-label="Sidebar navigation" class="h-full flex flex-col w-64 bg-card border-r">
       <header class="p-4 border-b h-14 flex items-center">
-        <a href="/ultra" class="flex items-center gap-2 font-semibold text-lg">
+        <a href="{base}/ultra" class="flex items-center gap-2 font-semibold text-lg">
           <div class="bg-primary text-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg">
             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="h-4 w-4"><rect width="256" height="256" fill="none"></rect><line x1="208" y1="128" x2="128" y2="208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></line><line x1="192" y1="40" x2="40" y2="192" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></line></svg>
           </div>
@@ -301,7 +302,7 @@
               {#each category.items as item}
                 <li>
                   {#if item.id === 'neumorphism-demo'}
-                    <a href="/ultra/neumorphism-demo" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">
+                    <a href="{base}/ultra/neumorphism-demo" class="block px-2 py-1.5 rounded-md hover:bg-accent hover:text-accent-foreground text-sm">
                       {item.name}
                     </a>
                   {:else}
@@ -358,14 +359,14 @@
       <div class="h-4 w-px bg-border mx-2"></div>
 
       <nav class="flex items-center text-sm text-muted-foreground">
-        <a href="/introduction" class="hover:text-foreground transition-colors">Docs</a>
+        <a href="{base}/introduction" class="hover:text-foreground transition-colors">Docs</a>
         <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="mx-2 opacity-50"><path d="m9 18 6-6-6-6"/></svg>
         <span class="font-medium text-foreground">Components</span>
       </nav>
 
       <div class="ml-auto flex items-center gap-2">
-        <a href="/introduction" class="btn btn-sm btn-ghost text-sm">Introduction</a>
-        <a href="/svelte" class="btn btn-sm btn-ghost text-sm">Svelte Components</a>
+        <a href="{base}/introduction" class="btn btn-sm btn-ghost text-sm">Introduction</a>
+        <a href="{base}/svelte" class="btn btn-sm btn-ghost text-sm">Svelte Components</a>
         <div class="popover">
           <button type="button" class="btn btn-sm btn-ghost btn-icon text-muted-foreground hover:text-foreground" title="Theme Switcher">
             <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"/></svg>

@@ -1,4 +1,4 @@
-import { w as head, J as attr } from "../../../../chunks/index2.js";
+import { w as head, x as attr } from "../../../../chunks/index2.js";
 function _page($$renderer, $$props) {
   $$renderer.component(($$renderer2) => {
     let flipToggle = false;

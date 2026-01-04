@@ -989,11 +989,11 @@ export {
   COMMENT_NODE as C,
   DIRTY as D,
   ERROR_VALUE as E,
-  clsx as F,
-  ensure_array_like as G,
+  attributes as F,
+  clsx as G,
   HYDRATION_ERROR as H,
   INERT as I,
-  attr as J,
+  ensure_array_like as J,
   bind_props as K,
   LEGACY_PROPS as L,
   MAYBE_DIRTY as M,
@@ -1026,7 +1026,7 @@ export {
   is_passive_event as u,
   render as v,
   head as w,
-  attr_class as x,
+  attr as x,
   stringify as y,
-  attributes as z
+  attr_class as z
 };
