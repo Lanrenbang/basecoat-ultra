@@ -1,6 +1,6 @@
 {
   "name": "@lanrenbang/basecoat-ultra-svelte",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Svelte 5 components for Basecoat Ultra with Runes support.",
   "type": "module",
   "license": "MIT",
