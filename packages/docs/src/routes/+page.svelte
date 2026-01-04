@@ -5,12 +5,14 @@
   
   // Redirect to Introduction page by default
   if (browser) {
-    goto(`${base}/introduction`);
+    // Use hardcoded path for production to avoid base path calculation issues
+    const redirectPath = import.meta.env.PROD ? '/basecoat-ultra/introduction' : `${base}/introduction`;
+    goto(redirectPath);
   }
 </script>
 
 <svelte:head>
-  <meta http-equiv="refresh" content="0; url={base}/introduction" />
+  <meta http-equiv="refresh" content="0; url={import.meta.env.PROD ? '/basecoat-ultra/introduction' : `${base}/introduction`}" />
 </svelte:head>
 
 <div class="flex items-center justify-center min-h-screen">
