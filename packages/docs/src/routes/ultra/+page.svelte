@@ -16,8 +16,11 @@
   
   // Import Ultra JS modules
   onMount(async () => {
-    // Only initialize Ultra JS on the Ultra page (not Svelte page)
-    if (window.location.pathname === '/ultra' || window.location.pathname === '/ultra/') {
+    // Check if we're on the Ultra page using the current pathname
+    const currentPath = window.location.pathname;
+    const isUltraPage = currentPath.includes('/ultra') && !currentPath.includes('/svelte');
+    
+    if (isUltraPage) {
       // Dynamic import all Ultra JS modules
       // basecoat.js must be imported first to set up window.basecoat
       await import('@lanrenbang/basecoat-ultra/all');
@@ -31,7 +34,7 @@
       }
     }
     
-    // Initialize demo tabs
+    // Initialize demo tabs and scroll spy
     initDemoTabs();
     initScrollSpy();
   });
