@@ -1,0 +1,62 @@
+# .github/release-drafter.yml
+
+# 模板部分仅保留 Body 内容，$CHANGES 会自动填充变更日志
+template: |
+  ## What’s Changed
+  $CHANGES
+
+  ---
+  **Full Changelog**: https://github.com/$OWNER/$REPOSITORY/compare/$PREVIOUS_TAG...$TAG
+
+change-template: '- $TITLE @$AUTHOR (#$NUMBER)'
+commit-template: '  - $SUBJECT'
+change-title-escapes: '\<*_&' 
+
+autolabeler:
+  - label: "BREAKING CHANGE"
+    branch:
+      - '/breaking\/.+/'
+    title:
+      - '/breaking/i'
+  - label: 'enhancement'
+    branch:
+      - '/feature\/.+/'
+    title:
+      - '/feature/i'
+      - '/feat/i'
+  - label: 'bug'
+    branch:
+      - '/fix\/.+/'
+      - '/bugfix\/.+/'
+      - '/bug\/.+/'
+    title:
+      - '/fix/i'
+  - label: 'chore'
+    branch:
+      - '/chore\/.+/'
+      - '/style\/.+/'
+  - label: 'documentation'
+    branch:
+      - '/doc\/.+/'
+      - '/docs\/.+/'
+    files:
+      - '*.md'
+      - 'go.mod'
+      - 'go.sum'
+
+categories:
+  - title: "🚨 BREAKING CHANGES 🚨"
+    labels:
+      - "BREAKING CHANGE"
+  - title: "🚀 New Features"
+    labels:
+      - "enhancement"
+  - title: '🐛 Bug Fixes'
+    labels:
+      - 'fix'
+      - 'bugfix'
+      - 'bug'
+  - title: "🛠️ Other Changes"
+    labels:
+      - "chore"
+      - "documentation"

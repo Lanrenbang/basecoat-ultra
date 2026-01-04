@@ -1,0 +1,16 @@
+--- upstream-analysis/.temp/upstream-css/kbd.css	2026-01-03 09:45:31.287926313 -0800
++++ upstream-analysis/.temp/ultra-css/kbd.css	2026-01-03 09:45:31.306927364 -0800
+@@ -1,6 +1,12 @@
+ /* Kbd */
+ @layer components {
+   .kbd {
+-    @apply bg-muted text-muted-foreground pointer-events-none inline-flex h-5 w-fit min-w-5 items-center justify-center gap-1 rounded-sm px-1 font-sans text-xs font-medium select-none [&_svg:not([class*='size-'])]:size-3;
++    @apply bg-muted text-muted-foreground pointer-events-none inline-flex h-5 w-fit min-w-5 items-center justify-center gap-1 rounded-sm px-1 font-sans text-xs font-medium select-none;
++    
++    & svg:not([class*="size-"]) {
++      @apply size-3;
++    }
+   }
+ }
++
++

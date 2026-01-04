@@ -1,0 +1,7 @@
+--- upstream-analysis/.temp/upstream-css/card.css	2026-01-03 09:45:31.285926202 -0800
++++ upstream-analysis/.temp/ultra-css/card.css	2026-01-03 09:45:31.301927088 -0800
+@@ -22,3 +22,4 @@
+     }
+   }
+ }
++

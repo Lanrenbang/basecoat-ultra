@@ -1,0 +1,1 @@
+export { default as component } from "../../../../src/routes/svelte/neumorphism-demo/+page.svelte";

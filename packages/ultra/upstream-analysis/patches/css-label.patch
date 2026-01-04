@@ -1,0 +1,7 @@
+--- upstream-analysis/.temp/upstream-css/label.css	2026-01-03 09:45:31.287926313 -0800
++++ upstream-analysis/.temp/ultra-css/label.css	2026-01-03 09:45:31.307927419 -0800
+@@ -10,3 +10,4 @@
+      }
+   }
+ }
++

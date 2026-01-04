@@ -1,0 +1,7 @@
+--- upstream-analysis/.temp/upstream-css/checkbox.css	2026-01-03 09:45:31.285926202 -0800
++++ upstream-analysis/.temp/ultra-css/checkbox.css	2026-01-03 09:45:31.305927309 -0800
+@@ -10,3 +10,4 @@
+     }
+   }
+ }
++

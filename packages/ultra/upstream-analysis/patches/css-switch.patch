@@ -1,0 +1,7 @@
+--- upstream-analysis/.temp/upstream-css/switch.css	2026-01-03 09:45:31.293926645 -0800
++++ upstream-analysis/.temp/ultra-css/switch.css	2026-01-03 09:45:31.313927751 -0800
+@@ -9,3 +9,4 @@
+     @apply dark:checked:before:bg-primary-foreground checked:before:ms-3.5;
+   }
+ }
++

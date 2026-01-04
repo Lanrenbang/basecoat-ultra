@@ -1,0 +1,7 @@
+--- upstream-analysis/.temp/upstream-css/input.css	2026-01-03 09:45:31.287926313 -0800
++++ upstream-analysis/.temp/ultra-css/input.css	2026-01-03 09:45:31.306927364 -0800
+@@ -31,3 +31,4 @@
+     @apply aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive;
+   }
+ }
++

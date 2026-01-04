@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      (function() {
+        try {
+          var mode = localStorage.getItem('basecoat-mode');
+          var theme = localStorage.getItem('catppuccin-theme');
+          var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          
+          if (!mode && !theme) {
+             if (supportDarkMode) document.documentElement.classList.add('dark');
+          } else {
+             if (mode === 'dark' || (theme && ['frappe', 'macchiato', 'mocha'].includes(theme))) {
+               document.documentElement.classList.add('dark');
+             } else {
+               document.documentElement.classList.remove('dark');
+             }
+          }
+          
+          if (theme) document.documentElement.classList.add('theme-' + theme);
+          var accent = localStorage.getItem('catppuccin-accent');
+          if (accent) document.documentElement.classList.add('accent-' + accent);
+        } catch (e) {}
+      })();
+    </script>
+		
+		<link href="../_app/immutable/assets/0.D-_Jk5PE.css" rel="stylesheet">
+		<link rel="modulepreload" href="../_app/immutable/entry/start.v13OaZbV.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/8nbHsLMH.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/BS2-Cwni.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/Dr3vZ-qq.js">
+		<link rel="modulepreload" href="../_app/immutable/entry/app.aH0PsrC8.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/PPVm8Dsz.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/Xj0ff58f.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/DSIzwGkI.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/Bv98Rq3g.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/xC2C8d09.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/k6G_fMDg.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/B1ahk-1M.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/CEPX-A89.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/CWJMvDCM.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/0.CRhH4O3I.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/B24EjaJH.js">
+		<link rel="modulepreload" href="../_app/immutable/nodes/3.CBZfiXLn.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/De2OW6FQ.js">
+		<link rel="modulepreload" href="../_app/immutable/chunks/DgOdewLW.js"><!--ln5dmh--><!----><title>Introduction - Basecoat Ultra</title>
+	</head>
+	<body data-sveltekit-preload-data="hover" class="bg-background text-foreground antialiased">
+		<div style="display: contents"><!--[--><!--[--><!----><!----><div class="bg-background text-foreground antialiased min-h-screen introduction-page"><header class="bg-background sticky inset-x-0 top-0 isolate flex shrink-0 items-center gap-2 border-b z-30 h-14 px-4 shadow-sm"><a href="/introduction" class="flex items-center gap-2 font-semibold text-lg"><div class="bg-primary text-primary-foreground flex aspect-square size-8 items-center justify-center rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" class="h-4 w-4"><rect width="256" height="256" fill="none"></rect><line x1="208" y1="128" x2="128" y2="208" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></line><line x1="192" y1="40" x2="40" y2="192" fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="32"></line></svg></div> <span>Basecoat Ultra</span></a> <div class="ml-auto flex items-center gap-2"><a href="/ultra" class="btn btn-sm btn-ghost text-sm">Ultra Components</a> <a href="/svelte" class="btn btn-sm btn-ghost text-sm">Svelte Components</a> <div class="popover"><button type="button" class="btn btn-sm btn-ghost btn-icon text-muted-foreground hover:text-foreground" title="Theme Switcher" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path></svg></button> <div data-popover="" aria-hidden="true" class="catppuccin-theme-switcher w-96 p-6 bg-secondary/50 backdrop-blur-sm" data-side="bottom" data-align="end"><div class="flex items-center justify-between mb-4"><h3 class="font-semibold text-sm">Theme Switcher</h3></div> <div class="theme-flavors mb-6"></div> <div class="theme-accents"></div> <div class="mt-6 flex justify-center"><button type="button" class="theme-reset btn btn-sm btn-ghost text-muted-foreground hover:text-destructive w-full">Reset Theme</button></div></div></div> <a href="https://github.com/Lanrenbang/basecoat-ultra" target="_blank" class="btn btn-sm btn-ghost btn-icon text-muted-foreground hover:text-foreground"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 0c-6.626 0-12 5.373-12 12 0 5.302 3.438 9.8 8.207 11.387.599.111.793-.261.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23.957-.266 1.983-.399 3.003-.404 1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576 4.765-1.589 8.199-6.086 8.199-11.386 0-6.627-5.373-12-12-12z"></path></svg></a></div></header> <main class="p-8 lg:p-12 max-w-4xl mx-auto w-full"><div class="space-y-8"><div class="text-center space-y-4"><h1 class="text-4xl font-bold tracking-tight">Welcome to Basecoat Ultra</h1> <p class="text-xl text-muted-foreground max-w-2xl mx-auto">A Tailwind-first UI component library designed for high performance, minimalism, and deep customization.</p></div> <div class="grid gap-6 md:grid-cols-2 lg:grid-cols-3"><div class="bg-card border rounded-lg p-6"><div class="flex items-center gap-3 mb-3"><div class="bg-primary/10 text-primary p-2 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5c0-2 2-2 2-2"></path></svg></div> <h3 class="font-semibold">Framework Agnostic</h3></div> <p class="text-sm text-muted-foreground">Works seamlessly with Vanilla HTML/JS, React, Vue, Svelte, or any other framework.</p></div> <div class="bg-card border rounded-lg p-6"><div class="flex items-center gap-3 mb-3"><div class="bg-primary/10 text-primary p-2 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7V5a2 2 0 0 1 2-2h2"></path><path d="M17 3h2a2 2 0 0 1 2 2v2"></path><path d="M21 17v2a2 2 0 0 1-2 2h-2"></path><path d="M7 21H5a2 2 0 0 1-2-2v-2"></path></svg></div> <h3 class="font-semibold">Tailwind-First</h3></div> <p class="text-sm text-muted-foreground">Built on top of Tailwind CSS with a utility-first approach for maximum flexibility.</p></div> <div class="bg-card border rounded-lg p-6"><div class="flex items-center gap-3 mb-3"><div class="bg-primary/10 text-primary p-2 rounded-lg"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"></path></svg></div> <h3 class="font-semibold">Theme Support</h3></div> <p class="text-sm text-muted-foreground">Built-in Catppuccin theme suite with dark/light mode support and customizable accents.</p></div></div> <div class="bg-card border rounded-lg p-8"><h2 class="text-2xl font-semibold mb-6">Getting Started</h2> <div class="mb-6 p-4 bg-muted/50 rounded-lg border-l-4 border-primary"><p class="text-sm text-muted-foreground"><strong>Acknowledgment:</strong> Basecoat Ultra is built upon the excellent foundation of <a href="https://basecoatui.com" target="_blank" class="text-primary hover:underline">Basecoat</a> by <a href="https://github.com/hunvreus" target="_blank" class="text-primary hover:underline">hunvreus</a>. 
+            We've enhanced it with modularity, Catppuccin themes, and Svelte 5 support while maintaining its core philosophy.</p></div> <div class="space-y-4"><p class="text-muted-foreground">Basecoat Ultra provides two main packages to suit different development needs:</p> <div class="grid gap-4 md:grid-cols-2"><button class="border rounded-lg p-4 text-left transition-all hover:shadow-md border-primary bg-primary/5"><h3 class="font-semibold mb-2">Ultra Package</h3> <p class="text-sm text-muted-foreground mb-3">Framework-agnostic CSS and JavaScript components for maximum compatibility.</p> <code class="text-xs bg-muted px-2 py-1 rounded">@lanrenbang/basecoat-ultra</code></button> <button class="border rounded-lg p-4 text-left transition-all hover:shadow-md hover:border-muted-foreground/50"><h3 class="font-semibold mb-2">Svelte Package</h3> <p class="text-sm text-muted-foreground mb-3">Ready-to-use Svelte 5 components with Runes support and CLI tool.</p> <code class="text-xs bg-muted px-2 py-1 rounded">@lanrenbang/basecoat-ultra-svelte</code></button></div></div></div> <div class="space-y-6"><!--[--><div class="bg-card border rounded-lg p-6"><h2 class="text-xl font-semibold mb-4 flex items-center gap-2"><div class="bg-primary/10 text-primary p-1 rounded"><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5c0-2 2-2 2-2"></path></svg></div> Ultra Package Installation</h2> <div class="space-y-4"><div><h3 class="font-medium mb-2">Package Manager</h3> <div class="bg-muted p-3 rounded-md"><code class="text-sm">bun add @lanrenbang/basecoat-ultra</code></div> <p class="text-xs text-muted-foreground mt-1">Also supports npm or pnpm</p></div> <div><h3 class="font-medium mb-2">CSS Setup (Bundlers)</h3> <div class="bg-muted p-3 rounded-md space-y-2"><div class="text-sm font-mono"><div class="text-muted-foreground">/* In your CSS file (e.g., style.css) */</div> <div>@import "tailwindcss";</div> <div>@import "@lanrenbang/basecoat-ultra";</div> <div class="text-muted-foreground">/* Optional external components */</div> <div>@import "@lanrenbang/basecoat-ultra/datepicker.css";</div> <div>@import "@lanrenbang/basecoat-ultra/resizable.css";</div> <div class="text-muted-foreground">/* Optional theme */</div> <div>@import "@lanrenbang/basecoat-ultra/theme/catppuccin";</div></div></div></div> <div><h3 class="font-medium mb-2">JavaScript Setup</h3> <div class="bg-muted p-3 rounded-md space-y-2"><div class="text-sm font-mono"><div class="text-muted-foreground">// Option A: Import all (recommended)</div> <div>import '@lanrenbang/basecoat-ultra/all';</div> <div class="mt-2 text-muted-foreground">// Option B: Cherry-pick (core first)</div> <div>import '@lanrenbang/basecoat-ultra/basecoat';</div> <div>import '@lanrenbang/basecoat-ultra/tabs';</div> <div class="mt-2 text-muted-foreground">// External components (separate)</div> <div>import '@lanrenbang/basecoat-ultra/datepicker';</div> <div>import '@lanrenbang/basecoat-ultra/resizable';</div></div></div></div> <div><h3 class="font-medium mb-2">CDN Usage (No Build Tool)</h3> <div class="bg-muted p-3 rounded-md space-y-2"><div class="text-sm font-mono"><div class="text-muted-foreground">&lt;!-- CSS --></div> <div>&lt;link href="https://cdn.jsdelivr.net/npm/@lanrenbang/basecoat-ultra@latest/dist/css/basecoat.cdn.min.css" rel="stylesheet"></div> <div class="mt-2 text-muted-foreground">&lt;!-- JavaScript --></div> <div>&lt;script src="https://cdn.jsdelivr.net/npm/@lanrenbang/basecoat-ultra@latest/dist/js/all.min.js" defer>&lt;/script></div></div></div></div> <div class="bg-amber-50 dark:bg-amber-950/20 border border-amber-200 dark:border-amber-800 rounded-lg p-4"><h3 class="font-medium mb-2 text-amber-800 dark:text-amber-200">Anti-Flash Script</h3> <p class="text-sm text-amber-700 dark:text-amber-300 mb-3">To prevent page flicker (FOUC) when using the Catppuccin Theme Switcher, add this script at the top of your HTML &lt;head> tag:</p> <div class="bg-amber-100 dark:bg-amber-900/30 p-3 rounded-md overflow-x-auto"><code class="text-xs font-mono text-amber-800 dark:text-amber-200">&lt;script><br/> (function() {<br/>   try {<br/>     const t = localStorage.getItem('catppuccin-theme');<br/>     const a = localStorage.getItem('catppuccin-accent');<br/>     const m = localStorage.getItem('basecoat-mode');<br/>     const r = document.documentElement;<br/>     if (t &amp;&amp; a) {<br/>       r.classList.add(`theme-${t}`, `accent-${a}`);<br/>       if(['frappe','macchiato','mocha'].includes(t)) r.classList.add('dark');<br/>     } else if (m) {<br/>       r.classList.toggle('dark', m === 'dark');<br/>     } else {<br/>       r.classList.toggle('dark', window.matchMedia('(prefers-color-scheme: dark)').matches);<br/>     }<br/>   } catch(e) {}<br/> })();<br/> &lt;/script></code></div></div></div></div><!--]--> <div class="bg-card border rounded-lg p-6"><h2 class="text-xl font-semibold mb-3">Architecture Overview</h2> <div class="space-y-4"><div class="grid gap-4 md:grid-cols-2"><div><h3 class="font-medium mb-2">Design Principles</h3> <ul class="text-sm text-muted-foreground space-y-1"><li>• Tailwind-first approach</li> <li>• Framework agnostic core</li> <li>• Modular CSS architecture</li> <li>• Progressive JavaScript enhancement</li> <li>• Copy-paste friendly components</li></ul></div> <div><h3 class="font-medium mb-2">Key Features</h3> <ul class="text-sm text-muted-foreground space-y-1"><li>• Built-in Catppuccin theme suite</li> <li>• Neumorphism visual effects</li> <li>• External integrations (Flatpickr, Split.js)</li> <li>• Accessibility-first design</li> <li>• Zero runtime dependencies for core</li></ul></div></div></div></div></div> <div class="flex justify-end pt-8 border-t"><button id="next-btn" class="btn btn-primary flex items-center gap-2"><span>Explore Components</span> <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m9 18 6-6-6-6"></path></svg></button></div></div></main></div><!----><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
+			
+			<script>
+				{
+					__sveltekit_j1t0c8 = {
+						base: new URL("..", location).pathname.slice(0, -1)
+					};
+
+					const element = document.currentScript.parentElement;
+
+					Promise.all([
+						import("../_app/immutable/entry/start.v13OaZbV.js"),
+						import("../_app/immutable/entry/app.aH0PsrC8.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 3],
+							data: [null,null],
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>

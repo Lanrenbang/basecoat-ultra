@@ -1,0 +1,15 @@
+--- upstream-analysis/.temp/upstream-css/popover.css	2026-01-03 09:45:31.290595903 -0800
++++ upstream-analysis/.temp/ultra-css/popover.css	2026-01-03 09:45:31.307927419 -0800
+@@ -62,10 +62,11 @@
+     }
+   }
+   .popover {
+-    @apply relative inline-flex;
++    @apply relative inline-block;
+ 
+     [data-popover] {
+       @apply p-4;
+     }
+   } 
+ }
++

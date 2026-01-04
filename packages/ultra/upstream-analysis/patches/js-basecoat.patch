@@ -1,0 +1,69 @@
+--- upstream-analysis/.temp/upstream-js/basecoat.js	2026-01-02 03:07:16.374080711 -0800
++++ upstream-analysis/.temp/ultra-js/basecoat.js	2026-01-02 03:07:16.420083309 -0800
+@@ -1,3 +1,5 @@
++import { isInitialized, setInitialized, markInitialized, clearInitialized } from './utils/dom.js';
++
+ (() => {
+   const componentRegistry = {};
+   let observer = null;
+@@ -40,10 +42,14 @@
+   const startObserver = () => {
+     if (observer) return;
+     
++    let timeout;
+     observer = new MutationObserver((mutations) => {
+-      mutations.forEach((mutation) => {
+-        mutation.addedNodes.forEach(initNewComponents);
+-      });
++      clearTimeout(timeout);
++      timeout = setTimeout(() => {
++        mutations.forEach((mutation) => {
++          mutation.addedNodes.forEach(initNewComponents);
++        });
++      }, 50);
+     });
+     
+     observer.observe(document.body, { childList: true, subtree: true });
+@@ -64,9 +70,8 @@
+     }
+     
+     // Clear initialization flag for this component
+-    const flag = `data-${componentName}-initialized`;
+-    document.querySelectorAll(`[${flag}]`).forEach(el => {
+-      el.removeAttribute(flag);
++    document.querySelectorAll(`[data-${componentName}-initialized]`).forEach(el => {
++      clearInitialized(el, componentName);
+     });
+     
+     document.querySelectorAll(component.selector).forEach(component.init);
+@@ -75,9 +80,8 @@
+   const reinitAll = () => {
+     // Clear all initialization flags using the registry
+     Object.entries(componentRegistry).forEach(([name, { selector }]) => {
+-      const flag = `data-${name}-initialized`;
+-      document.querySelectorAll(`[${flag}]`).forEach(el => {
+-        el.removeAttribute(flag);
++      document.querySelectorAll(`[data-${name}-initialized]`).forEach(el => {
++        clearInitialized(el, name);
+       });
+     });
+     
+@@ -92,8 +96,11 @@
+     stop: stopObserver
+   };
+ 
+-  document.addEventListener('DOMContentLoaded', () => {
+-    initAllComponents();
+-    startObserver();
+-  });
+-})(); 
+\ 文件末尾没有换行符
++  if (typeof document !== 'undefined') {
++    document.addEventListener('DOMContentLoaded', () => {
++      initAllComponents();
++      startObserver();
++    });
++  }
++})(); 
++ 
+\ 文件末尾没有换行符

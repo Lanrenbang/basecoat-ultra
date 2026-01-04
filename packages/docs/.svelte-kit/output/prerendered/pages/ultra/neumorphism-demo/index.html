@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="../../favicon.svg" type="image/svg+xml" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      (function() {
+        try {
+          var mode = localStorage.getItem('basecoat-mode');
+          var theme = localStorage.getItem('catppuccin-theme');
+          var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          
+          if (!mode && !theme) {
+             if (supportDarkMode) document.documentElement.classList.add('dark');
+          } else {
+             if (mode === 'dark' || (theme && ['frappe', 'macchiato', 'mocha'].includes(theme))) {
+               document.documentElement.classList.add('dark');
+             } else {
+               document.documentElement.classList.remove('dark');
+             }
+          }
+          
+          if (theme) document.documentElement.classList.add('theme-' + theme);
+          var accent = localStorage.getItem('catppuccin-accent');
+          if (accent) document.documentElement.classList.add('accent-' + accent);
+        } catch (e) {}
+      })();
+    </script>
+		
+		<link href="../../_app/immutable/assets/0.D-_Jk5PE.css" rel="stylesheet">
+		<link rel="modulepreload" href="../../_app/immutable/entry/start.v13OaZbV.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/8nbHsLMH.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/BS2-Cwni.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/Dr3vZ-qq.js">
+		<link rel="modulepreload" href="../../_app/immutable/entry/app.aH0PsrC8.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/PPVm8Dsz.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/Xj0ff58f.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/DSIzwGkI.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/Bv98Rq3g.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/xC2C8d09.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/k6G_fMDg.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/B1ahk-1M.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/CEPX-A89.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/CWJMvDCM.js">
+		<link rel="modulepreload" href="../../_app/immutable/nodes/0.CRhH4O3I.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/B24EjaJH.js">
+		<link rel="modulepreload" href="../../_app/immutable/nodes/7.BVMkl2Fz.js">
+		<link rel="modulepreload" href="../../_app/immutable/chunks/De2OW6FQ.js"><!--vn3un9--><!----><title>Neumorphism Demo - Basecoat Ultra</title>
+	</head>
+	<body data-sveltekit-preload-data="hover" class="bg-background text-foreground antialiased">
+		<div style="display: contents"><!--[--><!--[--><!----><!----><div class="bg-muted text-foreground antialiased flex min-h-screen overflow-hidden transition-colors duration-500"><main class="flex-1 h-screen overflow-y-auto flex flex-col items-center relative z-10"><header class="w-full flex justify-between items-center px-8 py-6"><div class="flex items-center gap-3"><div class="neu-panel neu-round size-12 text-primary"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a10 10 0 1 0 10 10 4 4 0 0 1-5-5 4 4 0 0 1-5-5c0-2 2-2 2-2"></path></svg></div> <span class="font-bold text-xl tracking-tight">Basecoat Ultra</span></div> <div class="flex items-center gap-4"><button type="button" class="neu-btn neu-round size-10 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors" title="Back to Docs"><svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 14 4 9l5-5"></path><path d="M4 9h10.5a5.5 5.5 0 0 1 5.5 5.5v0a5.5 5.5 0 0 1-5.5 5.5H11"></path></svg></button> <div class="popover"><button type="button" class="neu-btn neu-round size-10 flex items-center justify-center text-muted-foreground hover:text-primary transition-colors" title="Switch Theme" aria-expanded="false"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.38 3.46 16 2a4 4 0 0 1-8 0L3.62 3.46a2 2 0 0 0-1.34 2.23l.58 3.47a1 1 0 0 0 .99.84H6v10c0 1.1.9 2 2 2h8a2 2 0 0 0 2-2V10h2.15a1 1 0 0 0 .99-.84l.58-3.47a2 2 0 0 0-1.34-2.23z"></path></svg></button> <div data-popover="" aria-hidden="true" class="catppuccin-theme-switcher w-96 p-6 bg-secondary/50 backdrop-blur-sm" data-side="bottom" data-align="end"><div class="flex items-center justify-between mb-4"><h3 class="font-semibold text-sm">Theme Switcher</h3></div> <div class="theme-flavors mb-6"></div> <div class="theme-accents"></div> <div class="mt-6 flex justify-center"><button type="button" class="theme-reset btn btn-sm btn-ghost text-muted-foreground hover:text-destructive w-full">Reset Theme</button></div></div></div></div></header> <div class="flex-1 w-full flex flex-col items-center justify-center p-4"><div class="text-center mb-8 max-w-md"><p class="text-muted-foreground text-sm mb-2">Advanced neumorphism effects with mouse-controlled lighting and 3D flip animations.</p> <p class="text-muted-foreground text-xs">Inspired by neumorphic lighting and 3D effects from <a href="https://github.com/puikinsh/login-forms/tree/main/forms/neumorphism" target="_blank" class="text-primary hover:underline">puikinsh/login-forms</a></p></div> <div class="neu-flip-container w-full max-w-[400px] h-[550px]"><input type="checkbox" id="flip-toggle" class="neu-flip-toggle"/> <div class="neu-flip-inner neu-panel w-full h-full"><div class="neu-flip-face p-10 flex flex-col items-center"><div class="neu-panel neu-round size-24 mb-8 text-primary/80"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"></path><circle cx="12" cy="7" r="4"></circle></svg></div> <h2 class="text-2xl font-bold mb-2">Member Login</h2> <form class="w-full space-y-6"><div class="neu-floating-group"><input type="text" id="login-user" class="neu-field" placeholder=" "/> <label for="login-user">Username</label></div> <div class="neu-floating-group"><input type="password" id="login-pass" class="neu-field" placeholder=" "/> <label for="login-pass">Password</label></div> <div class="pt-4"><button class="neu-btn w-full py-4 text-primary text-lg">Sign In</button></div></form> <div class="mt-auto pt-6 text-center"><label for="flip-toggle" class="text-xs text-muted-foreground hover:text-primary hover:underline cursor-pointer transition-all">Don't have an account? Sign Up</label></div></div> <div class="neu-flip-face neu-flip-back p-10 flex flex-col items-center bg-background rounded-[inherit]"><div class="neu-panel neu-round size-24 mb-8 text-primary/80"><svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="8.5" cy="7" r="4"></circle><line x1="20" y1="8" x2="20" y2="14"></line><line x1="23" y1="11" x2="17" y2="11"></line></svg></div> <h2 class="text-2xl font-bold mb-2">Create Account</h2> <p class="text-muted-foreground text-sm mb-8 text-center">Join our community today.</p> <form class="w-full space-y-6"><div class="neu-floating-group"><input type="email" id="reg-email" class="neu-field" placeholder=" "/> <label for="reg-email">Email Address</label></div> <div class="neu-floating-group"><input type="password" id="reg-pass" class="neu-field" placeholder=" "/> <label for="reg-pass">Choose Password</label></div> <div class="pt-4"><button class="neu-btn w-full py-4 text-primary text-lg">Register</button></div></form> <div class="mt-auto pt-6 text-center"><label for="flip-toggle" class="text-xs text-muted-foreground hover:text-primary hover:underline cursor-pointer transition-all">Already have an account? Sign In</label></div></div></div></div></div></main></div><!----><!----><!----><!--]--> <!--[!--><!--]--><!--]-->
+			
+			<script>
+				{
+					__sveltekit_j1t0c8 = {
+						base: new URL("../..", location).pathname.slice(0, -1)
+					};
+
+					const element = document.currentScript.parentElement;
+
+					Promise.all([
+						import("../../_app/immutable/entry/start.v13OaZbV.js"),
+						import("../../_app/immutable/entry/app.aH0PsrC8.js")
+					]).then(([kit, app]) => {
+						kit.start(app, element, {
+							node_ids: [0, 7],
+							data: [null,null],
+							form: null,
+							error: null
+						});
+					});
+				}
+			</script>
+		</div>
+	</body>
+</html>

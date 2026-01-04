@@ -1,66 +1,22 @@
 {
-  "name": "@lanrenbang/basecoat-ultra",
-  "version": "0.1.7",
-  "description": "Basecoat UI - Ultra edition. A Tailwind-first component library.",
+  "name": "basecoat-ultra-monorepo",
+  "version": "0.1.0",
+  "private": true,
   "type": "module",
-  "main": "./dist/js/all.js",
-  "style": "./dist/css/basecoat.css",
-  "files": [
-    "dist",
-    "README.md",
-    "README-cn.md",
-    "CHANGELOG.md",
-    "CHANGELOG-cn.md",
-    "LICENSE.md"
+  "workspaces": [
+    "packages/*"
   ],
-  "exports": {
-    ".": "./dist/css/basecoat.css",
-    "./basecoat.css": "./dist/css/basecoat.css",
-    "./basecoat.cdn.css": "./dist/css/basecoat.cdn.css",
-    "./datepicker.css": "./dist/css/datepicker.css",
-    "./resizable.css": "./dist/css/resizable.css",
-    "./theme/catppuccin": "./dist/theme/catppuccin/index.css",
-    "./all": "./dist/js/all.js",
-    "./basecoat": "./dist/js/basecoat.js",
-    "./accordion": "./dist/js/accordion.js",
-    "./carousel": "./dist/js/carousel.js",
-    "./catppuccin-theme-switcher": "./dist/js/catppuccin-theme-switcher.js",
-    "./command": "./dist/js/command.js",
-    "./datepicker": "./dist/js/datepicker.js",
-    "./dialog": "./dist/js/dialog.js",
-    "./dropdown-menu": "./dist/js/dropdown-menu.js",
-    "./input-otp": "./dist/js/input-otp.js",
-    "./lighting": "./dist/js/lighting.js",
-    "./popover": "./dist/js/popover.js",
-    "./resizable": "./dist/js/resizable.js",
-    "./select": "./dist/js/select.js",
-    "./sheet": "./dist/js/sheet.js",
-    "./sidebar": "./dist/js/sidebar.js",
-    "./slider": "./dist/js/slider.js",
-    "./tabs": "./dist/js/tabs.js",
-    "./toast": "./dist/js/toast.js",
-    "./toggle": "./dist/js/toggle.js"
-  },
   "scripts": {
-    "dev": "vite",
-    "build": "vite build && vite build --mode minify && bun run build.ts",
-    "build:demo": "vite build --config vite.demo.config.ts && mv docs/demo/* docs/ && rmdir docs/demo && sed -i 's|\\.\\./assets|./assets|g' docs/index.html docs/demo.html",
-    "preview": "vite preview",
-    "verify": "vite --mode verify",
-    "diff": "bun run build.ts diff",
-    "split": "bun run build.ts split",
-    "check": "bun run build.ts check"
-  },
-  "dependencies": {
-    "flatpickr": "^4.6.13",
-    "split.js": "^1.6.5"
+    "dev:svelte": "bun run --filter @lanrenbang/basecoat-ultra-svelte dev",
+    "dev:docs": "bun run --filter basecoat-ultra-docs dev",
+    "cli": "bun packages/cli/src/index.js",
+    "build:ultra": "bun run --filter @lanrenbang/basecoat-ultra build",
+    "build:svelte": "bun run --filter @lanrenbang/basecoat-ultra-svelte build",
+    "build:docs": "bun run --filter basecoat-ultra-docs build",
+    "publish:ultra": "cp README.md LICENSE.md packages/ultra/ && bun run build:ultra && npm publish --access public -w packages/ultra",
+    "publish:svelte": "cp README.md LICENSE.md packages/svelte/ && bun run build:svelte && npm publish --access public -w packages/svelte"
   },
   "devDependencies": {
-    "@lanrenbang/basecoat-ultra": "^0.1.7",
-    "@tailwindcss/cli": "^4.1.18",
-    "@tailwindcss/vite": "^4.1.18",
-    "@types/bun": "latest",
-    "tailwindcss": "^4.1.18",
-    "vite": "^7.3.0"
+    "typescript": "^5.0.0"
   }
 }

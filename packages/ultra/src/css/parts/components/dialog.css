@@ -1,0 +1,78 @@
+/* Dialog */
+@layer components {
+  @keyframes dialog-spring-in {
+    0% { 
+      opacity: 0; 
+      transform: translateY(20px); 
+    }
+    70% { 
+      opacity: 0.9; 
+      transform: translateY(-4px); /* Small overshoot up */
+    }
+    100% { 
+      opacity: 1; 
+      transform: translateY(0); /* Perfect final position */
+    }
+  }
+  
+  @keyframes backdrop-in {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  .dialog {
+    /* 
+       Base Modal Styles 
+       Position: Fixed (Native behavior uses fixed/absolute in top layer)
+       Centering: Native <dialog> uses 'margin: auto' and 'inset: 0' by default.
+       We enforce this to ensure it works even if overrides existed.
+    */
+    @apply fixed inset-0 z-50 grid w-full max-w-lg gap-4 border bg-background p-6 shadow-lg duration-200 sm:rounded-lg opacity-0 invisible;
+    
+    margin: auto !important; 
+    height: fit-content !important;
+
+    /* Open state with spring animation - translate only, no scale */
+    &[open] {
+      @apply opacity-100 visible;
+      animation: dialog-spring-in 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.1) forwards;
+      
+      /* Ensure final state is pixel-perfect */
+      animation-fill-mode: forwards;
+    }
+
+    /* Backdrop */
+    &::backdrop {
+      @apply fixed inset-0 z-50 bg-black/50;
+      animation: backdrop-in 0.3s ease-out forwards;
+    }
+
+    /* Inner Layout */
+    > header {
+      @apply flex flex-col gap-2 text-center sm:text-left;
+
+      > h2 {
+        @apply text-lg leading-none font-semibold;
+      }
+      > p {
+        @apply text-muted-foreground text-sm;
+      }
+    }
+    > section {
+      @apply flex-1;
+    }
+    > footer {
+      @apply flex flex-col-reverse gap-2 sm:flex-row sm:justify-end;
+    }
+    
+    /* Close Button - positioned absolute top-right, same level as header */
+    > button.close {
+      @apply absolute top-4 right-4 p-0 bg-transparent border-0 cursor-pointer;
+      @apply ring-offset-background focus:ring-ring text-muted-foreground hover:text-foreground rounded-sm opacity-70 transition-opacity hover:opacity-100 focus:ring-2 focus:ring-offset-2 focus:outline-hidden disabled:pointer-events-none;
+      
+      & svg {
+        @apply size-4;
+      }
+    }
+  }
+}

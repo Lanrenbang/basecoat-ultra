@@ -1,0 +1,26 @@
+--- upstream-analysis/.temp/upstream-js/command.js	2026-01-02 03:07:16.378080937 -0800
++++ upstream-analysis/.temp/ultra-js/command.js	2026-01-02 03:07:16.420083309 -0800
+@@ -1,5 +1,9 @@
++import { markInitialized } from './utils/dom.js';
++
+ (() => {
+   const initCommand = (container) => {
++    if (markInitialized(container, 'command')) return;
++
+     const input = container.querySelector('header input');
+     const menu = container.querySelector('[role="menu"]');
+ 
+@@ -147,10 +151,11 @@
+ 
+     if (visibleMenuItems.length > 0) {
+       setActiveItem(menuItems.indexOf(visibleMenuItems[0]));
+-      visibleMenuItems[0].scrollIntoView({ block: 'nearest' });
++      // Basecoat Patch: Removed automatic scrollIntoView on init.
++      // This prevents the page from unexpectedly jumping to this component on page load.
++      // visibleMenuItems[0].scrollIntoView({ block: 'nearest' });
+     }
+ 
+-    container.dataset.commandInitialized = true;
+     container.dispatchEvent(new CustomEvent('basecoat:initialized'));
+   };
+ 

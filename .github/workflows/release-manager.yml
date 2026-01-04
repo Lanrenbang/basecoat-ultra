@@ -1,0 +1,139 @@
+# .github/workflows/release-manager.yml
+name: '🚀 Release Manager'
+
+on:
+  push:
+    branches:
+      - main
+  pull_request: # for autolabeler
+    types:
+      - opened
+      - reopened
+      - synchronize
+
+  workflow_dispatch:
+    inputs:
+      publish:
+        description: 'Publish the draft as an official release?'
+        type: boolean
+        required: true
+        default: false
+      prerelease-identifier:
+        description: |
+          A string indicating an identifier (alpha, beta, rc, etc), to increment the prerelease version.
+        required: false
+        default: ''
+
+  repository_dispatch:
+    types: [upstream-updated]
+
+permissions:
+  contents: read
+
+jobs:
+  draft-or-publish:
+    permissions:
+      contents: write
+      pull-requests: write  # write for autolabeler, otherwise read
+    runs-on: ubuntu-latest
+    steps:
+      # 1. 必须检出代码才能读取 package.json
+      - name: Checkout
+        uses: actions/checkout@1af3b93b6815bc44a9784bd300feb67ff0d1eeb3  # v6.0.0
+
+      - name: 'Determine release parameters'
+        id: params
+        shell: bash
+        run: |
+          PUBLISH=false
+          PRERELEASE=false
+          PRERELEASE_ID=""
+          
+          echo "📋 Event: ${{ github.event_name }}"
+          
+          case "${{ github.event_name }}" in
+            workflow_dispatch)
+              if [[ "${{ inputs.publish }}" == "true" ]]; then
+                PUBLISH=true
+                echo "   ✓ Will publish release"
+                
+                if [[ -n "${{ inputs.prerelease-identifier }}" ]]; then
+                  PRERELEASE=true
+                  PRERELEASE_ID="${{ inputs.prerelease-identifier }}"
+                  echo "   ✓ Prerelease: $PRERELEASE_ID"
+                fi
+              fi
+              ;;
+            
+            repository_dispatch)
+              TRIGGERED_BY="${{ github.event.client_payload.triggered_by }}"
+              echo "   Repository dispatch from: $TRIGGERED_BY"
+              if [[ "$TRIGGERED_BY" == "upstream-watcher" ]]; then
+                PUBLISH=true
+                echo "   ✓ Upstream update detected, will publish release"
+              fi
+              ;;
+            *)
+              echo "   Standard event, updating draft only"
+              ;;
+          esac
+          
+          {
+            echo "publish=$PUBLISH"
+            echo "prerelease=$PRERELEASE"
+            echo "prerelease_id=$PRERELEASE_ID"
+          } >> "$GITHUB_OUTPUT"
+
+      # 2. 核心步骤：生成日期版本号 + 提取子包版本
+      - name: 'Prepare Release Info'
+        id: info
+        shell: bash
+        run: |
+          # 生成日期 Tag (例如: 2024.01.05.1430)
+          DATE_TAG=$(TZ='America/Los_Angeles' date +'%Y.%m.%d.%H%M')
+          echo "🔹 Generated Tag: $DATE_TAG"
+          
+          # 使用 jq 提取 package.json 中的版本号
+          V_ULTRA=$(jq -r .version packages/ultra/package.json)
+          V_SVELTE=$(jq -r .version packages/svelte/package.json)
+          V_CLI=$(jq -r .version packages/cli/package.json)
+          
+          # 构建 Markdown 表格
+          VERSION_TABLE="### 📦 Core Packages Versions
+          | Package | Version |
+          | :--- | :--- |
+          | **ultra** | \`v$V_ULTRA\` |
+          | **svelte** | \`v$V_SVELTE\` |
+          | **cli** | \`v$V_CLI\` |
+          "
+          
+          # 处理多行文本输出到 GITHUB_OUTPUT
+          echo "date_tag=$DATE_TAG" >> $GITHUB_OUTPUT
+          
+          echo "versions<<EOF" >> $GITHUB_OUTPUT
+          echo "$VERSION_TABLE" >> $GITHUB_OUTPUT
+          echo "EOF" >> $GITHUB_OUTPUT
+
+      # 3. 运行 Release Drafter
+      - name: 'Run Release Draft'
+        uses: release-drafter/release-drafter@b1476f6e6eb133afa41ed8589daba6dc69b4d3f5  # v6.1.0
+        with:
+          # https://github.com/release-drafter/release-drafter/issues/1125
+          commitish: ${{ github.event.repository.default_branch }}
+          
+          # 动态控制发布状态
+          publish: ${{ steps.params.outputs.publish }}
+          prerelease: ${{ steps.params.outputs.prerelease }}
+          prerelease-identifier: ${{ steps.params.outputs.prerelease_id }}
+          
+          # 【关键】强制使用日期作为 Tag 和标题，覆盖自动语义化计算
+          tag: ${{ steps.info.outputs.date_tag }}
+          name: "🚀 Release ${{ steps.info.outputs.date_tag }}"
+          
+          # 【关键】将包版本表格注入到 Release Body 的头部
+          header: ${{ steps.info.outputs.versions }}
+          
+        env:
+          # GITHUB_TOKEN cannot trigger a new workflow.
+          GITHUB_TOKEN: ${{ steps.params.outputs.publish == 'true' && secrets.BOT_PAT || secrets.GITHUB_TOKEN }}
+

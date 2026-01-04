@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<link rel="icon" href="%sveltekit.assets%/favicon.svg" type="image/svg+xml" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+    <script>
+      (function() {
+        try {
+          var mode = localStorage.getItem('basecoat-mode');
+          var theme = localStorage.getItem('catppuccin-theme');
+          var supportDarkMode = window.matchMedia('(prefers-color-scheme: dark)').matches;
+          
+          if (!mode && !theme) {
+             if (supportDarkMode) document.documentElement.classList.add('dark');
+          } else {
+             if (mode === 'dark' || (theme && ['frappe', 'macchiato', 'mocha'].includes(theme))) {
+               document.documentElement.classList.add('dark');
+             } else {
+               document.documentElement.classList.remove('dark');
+             }
+          }
+          
+          if (theme) document.documentElement.classList.add('theme-' + theme);
+          var accent = localStorage.getItem('catppuccin-accent');
+          if (accent) document.documentElement.classList.add('accent-' + accent);
+        } catch (e) {}
+      })();
+    </script>
+		%sveltekit.head%
+	</head>
+	<body data-sveltekit-preload-data="hover" class="bg-background text-foreground antialiased">
+		<div style="display: contents">%sveltekit.body%</div>
+	</body>
+</html>

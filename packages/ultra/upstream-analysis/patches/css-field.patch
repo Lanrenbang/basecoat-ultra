@@ -1,0 +1,25 @@
+--- upstream-analysis/.temp/upstream-css/field.css	2026-01-03 09:45:31.287926313 -0800
++++ upstream-analysis/.temp/ultra-css/field.css	2026-01-03 09:45:31.306927364 -0800
+@@ -15,7 +15,7 @@
+       @apply flex w-fit items-center gap-2 text-sm leading-snug font-medium;
+     }
+     [role="alert"] {
+-      @apply text-sm text-destructive font-normal;
++      @apply text-xs text-destructive font-normal;
+       
+       ul {
+         @apply ml-4 flex list-disc flex-col gap-1;
+@@ -32,7 +32,7 @@
+   .fieldset legend + p,
+   .field > p,
+   .field section > p {
+-    @apply text-muted-foreground text-sm leading-normal font-normal [&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4;
++    @apply text-muted-foreground text-xs leading-normal font-normal [&>a:hover]:text-primary [&>a]:underline [&>a]:underline-offset-4;
+   }
+   .fieldset legend + p {
+     @apply -mt-1.5;
+@@ -41,3 +41,4 @@
+     @apply last:mt-0 nth-last-2:-mt-1;
+   }
+ }
++
